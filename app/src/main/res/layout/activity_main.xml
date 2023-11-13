@@ -36,9 +36,10 @@
             android:backgroundTint="@color/black"
             android:text="@string/lbl_search"
             app:cornerRadius="0dp"
-            app:icon="@android:drawable/ic_menu_search"
+            app:icon="@android:drawable/ic_search_category_default"
             app:iconGravity="top"
-            app:iconSize="@dimen/iconSize" />
+            app:iconSize="@dimen/iconSize"
+            app:iconTint="@color/white" />
 
         <Button
             android:id="@+id/btn_nav_add"
