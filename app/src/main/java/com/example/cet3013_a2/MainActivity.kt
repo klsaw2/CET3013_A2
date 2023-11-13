@@ -1,4 +1,4 @@
-package com.example.cet3013_a2.main_activity
+package com.example.cet3013_a2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
