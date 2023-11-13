@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".MainActivity.MainActivity">
+    tools:context=".main_activity.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_gallery_container"
-        android:name="com.example.cet3013_a2.MainActivity.GalleryFragment"
+        android:name="com.example.cet3013_a2.main_activity.GalleryFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/black"

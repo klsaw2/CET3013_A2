@@ -1,4 +1,4 @@
-package com.example.cet3013_a2.MainActivity
+package com.example.cet3013_a2.main_activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+
     }
 }
