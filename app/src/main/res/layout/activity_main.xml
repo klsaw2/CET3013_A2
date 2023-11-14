@@ -4,4 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"/>
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mainFragmentContainer"
+        android:name="com.example.cet3013_a2.main_activity.GalleryFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
+
+        <Button
+            android:id="@+id/btn_nav_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
+            android:text="@string/lbl_search"
+            app:cornerRadius="0dp"
+            app:icon="@android:drawable/ic_search_category_default"
+            app:iconGravity="top"
+            app:iconSize="@dimen/iconSize"
+            app:iconTint="@color/white" />
+
+        <Button
+            android:id="@+id/btn_nav_add"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/white"
+            app:icon="@android:drawable/ic_input_add"
+            app:iconGravity="textTop"
+            app:iconSize="@dimen/iconSize"
+            app:iconTint="@color/primary"
+            app:rippleColor="@color/grey" />
+
+        <Button
+            android:id="@+id/btn_nav_reporters"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
+            android:text="@string/lbl_reporter"
+            app:cornerRadius="0dp"
+            app:icon="@drawable/people"
+            app:iconGravity="top"
+            app:iconSize="@dimen/iconSize" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
