@@ -5,4 +5,14 @@
     <string name="lbl_reporter">Reporters</string>
     <!-- Gallery Fragment -->
     <string name="lbl_gallery">Gallery</string>
+    <string name="back">Return</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="relationship">Relationship</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+
+    <string name="edit_reporter">Edit Reporter</string>
+
+    <string name="hint1">Enter reporter name</string>
 </resources>
