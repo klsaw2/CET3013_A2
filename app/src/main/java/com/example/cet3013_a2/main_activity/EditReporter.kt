@@ -13,7 +13,7 @@ class ReportersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reporters, container, false)
+        return inflater.inflate(R.layout.fragment_edit_reporter, container, false)
     }
 
 }
