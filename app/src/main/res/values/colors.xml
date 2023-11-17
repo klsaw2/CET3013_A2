@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#101314</color>
-    <color name="grey">#ABABAB</color>
-    <color name="white">#FFFFFA</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
+    <color name="transparent">#00000000</color>
 
     <!-- Red -->
     <color name="primary">#A8323E</color>
     <!-- Teal -->
     <color name="secondary">#78BBEB</color>
+
+    <!-- Grey -->
+    <color name="grey4">#333</color>
+    <color name="grey3">#737373</color>
+    <color name="grey2">#E9E9E9</color>
+    <color name="grey1">#F5F5F5</color>
+
+    <!-- Orange -->
+    <color name="orange2">#B38600</color>
+    <color name="orange1">#FFC000</color>
+
+    <!-- Blue -->
+    <color name="blue3">#004E86</color>
+    <color name="blue2">#0070C0</color>
+    <color name="blue1">#6EC3FF</color>
+
+    <!-- Blue Light -->
+    <color name="blue_light3">#A2D8FF</color>
+    <color name="blue_light2">#C4E6FF</color>
+    <color name="blue_light1">#E0F2FF</color>
 </resources>

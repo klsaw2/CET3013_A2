@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val searchFragment = SearchFragment()
         val reporterFragment = ReporterFragment()
 
-        binding.btnNavSearch.setOnClickListener {
+        binding.btnNavRecords.setOnClickListener {
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(binding.mainFragmentContainer.id, searchFragment)
             transaction.setTransition(TRANSIT_FRAGMENT_FADE)

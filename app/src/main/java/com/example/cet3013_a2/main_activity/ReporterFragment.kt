@@ -11,18 +11,18 @@ import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import com.example.cet3013_a2.R
-import com.example.cet3013_a2.databinding.FragmentReporterBinding
+import com.example.cet3013_a2.databinding.FragmentProfileBinding
 
 class ReporterFragment : Fragment(), MenuProvider {
 
-    private var _binding: FragmentReporterBinding? = null
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-        _binding = FragmentReporterBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
 
         binding.fabAddReporter.setOnClickListener {

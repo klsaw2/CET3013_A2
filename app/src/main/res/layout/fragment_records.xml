@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/frag_records_main_container"
+    tools:context=".main_activity.SearchFragment">
+
+    <androidx.recyclerview.widget.RecyclerView style="@style/frag_records_recycler" />
+
+    <LinearLayout style="@style/frag_records_search_bar_container">
+
+        <EditText
+            android:id="@+id/editTextText"
+            style="@style/frag_records_search_bar_edit_text"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor,VisualLintTextFieldSize" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            style="@style/frag_records_search_bar_search_button"
+            android:contentDescription="@string/lbl_search" />
+
+    </LinearLayout>
+</LinearLayout>

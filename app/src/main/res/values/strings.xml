@@ -1,10 +1,18 @@
 <resources>
     <string name="app_name">CET3013_A2</string>
     <!-- Bottom nav drawer -->
+    <string name="lbl_add">Add</string>
     <string name="lbl_search">Search</string>
+    <string name="lbl_records">Records</string>
     <string name="lbl_reporter">Reporters</string>
+    <string name="lbl_profile">Profile</string>
+    <string name="lbl_title">Title</string>
+
     <!-- Gallery Fragment -->
     <string name="lbl_gallery">Gallery</string>
+
+    <!-- Records Fragment -->
+    <style name="lbl_search">Search</style>
 
     <string name="back">Return</string>
     <string name="name">Name</string>
