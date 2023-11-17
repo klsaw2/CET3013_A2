@@ -1,7 +1,7 @@
 package com.example.cet3013_a2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
 import com.example.cet3013_a2.databinding.ActivityMainBinding
@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             transaction.addToBackStack(searchFragmentTag)
             transaction.commit()
+            // Set tittle text
+            binding.tittleText.text = getString(R.string.lbl_records)
         }
         binding.btnNavProfile.setOnClickListener {
             val transaction = supportFragmentManager.beginTransaction()
@@ -42,6 +44,11 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             transaction.addToBackStack(reportersFragmentTag)
             transaction.commit()
+
+            // Set tittle text
+            binding.tittleText.text = getString(R.string.lbl_profile)
         }
     }
+
+
 }
