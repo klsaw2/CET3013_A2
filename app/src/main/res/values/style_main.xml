@@ -77,7 +77,6 @@
         <item name="android:textColor">@color/grey4</item>
         <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">16sp</item>
-
         <!-- Icon -->
         <item name="iconSize">40dp</item>
         <item name="iconGravity">top</item>

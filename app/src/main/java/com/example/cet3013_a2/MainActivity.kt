@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             transaction.addToBackStack(searchFragmentTag)
             transaction.commit()
         }
-        binding.btnNavReporters.setOnClickListener {
+        binding.btnNavProfile.setOnClickListener {
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(binding.mainFragmentContainer.id, reporterFragment)
             transaction.setTransition(TRANSIT_FRAGMENT_FADE)

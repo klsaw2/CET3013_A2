@@ -5,7 +5,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tittle_text"
         style="@style/title" />
 
     <androidx.fragment.app.FragmentContainerView
@@ -27,7 +27,7 @@
             style="@style/btm_nav_bar_btn.add" />
 
         <Button
-            android:id="@+id/btn_nav_reporters"
+            android:id="@+id/btn_nav_profile"
             style="@style/btm_nav_bar_btn.profile" />
 
 
