@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/frag_records_main_container"
-    tools:context=".main_activity.SearchFragment">
+    tools:context=".main_activity.RecordsFragment">
 
     <androidx.recyclerview.widget.RecyclerView style="@style/frag_records_recycler" />
 

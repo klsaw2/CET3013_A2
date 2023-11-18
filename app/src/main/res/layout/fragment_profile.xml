@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frame_profile"
     style="@style/frag_profile_main_container"
-    tools:context=".main_activity.ReporterFragment">
+    tools:context=".main_activity.ProfileFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView

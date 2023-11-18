@@ -22,7 +22,7 @@
         <item name="android:background">@color/blue_light2</item>
 
         <!-- Text -->
-        <item name="android:text">@string/lbl_title</item>
+        <item name="android:text">@string/lbl_gallery</item>
         <item name="android:textAlignment">center</item>
 
         <!-- Font -->

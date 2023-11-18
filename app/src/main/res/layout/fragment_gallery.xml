@@ -8,7 +8,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_gallery"
-        style="@style/frag_Profile_recycler_container"
+        android:backgroundTint="@color/grey2"
+        style="@style/frag_profile_recycler_container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

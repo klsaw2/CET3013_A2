@@ -12,7 +12,7 @@
         android:id="@+id/mainFragmentContainer"
         android:name="com.example.cet3013_a2.main_activity.GalleryFragment"
         style="@style/fragment_view_container"
-        tools:layout="@layout/fragment_gallery" />
+        />
 
     <LinearLayout
         android:id="@+id/linearLayout"
