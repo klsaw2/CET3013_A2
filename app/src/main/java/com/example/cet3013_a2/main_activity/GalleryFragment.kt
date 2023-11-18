@@ -1,7 +1,9 @@
 package com.example.cet3013_a2.main_activity
 
 import android.Manifest.permission.READ_MEDIA_IMAGES
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Rect
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -15,21 +17,23 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.cet3013_a2.R
-import java.util.LinkedList
 
-
-//  Ref: https://stackoverflow.com/questions/28531996/android-recyclerview-gridlayoutmanager-column-spacing
+// Ref: https://developer.android.com/training/data-storage/shared/media
+// Ref: https://www.geeksforgeeks.org/how-to-build-an-image-gallery-android-app-with-recyclerview-and-glide/
+// Ref: https://stackoverflow.com/questions/28531996/android-recyclerview-gridlayoutmanager-column-spacing
+@Suppress("DEPRECATION", "PrivatePropertyName")
+@SuppressLint("InlinedApi")
 class GalleryFragment : Fragment() {
-    private var imgPaths = LinkedList<Int>()
+    // Prepare the images list
     private var images = ArrayList<String>()
 
-    // Test image ===============================================
-    private var PERMISSION_REQUEST_CODE = 100
+    // Declare permission request code
+    private val PERMISSIONREQUESTCODE = 100
     private var recyclerView: RecyclerView? = null
-    private var adapter: GalleryAdapter? = null
-    private var manager: GridLayoutManager? = null
 
+    // Permission request launcher
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
@@ -38,20 +42,6 @@ class GalleryFragment : Fragment() {
                 Log.i("Permission: ", "Denied")
             }
         }
-    // Test image ===============================================
-
-    //    DEMO image only
-    init {
-        imgPaths.addLast(R.drawable.pizza1)
-        imgPaths.addLast(R.drawable.people)
-        imgPaths.addLast(R.drawable.pizza1)
-        imgPaths.addLast(R.drawable.people)
-        imgPaths.addLast(R.drawable.people)
-        imgPaths.addLast(R.drawable.pizza1)
-        imgPaths.addLast(R.drawable.pizza1)
-
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,10 +49,11 @@ class GalleryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val layoutView = inflater.inflate(R.layout.fragment_gallery, container, false)
+        // Set up the recycler view with layout manager and adapter
         val recyclerGallery = layoutView.findViewById<RecyclerView>(R.id.recycler_gallery)
-
-        recyclerGallery.layoutManager = GridLayoutManager(requireContext(), 4)
-        recyclerGallery.adapter = GalleryAdapter(requireContext(), imgPaths, images)
+        recyclerGallery.layoutManager = GridLayoutManager(requireContext(), 4) // 4 columns
+        recyclerGallery.addItemDecoration(GridSpacingItemDecoration(4, 20, true))
+        recyclerGallery.adapter = GalleryAdapter(requireContext(), images) // Set the adapter
         checkPermissions()
 
         return layoutView
@@ -70,44 +61,48 @@ class GalleryFragment : Fragment() {
 
 
     private fun checkPermissions() {
-        val result =
-            ContextCompat.checkSelfPermission(requireContext(), READ_MEDIA_IMAGES)
+        // Check if the permission is granted
+        val result = ContextCompat.checkSelfPermission(requireContext(), READ_MEDIA_IMAGES)
+        // If the permission is granted, load the images
         when {
             result == PackageManager.PERMISSION_GRANTED -> {
-
-//                Toast.makeText(requireContext(), "Permission Granted!", Toast.LENGTH_SHORT).show() // For Debugging
+//              Toast.makeText(requireContext(), "Permission Granted!", Toast.LENGTH_SHORT).show() // For Debugging
                 loadImages()
             }
-
+            // If the permission is not granted, request the permission
             ActivityCompat.shouldShowRequestPermissionRationale(
                 requireActivity(),
                 READ_MEDIA_IMAGES
             ) -> {
+                // Request permission method 1
                 requestPermissions(
                     arrayOf(READ_MEDIA_IMAGES),
-                    PERMISSION_REQUEST_CODE
+                    PERMISSIONREQUESTCODE
                 )
+                // Launch the permission request dialog method 2
                 requestPermissionLauncher.launch(READ_MEDIA_IMAGES)
             }
 
             else -> {
+                // Request permission method 1
                 requestPermissions(
                     arrayOf(READ_MEDIA_IMAGES),
-                    PERMISSION_REQUEST_CODE
+                    PERMISSIONREQUESTCODE
                 )
+                // Launch the permission request dialog method 2
                 requestPermissionLauncher.launch(READ_MEDIA_IMAGES)
             }
         }
-
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
         grantResults: IntArray
     ) {
         when (requestCode) {
-            PERMISSION_REQUEST_CODE -> {
+            PERMISSIONREQUESTCODE -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() &&
                             grantResults[0] == PackageManager.PERMISSION_GRANTED)
@@ -115,7 +110,7 @@ class GalleryFragment : Fragment() {
                     // Permission is granted
                     Toast.makeText(requireContext(), "Permission Granted!", Toast.LENGTH_SHORT)
                         .show()
-//                    loadImages()
+                    loadImages()
                 } else {
                     // Permission is denied
                     Toast.makeText(
@@ -133,38 +128,67 @@ class GalleryFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun loadImages() {
-        // Container for information about each video.
+        // Clear the images list
+        images.clear()
+
+        // Declare query condition
         val projection = arrayOf(MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID)
         val selection = null
         val selectionArgs = null
         val sortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC"
 
+        // Query the external storage for images
         requireContext().contentResolver.query(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             projection,
             selection,
             selectionArgs,
             sortOrder
-        )?.use { cursor ->
-            while (cursor.moveToNext()) {
-                val colIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-                images.add(cursor.getString(colIndex))
+        )?.use { cursor -> // Iterate over the cursor
+            while (cursor.moveToNext()) { // Through all the images
+                val colIndex =
+                    cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA) // Get the image path
+                if (!images.contains(cursor.getString(colIndex))) // If the image path is not in the images list
+                    images.add(cursor.getString(colIndex)) // Add the image path to the images list
             }
         }
+        // Update the recycler view if there is any changes
         recyclerView?.adapter?.notifyDataSetChanged()
+    }
 
-        Toast.makeText(
-            requireContext(),
-            "The amount of Picture: " + images.size,
-            Toast.LENGTH_SHORT
-        ).show()
-//            for (i in 0 until count) {
-//                cursor.moveToPosition(i)
-//                val colunmindex = cursor.getColumnIndex(MediaStore.Images.Media.DATA)
-//                images.add(cursor.getString(colunmindex))
-//            }
-
-
+    inner class GridSpacingItemDecoration(
+        private val spanCount: Int,
+        private val spacing: Int,
+        private val includeEdge: Boolean
+    ) :
+        ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            val position = parent.getChildAdapterPosition(view) // item position
+            val column = position % spanCount // item column
+            if (includeEdge) {
+                outRect.left =
+                    spacing - column * spacing / spanCount // spacing - column * ((1f / spanCount) * spacing)
+                outRect.right =
+                    (column + 1) * spacing / spanCount // (column + 1) * ((1f / spanCount) * spacing)
+                if (position < spanCount) { // top edge
+                    outRect.top = spacing
+                }
+                outRect.bottom = spacing // item bottom
+            } else {
+                outRect.left = column * spacing / spanCount // column * ((1f / spanCount) * spacing)
+                outRect.right =
+                    spacing - (column + 1) * spacing / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                if (position >= spanCount) {
+                    outRect.top = spacing // item top
+                }
+            }
+        }
     }
 }
