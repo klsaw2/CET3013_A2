@@ -3,6 +3,7 @@ package com.example.cet3013_a2.main_activity
 import android.Manifest.permission.READ_MEDIA_IMAGES
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -75,7 +76,7 @@ class GalleryFragment : Fragment() {
             result == PackageManager.PERMISSION_GRANTED -> {
 
 //                Toast.makeText(requireContext(), "Permission Granted!", Toast.LENGTH_SHORT).show() // For Debugging
-                //            loadImages()
+                loadImages()
             }
 
             ActivityCompat.shouldShowRequestPermissionRationale(
@@ -84,19 +85,22 @@ class GalleryFragment : Fragment() {
             ) -> {
                 requestPermissions(
                     arrayOf(READ_MEDIA_IMAGES),
-                    PERMISSION_REQUEST_CODE)
+                    PERMISSION_REQUEST_CODE
+                )
                 requestPermissionLauncher.launch(READ_MEDIA_IMAGES)
             }
 
             else -> {
                 requestPermissions(
                     arrayOf(READ_MEDIA_IMAGES),
-                    PERMISSION_REQUEST_CODE)
+                    PERMISSION_REQUEST_CODE
+                )
                 requestPermissionLauncher.launch(READ_MEDIA_IMAGES)
             }
         }
 
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
@@ -127,5 +131,40 @@ class GalleryFragment : Fragment() {
                 // Ignore all other requests.
             }
         }
+    }
+
+    private fun loadImages() {
+        // Container for information about each video.
+        val projection = arrayOf(MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID)
+        val selection = null
+        val selectionArgs = null
+        val sortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC"
+
+        requireContext().contentResolver.query(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            projection,
+            selection,
+            selectionArgs,
+            sortOrder
+        )?.use { cursor ->
+            while (cursor.moveToNext()) {
+                val colIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                images.add(cursor.getString(colIndex))
+            }
+        }
+        recyclerView?.adapter?.notifyDataSetChanged()
+
+        Toast.makeText(
+            requireContext(),
+            "The amount of Picture: " + images.size,
+            Toast.LENGTH_SHORT
+        ).show()
+//            for (i in 0 until count) {
+//                cursor.moveToPosition(i)
+//                val colunmindex = cursor.getColumnIndex(MediaStore.Images.Media.DATA)
+//                images.add(cursor.getString(colunmindex))
+//            }
+
+
     }
 }

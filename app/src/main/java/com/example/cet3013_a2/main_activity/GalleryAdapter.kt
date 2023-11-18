@@ -41,22 +41,22 @@ class GalleryAdapter(context: Context, imagePaths: LinkedList<Int>, imageList: A
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // DEMO ONLY - change image set method later
-        val mCurrent = mImagePaths[position]
-        holder.imgItem.setImageResource(mCurrent)
-        holder.imgItem.setOnClickListener {
-            Toast.makeText(mContext, "$position", Toast.LENGTH_SHORT).show()
-        }
+//        val mCurrent = mImagePaths[position]
+//        holder.imgItem.setImageResource(mCurrent)
+//        holder.imgItem.setOnClickListener {
+//            Toast.makeText(mContext, "$position", Toast.LENGTH_SHORT).show()
+//        }
 
         // T2
-//        val imgFile = File(mImageList[position])
-//        if (imgFile.exists()) {
-//            Glide.with(mContext).load(imgFile).into(holder.imgItem)
-//        }
+        val imgFile = File(mImageList[position])
+        if (imgFile.exists()) {
+            Glide.with(mContext).load(imgFile).into(holder.imgItem)
+        }
     }
 
     override fun getItemCount(): Int {
-        return mImagePaths.size
-//        return mImageList.size
+//        return mImagePaths.size
+        return mImageList.size
 //        return 12
     }
 
