@@ -1,7 +1,14 @@
 package com.example.cet3013_a2
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -10,8 +17,12 @@ import com.example.cet3013_a2.databinding.ActivityMainBinding
 import com.example.cet3013_a2.main_activity.ProfileFragment
 import com.example.cet3013_a2.main_activity.RecordsFragment
 import com.example.cet3013_a2.main_activity.GalleryFragment
+import com.google.android.material.snackbar.Snackbar
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.CAMERA
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var layout: View
 
     companion object {
         const val recordsFragmentTag = "MainActivity_RecordsFragment"
@@ -68,5 +79,4 @@ class MainActivity : AppCompatActivity() {
         // Set tittle text
         binding.tittleText.text = getString(titleID)
     }
-
 }
