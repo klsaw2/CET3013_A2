@@ -10,19 +10,28 @@
 
     <!-- Gallery Fragment -->
     <string name="lbl_gallery">Gallery</string>
+    <string name="image_item_description">Image from gallery</string>
+
+    <!-- Profile add/edit Fragment -->
+    <string name="lbl_add_reporter">Add Reporter</string>
+    <string name="lbl_edit_reporter">Edit Reporter</string>
+    <string name="lbl_name">Name</string>
+    <string name="lbl_age">Age</string>
+    <string name="lbl_relationship">Relationship</string>
+    <string name="hint_name">Enter name</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="error_msg_name">Please enter a name.</string>
+    <string name="error_msg_relationship">Relationship cannot be empty.</string>
+    <string name="error_msg_age">Age cannot be empty.</string>
+
 
     <!-- Records Fragment -->
     <style name="lbl_search">Search</style>
-
     <string name="back">Return</string>
-    <string name="name">Name</string>
-    <string name="age">Age</string>
-    <string name="relationship">Relationship</string>
-    <string name="cancel">Cancel</string>
-    <string name="confirm">Confirm</string>
-    <string name="edit_reporter">Edit Reporter</string>
-    <string name="add_reporter">Add Reporter</string>
-    <string name="hint1">Enter reporter name</string>
+
 
     <string name="profile_setting">Profile Setting</string>
     <string name="fab_content_desc">Add new reporter</string>
