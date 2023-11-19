@@ -29,7 +29,8 @@
                 style="@style/frag_profile_report_table_col1"
                 android:text="@string/lbl_name" />
 
-            <TextView
+            <EditText
+                android:id="@+id/etv_name"
                 style="@style/frag_profile_report_table_col2"
                 android:hint="@string/hint_name" />
 
