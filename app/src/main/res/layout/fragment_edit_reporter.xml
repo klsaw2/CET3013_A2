@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_back"
-            app:title="@string/edit_reporter" />
+            app:title="@string/lbl_edit_reporter" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -30,7 +30,7 @@
         android:id="@+id/age_textview2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/relationship"
+        android:text="@string/lbl_relationship"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +44,7 @@
         android:id="@+id/age_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/age"
+        android:text="@string/lbl_age"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="532dp"
-        android:text="@string/name"
+        android:text="@string/lbl_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -103,7 +103,7 @@
         app:layout_constraintStart_toEndOf="@+id/name_textview"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:layout_constraintVertical_bias="0.826"
-        tools:text="@string/hint1" />
+        tools:text="@string/hint_name" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -119,7 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
         android:backgroundTint="@color/white"
-        android:text="@string/cancel"
+        android:text="@string/btn_cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -130,7 +130,7 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/confirm"
+        android:text="@string/btn_confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.464"
