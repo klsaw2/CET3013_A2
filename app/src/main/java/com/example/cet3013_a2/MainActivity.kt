@@ -2,11 +2,19 @@ package com.example.cet3013_a2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
+import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityMainBinding
 import com.example.cet3013_a2.main_activity.ReportersFragment
 import com.example.cet3013_a2.main_activity.SearchFragment
+import com.example.cet3013_a2.roomdb.AppRepository
+import com.example.cet3013_a2.roomdb.Report
+import com.example.cet3013_a2.roomdb.Reporter
+import com.example.cet3013_a2.roomdb.ViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -43,5 +51,36 @@ class MainActivity : AppCompatActivity() {
             transaction.addToBackStack(reportersFragmentTag)
             transaction.commit()
         }
+
+        //DEMO Room
+//        val viewModel = ViewModelProvider(this).get(ViewModel::class.java)
+//        viewModel.getAllReporters().observe(this) {
+//            reporters:List<Reporter> ->
+//
+//            Log.d("viewModel", "ViewModel:")
+//            for (i in reporters.listIterator()) {
+//                Log.d("viewModel", "${i.reporterId}" +
+//                        "${i.reporterName}, " +
+//                        "${i.reporterAge}" +
+//                        ", ${i.reporterRelationship}")
+//            }
+//        }
+//
+//        binding.btnAdd.setOnClickListener {
+//            val newReporter = Reporter(
+//                reporterName = "testTitle",
+//                reporterAge = 23,
+//                reporterRelationship = "Mom"
+//            )
+//            val newReport = Report(
+//                title = "testTitle",
+//                category = "testCategory",
+//                dateTime = SimpleDateFormat("dd M yyyy").format(Date()).toString(),
+//                reportedBy = 1
+//            )
+//
+//            viewModel.addReporter(newReporter)
+//            viewModel.addReport(newReport)
+//        }
     }
 }
