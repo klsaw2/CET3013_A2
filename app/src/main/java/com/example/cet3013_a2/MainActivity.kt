@@ -1,12 +1,16 @@
 package com.example.cet3013_a2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import android.util.Log
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
 import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityMainBinding
+import com.example.cet3013_a2.main_activity.ProfileFragment
+import com.example.cet3013_a2.main_activity.RecordsFragment
 import com.example.cet3013_a2.main_activity.ReporterFragment
 import com.example.cet3013_a2.main_activity.SearchFragment
 import com.example.cet3013_a2.roomdb.AppRepository
@@ -17,11 +21,13 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
+    // Create a companion object to store the fragment tags
     companion object {
-        const val searchFragmentTag = "MainActivity_SearchFragment"
-        const val reportersFragmentTag = "MainActivity_ReportersFragment"
+        const val recordsFragmentTag = "MainActivity_RecordsFragment"
+        const val profileFragmentTag = "MainActivity_ProfileFragment"
+        const val galleryFragmentTag = "MainActivity_GalleryFragment"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,27 +36,47 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val searchFragment = SearchFragment()
-        val reporterFragment = ReporterFragment()
-
-        binding.btnNavSearch.setOnClickListener {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(binding.mainFragmentContainer.id, searchFragment)
-            transaction.setTransition(TRANSIT_FRAGMENT_FADE)
-
-            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            transaction.addToBackStack(searchFragmentTag)
-            transaction.commit()
+        // Button click listeners ==============================================
+        binding.btnNavRecords.setOnClickListener {
+            // Switch to RecordsFragment
+            switchFragment(
+                binding.mainFragmentContainer.id, // containerID
+                ::RecordsFragment, // Fragment constructor
+                recordsFragmentTag, // Fragment tag
+                R.string.lbl_records // Tittle text
+            )
         }
-        binding.btnNavReporters.setOnClickListener {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(binding.mainFragmentContainer.id, reporterFragment)
-            transaction.setTransition(TRANSIT_FRAGMENT_FADE)
-
-            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            transaction.addToBackStack(reportersFragmentTag)
-            transaction.commit()
+        binding.btnNavProfile.setOnClickListener {
+            // Switch to ProfileFragment
+            switchFragment(
+                binding.mainFragmentContainer.id, // containerID
+                ::ProfileFragment, // Fragment constructor
+                profileFragmentTag, // Fragment tag
+                R.string.lbl_profile // Tittle text
+            )
         }
+
+    }
+    // Fragment Management Functions ==========================================
+    private fun switchFragment(
+        containerID: Int,
+        fragment: () -> Fragment,
+        fragmentTag: String = "",
+        titleID: Int = 0
+    ) {
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        // Replace container with desire fragment (function)
+        transaction.replace(containerID, fragment())
+        // Set transition animation
+        transaction.setTransition(TRANSIT_FRAGMENT_FADE)
+        // Add to back stack
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        transaction.addToBackStack(fragmentTag)
+        // Commit the changes
+        transaction.commit()
+
+        // Set tittle text
+        binding.tittleText.text = getString(titleID)
 
         //DEMO Room
 //        val viewModel = ViewModelProvider(this).get(ViewModel::class.java)

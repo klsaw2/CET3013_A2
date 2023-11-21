@@ -1,47 +1,40 @@
 package com.example.cet3013_a2.main_activity
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.example.cet3013_a2.R
-import com.example.cet3013_a2.databinding.FragmentAddReporterBinding
+import com.example.cet3013_a2.databinding.FragmentProfileBinding
 
+class ProfileFragment : Fragment(), MenuProvider {
 
-class AddReporter  : Fragment(), MenuProvider {
-
-    private var _binding: FragmentAddReporterBinding? = null
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-        _binding = FragmentAddReporterBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        binding.cancelButton.setOnClickListener {
-            TODO()
-        }
-        binding.confirmButton.setOnClickListener {
+        binding.fabAddReporter.setOnClickListener {
             TODO()
         }
         return view
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.sample_menu, menu)
     }
@@ -49,11 +42,10 @@ class AddReporter  : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId){
             R.id.back ->{
-                TODO()
+//                TODO()
                 true
             }
             else -> return true
         }
     }
-
 }
