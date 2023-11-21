@@ -11,8 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityMainBinding
 import com.example.cet3013_a2.main_activity.ProfileFragment
 import com.example.cet3013_a2.main_activity.RecordsFragment
-import com.example.cet3013_a2.main_activity.ReporterFragment
-import com.example.cet3013_a2.main_activity.SearchFragment
 import com.example.cet3013_a2.roomdb.AppRepository
 import com.example.cet3013_a2.roomdb.Report
 import com.example.cet3013_a2.roomdb.Reporter
