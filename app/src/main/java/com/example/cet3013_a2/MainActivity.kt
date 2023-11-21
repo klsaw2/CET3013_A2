@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
 import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityMainBinding
-import com.example.cet3013_a2.main_activity.ReportersFragment
+import com.example.cet3013_a2.main_activity.ReporterFragment
 import com.example.cet3013_a2.main_activity.SearchFragment
 import com.example.cet3013_a2.roomdb.AppRepository
 import com.example.cet3013_a2.roomdb.Report
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val searchFragment = SearchFragment()
-        val reportersFragment = ReportersFragment()
+        val reporterFragment = ReporterFragment()
 
         binding.btnNavSearch.setOnClickListener {
             val transaction = supportFragmentManager.beginTransaction()
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnNavReporters.setOnClickListener {
             val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(binding.mainFragmentContainer.id, reportersFragment)
+            transaction.replace(binding.mainFragmentContainer.id, reporterFragment)
             transaction.setTransition(TRANSIT_FRAGMENT_FADE)
 
             supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
