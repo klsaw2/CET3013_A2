@@ -1,7 +1,5 @@
 package com.example.cet3013_a2.roomdb
 
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
