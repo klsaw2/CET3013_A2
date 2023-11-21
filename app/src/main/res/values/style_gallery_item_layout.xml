@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="gallery_item_layout">
+        <!--  Size  -->
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:scaleType">fitXY</item>
+
+        <!-- Adjust Background -->
+        <item name="android:background">@color/transparent</item>
+
+        <!-- Adjust gap -->
+        <item name="android:layout_margin">0dp</item>
+
+        <!-- Misc -->
+        <item name="android:contentDescription">@string/image_item_description</item>
+    </style>
+</resources>

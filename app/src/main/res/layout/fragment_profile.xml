@@ -2,17 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/frag_gallery_main_container"
-    tools:context=".main_activity.GalleryFragment">
+    android:id="@+id/frame_profile"
+    style="@style/frag_profile_main_container"
+    tools:context=".main_activity.ProfileFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_gallery"
-        android:backgroundTint="@color/grey2"
+        android:id="@+id/recycler_profile"
         style="@style/frag_profile_recycler_container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddReporter"
+        style="@style/frag_profile_float_add_btn"
+        android:contentDescription="@string/fab_content_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
