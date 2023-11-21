@@ -1,6 +1,7 @@
 package com.example.cet3013_a2
 
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -69,7 +70,7 @@ class CameraActivity : AppCompatActivity() {
         }
 
         // Set up the listeners for take photo and video capture buttons
-        /*binding.buttonTakephoto.setOnClickListener {
+        binding.buttonTakephoto.setOnClickListener {
             takePhoto()
         }
 
@@ -79,7 +80,7 @@ class CameraActivity : AppCompatActivity() {
             intent.putExtra("URL", photoURL)
             setResult(RESULT_OK, intent) //Return ok code with data
             finish()
-        }*/
+        }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
@@ -222,6 +223,4 @@ class CameraActivity : AppCompatActivity() {
             image.close()
         }
     }
-
-
 }
