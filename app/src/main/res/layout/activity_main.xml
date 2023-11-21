@@ -30,7 +30,25 @@
             android:id="@+id/btn_nav_profile"
             style="@style/btm_nav_bar_btn.profile" />
 
-
     </LinearLayout>
 
+<!-- For Room demo only, remove on push -->
+<!--    <Button-->
+<!--        android:id="@+id/btn_add"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Add" />-->
+<!--    <Button-->
+<!--        android:id="@+id/btn_update"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Update"-->
+<!--    />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_delete"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Delete"-->
+<!--     />-->
 </LinearLayout>
