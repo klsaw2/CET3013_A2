@@ -4,13 +4,29 @@
     <string name="lbl_add">Add</string>
     <string name="lbl_search">Search</string>
     <string name="lbl_records">Records</string>
-    <string name="lbl_reporter">Reporters</string>
+    <string name="lbl_reporters">Reporters</string>
     <string name="lbl_profile">Profile</string>
-    <string name="lbl_title">Title</string>
 
     <!-- Gallery Fragment -->
     <string name="lbl_gallery">Gallery</string>
     <string name="image_item_description">Image from gallery</string>
+
+    <!-- Add/edit Record -->
+    <string name="lbl_add_record">Add Record</string>
+    <string name="lbl_edit_record">Edit Record</string>
+    <string name="lbl_take_photo">Take a photo</string>
+    <string name="lbl_retake_photo">Retake photo</string>
+    <string name="lbl_discard_photo">Discard photo</string>
+    <string name="lbl_date">Date</string>
+    <string name="lbl_time">Time</string>
+    <string name="lbl_title">Title</string>
+    <string name="hint_record_title">Visit to the zoo!</string>
+    <string name="lbl_category">Category</string>
+    <string name="lbl_reporter">Reporter</string>
+    <string name="lbl_location">Location</string>
+    <string name="lbl_choose_location">Choose location</string>
+    <string name="lbl_another_location">Choose another location</string>
+    <string name="lbl_discard">Discard</string>
 
     <!-- Profile add/edit Fragment -->
     <string name="lbl_add_reporter">Add Reporter</string>
@@ -27,11 +43,8 @@
     <string name="error_msg_relationship">Relationship cannot be empty.</string>
     <string name="error_msg_age">Age cannot be empty.</string>
 
-
     <!-- Records Fragment -->
-    <style name="lbl_search">Search</style>
     <string name="back">Return</string>
-
 
     <string name="profile_setting">Profile Setting</string>
     <string name="fab_content_desc">Add new reporter</string>

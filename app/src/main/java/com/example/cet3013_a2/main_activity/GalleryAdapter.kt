@@ -28,7 +28,7 @@ class GalleryAdapter(context: Context, imageList: ArrayList<String>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // Inflate the custom layout (the gallery_item_layout)
         val view =
-            LayoutInflater.from(mContext).inflate(R.layout.gallery_item_layout, parent, false)
+            LayoutInflater.from(mContext).inflate(R.layout.layout_gallery_item, parent, false)
         return ViewHolder(view)
     }
 

@@ -36,16 +36,15 @@ class ProfileFragment : Fragment(), MenuProvider {
         _binding = null
     }
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.sample_menu, menu)
+        menuInflater.inflate(R.menu.simple_menu, menu)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return when (menuItem.itemId){
-            R.id.back ->{
+        when (menuItem.itemId){
+//            R.id.back ->{
 //                TODO()
-                true
             }
-            else -> return true
-        }
+//            else -> return true
+        return true
     }
 }

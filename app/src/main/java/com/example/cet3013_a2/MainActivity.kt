@@ -1,25 +1,22 @@
 package com.example.cet3013_a2
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import android.util.Log
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
-import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityMainBinding
 import com.example.cet3013_a2.main_activity.ProfileFragment
 import com.example.cet3013_a2.main_activity.RecordsFragment
-import com.example.cet3013_a2.roomdb.AppRepository
-import com.example.cet3013_a2.roomdb.Report
-import com.example.cet3013_a2.roomdb.Reporter
-import com.example.cet3013_a2.roomdb.ViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var startAddReportActivityForResult: ActivityResultLauncher<Intent>
 
     // Create a companion object to store the fragment tags
     companion object {
@@ -30,9 +27,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        startAddReportActivityForResult = registerForActivityResult<Intent,ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+                result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+
+            }
+        }
+
+        // Reset title to Gallery when returning from other tabs
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount < 1) {
+                // Set title text
+                binding.tittleText.text = getString(R.string.lbl_gallery)
+            }
+        }
 
         // Button click listeners ==============================================
         binding.btnNavRecords.setOnClickListener {
@@ -53,7 +66,10 @@ class MainActivity : AppCompatActivity() {
                 R.string.lbl_profile // Tittle text
             )
         }
-
+        binding.btnNavAdd.setOnClickListener {
+            val addReportIntent = Intent(this, AddRecordActivity::class.java)
+            startAddReportActivityForResult.launch(addReportIntent)
+        }
     }
     // Fragment Management Functions ==========================================
     private fun switchFragment(
