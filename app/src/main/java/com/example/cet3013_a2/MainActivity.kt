@@ -3,20 +3,12 @@ package com.example.cet3013_a2
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
-import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityMainBinding
 import com.example.cet3013_a2.main_activity.ProfileFragment
 import com.example.cet3013_a2.main_activity.RecordsFragment
-import com.example.cet3013_a2.roomdb.AppRepository
-import com.example.cet3013_a2.roomdb.Report
-import com.example.cet3013_a2.roomdb.Reporter
-import com.example.cet3013_a2.roomdb.ViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -96,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 //                reporterAge = 23,
 //                reporterRelationship = "Mom"
 //            )
-//            val newReport = Report(
+//            val newRecord = Record(
 //                title = "testTitle",
 //                category = "testCategory",
 //                dateTime = SimpleDateFormat("dd M yyyy").format(Date()).toString(),
@@ -104,7 +96,7 @@ class MainActivity : AppCompatActivity() {
 //            )
 //
 //            viewModel.addReporter(newReporter)
-//            viewModel.addReport(newReport)
+//            viewModel.addRecord(newRecord)
 //        }
     }
 }

@@ -4,9 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import java.util.Calendar
 
 @Entity(
-    tableName = "report",
+    tableName = "record",
     foreignKeys =
         [ForeignKey(
             entity = Reporter::class,
@@ -15,24 +16,24 @@ import androidx.room.PrimaryKey
             onDelete = ForeignKey.CASCADE
         )]
 )
-class Report(
+class Record(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="reportId")
-    var reportId: Int? = null,
+    @ColumnInfo(name="id")
+    var id: Int? = null,
 
-    @ColumnInfo(name="reportTitle")
+    @ColumnInfo(name="title")
     var title: String,
 
-    @ColumnInfo(name="reportCategory")
+    @ColumnInfo(name="category")
     var category: String,
 
-    @ColumnInfo(name="reportDate")
-    var dateTime: String,
+    @ColumnInfo(name="createdAt")
+    var createdAt: Calendar,
 
-    @ColumnInfo(name="reportPhoto")
+    @ColumnInfo(name="photoUrl")
     var photoUrl: String? = null,
 
-    @ColumnInfo(name="reportNotes")
+    @ColumnInfo(name="notes")
     var notes: String? = null,
 
     @ColumnInfo(name="reportedBy")
