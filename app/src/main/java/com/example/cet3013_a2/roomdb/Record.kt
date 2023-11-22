@@ -31,8 +31,8 @@ class Record(
     @ColumnInfo(name="location")
     var location: Location,
 
-    @ColumnInfo(name="createdAt")
-    var createdAt: Calendar,
+    @ColumnInfo(name="dateTime")
+    var dateTime: Calendar,
 
     @ColumnInfo(name="photoUrl")
     var photoUrl: String? = null,
