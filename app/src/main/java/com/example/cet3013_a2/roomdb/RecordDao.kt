@@ -8,16 +8,16 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface ReportDao {
+interface RecordDao {
     @Insert
-    fun addReport(report: Report)
+    fun addRecord(record: Record)
 
     @Update
-    fun updateReport(report: Report)
+    fun updateRecord(record: Record)
 
     @Delete
-    fun deleteReport(report: Report)
+    fun deleteRecord(record: Record)
 
-    @Query("SELECT * FROM report")
-    fun getAllReports(): LiveData<List<Report>>
+    @Query("SELECT * FROM record")
+    fun getAllRecords(): LiveData<List<Record>>
 }
