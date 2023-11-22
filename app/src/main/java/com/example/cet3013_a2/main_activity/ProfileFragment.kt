@@ -1,5 +1,6 @@
 package com.example.cet3013_a2.main_activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
+import com.example.cet3013_a2.AddReporterActivity
 import com.example.cet3013_a2.R
 import com.example.cet3013_a2.databinding.FragmentProfileBinding
 
@@ -27,7 +29,8 @@ class ProfileFragment : Fragment(), MenuProvider {
         val view = binding.root
 
         binding.fabAddReporter.setOnClickListener {
-            TODO()
+            val intent = Intent(activity,AddReporterActivity::class.java)
+            startActivity(intent)
         }
         return view
     }

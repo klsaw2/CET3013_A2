@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tb_AddReporter"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,18 +12,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Space
-            android:layout_height="80dp"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tbAddRecord"
             android:layout_width="match_parent"
-            />
+            android:layout_height="wrap_content"
+            android:theme="@style/tb_title"
+            app:buttonGravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/lbl_add_reporter"
+            app:titleCentered="true" />
 
-        <TextView
-            style="@style/frag_profile_report_tv_tittle"
-            android:text="@string/lbl_add_reporter" />
         <Space
-            android:layout_height="80dp"
             android:layout_width="match_parent"
-            />
+            android:layout_height="80dp" />
+
         <LinearLayout style="@style/frag_profile_report_table_row">
 
             <TextView
@@ -64,29 +69,28 @@
             android:text="@string/error_msg_name" />
 
         <Space
-            android:layout_height="130dp"
             android:layout_width="match_parent"
-            />
+            android:layout_height="130dp" />
+
         <LinearLayout style="@style/frag_profile_report_btn_row">
 
             <Button
-                style="@style/frag_profile_report_btn.delete"
                 android:id="@+id/btn_delete"
-                android:text="@string/btn_delete"
-                />
+                style="@style/frag_profile_report_btn.delete"
+                android:text="@string/btn_delete" />
 
         </LinearLayout>
 
         <LinearLayout style="@style/frag_profile_report_btn_row">
 
             <Button
-                style="@style/frag_profile_report_btn.cancel"
                 android:id="@+id/btn_cancel"
+                style="@style/frag_profile_report_btn.cancel"
                 android:text="@string/btn_cancel" />
 
             <Button
-                style="@style/frag_profile_report_btn.confirm"
                 android:id="@+id/btn_confirm"
+                style="@style/frag_profile_report_btn.confirm"
                 android:text="@string/btn_confirm" />
         </LinearLayout>
 
