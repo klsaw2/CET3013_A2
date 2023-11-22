@@ -6,6 +6,7 @@
     <dimen name="paragraph">24dp</dimen>
     <dimen name="horizontalParagraph">16dp</dimen>
     <dimen name="groupItemGap">12sp</dimen>
+    <dimen name="groupBtnGap">24sp</dimen>
 
     <!-- Attribute values -->
     <dimen name="borderRadius">10dp</dimen>

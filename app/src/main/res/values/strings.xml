@@ -20,7 +20,9 @@
     <string name="lbl_date">Date</string>
     <string name="lbl_time">Time</string>
     <string name="lbl_title">Title</string>
+    <string name="lbl_notes">Notes</string>
     <string name="hint_record_title">Visit to the zoo!</string>
+    <string name="hint_record_notes">First time seeing the giraffe</string>
     <string name="lbl_category">Category</string>
     <string name="lbl_reporter">Reporter</string>
     <string name="lbl_location">Location</string>
@@ -45,6 +47,7 @@
 
     <!-- Records Fragment -->
     <string name="back">Return</string>
+    <string name="camera_back">Back</string>
 
     <string name="profile_setting">Profile Setting</string>
     <string name="fab_content_desc">Add new reporter</string>

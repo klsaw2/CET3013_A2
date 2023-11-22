@@ -2,26 +2,28 @@ package com.example.cet3013_a2
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
+import android.graphics.ImageDecoder
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
+import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.TimePicker
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
 import com.example.cet3013_a2.roomdb.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityAddRecordBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
 class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -30,7 +32,6 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     private val recordCalendar = Calendar.getInstance()
     private val dateFormatter = SimpleDateFormat("dd/M/yyyy", Locale.US)
     private val timeFormatter = SimpleDateFormat("hh:mm a", Locale.US)
-
     private val categories = ArrayList<String>(arrayOf(
         "Indoor",
         "Outdoor",
@@ -41,6 +42,20 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     private lateinit var reporters: List<String>
     private lateinit var spinnerCategoryAdapter: ArrayAdapter<String>
     private lateinit var spinnerReporterAdapter: ArrayAdapter<String>
+
+    private var photoUrl: String? = null
+    private var cameraActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        result ->
+            if (result.resultCode == RESULT_OK) {
+                photoUrl = result.data!!.getStringExtra(CameraActivity.photoUrlTag)
+                if (photoUrl != null) {
+                    showCapturedPhotoUI(photoUrl as String)
+                    togglePictureButtonUI(true)
+                }
+            }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +78,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         // Todo: Prevent user from deleting all reporters as spinner requires at least 1 entry
         viewModel.getAllReporters().observe(this) {
             reporters = it.map { reporter ->
-                reporter.reporterName
+                reporter.name
             }
             spinnerReporterAdapter =
                 ArrayAdapter(this, android.R.layout.simple_list_item_1, reporters)
@@ -98,6 +113,23 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                 false
             ).show()
         }
+
+        binding.btnDiscardPhoto.setOnClickListener {
+            photoUrl = null
+            togglePictureButtonUI(false)
+        }
+
+        binding.btnTakePhoto.setOnClickListener {
+            launchCameraActivity()
+        }
+
+        binding.btnRetakePhoto.setOnClickListener {
+            launchCameraActivity()
+        }
+
+        binding.btnDiscard.setOnClickListener {
+            goBack(false)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -108,7 +140,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             android.R.id.home ->
-                finish()
+                goBack(false)
         }
         return super.onOptionsItemSelected(menuItem)
     }
@@ -126,5 +158,48 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             set(Calendar.MINUTE, minute)
         }
         binding.txtTime.setText(timeFormatter.format(recordCalendar.timeInMillis))
+    }
+
+    // Utilities
+    fun togglePictureButtonUI(photoTaken: Boolean) {
+        if (photoTaken) {
+            binding.btnTakePhoto.visibility = GONE
+            binding.groupRetakePhoto.visibility = VISIBLE
+        } else {
+            binding.btnTakePhoto.visibility = VISIBLE
+            binding.groupRetakePhoto.visibility = GONE
+        }
+    }
+    fun toggleLocationButtonUI(isLocationSelected: Boolean, locationName: String?) {
+        if (isLocationSelected) {
+            binding.lblLocationName.text = ""
+            binding.btnLocation.text = getString(R.string.lbl_another_location)
+        } else {
+            binding.lblLocationName.text = locationName
+            binding.btnLocation.text = getString(R.string.lbl_another_location)
+        }
+    }
+
+    fun showCapturedPhotoUI(photoUrl: String) {
+        try {
+            val imageUri = Uri.parse(photoUrl)
+            val source = ImageDecoder.createSource(this.contentResolver, imageUri)
+            val bitmap = ImageDecoder.decodeBitmap(source)
+            binding.imgSavedPhoto.setImageBitmap(bitmap)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Unable to display image, please try again.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun launchCameraActivity() {
+        val intent = Intent(this, CameraActivity::class.java)
+        cameraActivityResultLauncher.launch(intent)
+    }
+
+    fun goBack(isProcessComplete: Boolean) {
+        if (isProcessComplete) {
+            setResult(RESULT_OK)
+        }
+        finish()
     }
 }
