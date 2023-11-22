@@ -35,6 +35,7 @@
     <string name="lbl_age">Age</string>
     <string name="lbl_relationship">Relationship</string>
     <string name="hint_name">Enter name</string>
+    <string name="hint_age">Enter age</string>
     <string name="btn_save">Save</string>
     <string name="btn_delete">Delete</string>
     <string name="btn_cancel">Cancel</string>
@@ -55,5 +56,13 @@
     <string name="permission_required">Camera access is required to display the camera preview.</string>
     <string name="ok">OK</string>
     <string name="permission_granted">Permission is granted. You can use the camera now.</string>
+
+    <string-array name="relationship">
+        <item>Father</item>
+        <item>Mother</item>
+        <item>Sibling</item>
+        <item>Aunt</item>
+        <item>Uncle</item>
+    </string-array>
 
 </resources>
