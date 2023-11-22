@@ -1,5 +1,6 @@
 package com.example.cet3013_a2.roomdb
 
+import android.location.Location
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -26,6 +27,9 @@ class Record(
 
     @ColumnInfo(name="category")
     var category: String,
+
+    @ColumnInfo(name="location")
+    var location: Location,
 
     @ColumnInfo(name="createdAt")
     var createdAt: Calendar,
