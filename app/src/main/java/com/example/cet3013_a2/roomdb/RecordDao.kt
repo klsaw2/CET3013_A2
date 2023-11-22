@@ -20,4 +20,7 @@ interface RecordDao {
 
     @Query("SELECT * FROM record")
     fun getAllRecords(): LiveData<List<Record>>
+
+    @Query("DELETE FROM record")
+    fun deleteAllRecords()
 }
