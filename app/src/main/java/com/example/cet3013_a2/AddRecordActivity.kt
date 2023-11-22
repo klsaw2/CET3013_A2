@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
@@ -28,6 +27,7 @@ import java.util.Locale
 
 class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private lateinit var binding: ActivityAddRecordBinding
+    private val backConfirmationTag = "add_record_back_confirmation"
     private val currentCalendar = Calendar.getInstance()
     private val recordCalendar = Calendar.getInstance()
     private val dateFormatter = SimpleDateFormat("dd/M/yyyy", Locale.US)
@@ -92,7 +92,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         binding.txtDate.setOnClickListener {
             val datePicker = DatePickerDialog(
                 this,
-                R.style.DateTimePicker,
+                R.style.date_time_picker,
                 this,
                 recordCalendar.get(Calendar.YEAR),
                 recordCalendar.get(Calendar.MONTH),
@@ -106,7 +106,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         binding.txtTime.setOnClickListener {
             TimePickerDialog(
                 this,
-                R.style.DateTimePicker,
+                R.style.date_time_picker,
                 this,
                 recordCalendar.get(Calendar.HOUR_OF_DAY),
                 recordCalendar.get(Calendar.MINUTE),
@@ -197,9 +197,13 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     }
 
     fun goBack(isProcessComplete: Boolean) {
-        if (isProcessComplete) {
-            setResult(RESULT_OK)
-        }
-        finish()
+        val alertDialog = ConfirmationDialog(getString(R.string.confirmation_title), getString(R.string.btn_confirm), getString(R.string.btn_cancel), {
+                dialog, which ->
+            if (isProcessComplete) {
+                setResult(RESULT_OK)
+            }
+            finish()
+        }, getString(R.string.confirmation_desc_changesLost))
+        alertDialog.show(supportFragmentManager, backConfirmationTag)
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="confirmation_dialog">
+        <item name="colorPrimary">@color/green3</item>
+        <item name="colorSecondary">@color/green3</item>
+    </style>
+</resources>
