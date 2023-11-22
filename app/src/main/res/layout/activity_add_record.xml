@@ -248,27 +248,20 @@
                             android:id="@+id/lbl_location_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"
                             tools:text="Location name" />
 
-                        <Button
-                            android:id="@+id/btn_choose_location"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/btnTouchSize"
-                            android:backgroundTint="@color/blue3"
-                            android:text="@string/lbl_choose_location"
-                            app:cornerRadius="@dimen/borderRadius" />
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/btn_another_location"
+                        android:id="@+id/btn_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/groupItemGap"
                         android:backgroundTint="@color/blue3"
-                        android:text="@string/lbl_another_location"
-                        android:visibility="gone"
-                        app:cornerRadius="@dimen/borderRadius" />
+                        android:text="@string/lbl_choose_location"
+                        app:cornerRadius="@dimen/borderRadius"
+                        app:icon="@drawable/icon_location"
+                        app:iconGravity="textStart" />
                 </LinearLayout>
 
             </LinearLayout>
