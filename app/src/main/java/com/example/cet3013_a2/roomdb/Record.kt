@@ -13,7 +13,7 @@ import java.util.Calendar
         [ForeignKey(
             entity = Reporter::class,
             childColumns = arrayOf("reportedBy"),
-            parentColumns =  arrayOf("reporterId"),
+            parentColumns =  arrayOf("id"),
             onDelete = ForeignKey.CASCADE
         )]
 )
@@ -28,11 +28,14 @@ class Record(
     @ColumnInfo(name="category")
     var category: String,
 
-    @ColumnInfo(name="location")
-    var location: Location,
+    @ColumnInfo(name="locationLat")
+    var locationLat: Double,
 
-    @ColumnInfo(name="createdAt")
-    var createdAt: Calendar,
+    @ColumnInfo(name="locationLng")
+    var locationLng: Double,
+
+    @ColumnInfo(name="dateTime")
+    var dateTime: String,
 
     @ColumnInfo(name="photoUrl")
     var photoUrl: String? = null,
