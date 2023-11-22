@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 //                reporterAge = 23,
 //                reporterRelationship = "Mom"
 //            )
-//            val newReport = Report(
+//            val newRecord = Record(
 //                title = "testTitle",
 //                category = "testCategory",
 //                dateTime = SimpleDateFormat("dd M yyyy").format(Date()).toString(),
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 //            )
 //
 //            viewModel.addReporter(newReporter)
-//            viewModel.addReport(newReport)
+//            viewModel.addRecord(newRecord)
 //        }
     }
 }

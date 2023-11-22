@@ -6,30 +6,30 @@ import androidx.lifecycle.LiveData
 
 class ViewModel(application: Application): AndroidViewModel(application) {
     private var repository: AppRepository
-    private var reports: LiveData<List<Report>>
+    private var records: LiveData<List<Record>>
     private var reporters: LiveData<List<Reporter>>
 
     init {
         repository = AppRepository(application)
-        reports = repository.reports
+        records = repository.records
         reporters = repository.reporters
     }
 
     // Report API
-    fun addReport(report: Report) {
-        repository.addReport(report)
+    fun addRecord(record: Record) {
+        repository.addRecord(record)
     }
 
-    fun updateReport(report: Report) {
-        repository.updateReport(report)
+    fun updateRecord(record: Record) {
+        repository.updateRecord(record)
     }
 
-    fun deleteReport(report: Report) {
-        repository.deleteReport(report)
+    fun deleteRecord(record: Record) {
+        repository.deleteRecord(record)
     }
 
-    fun getAllReports(): LiveData<List<Report>> {
-        return reports
+    fun getAllReports(): LiveData<List<Record>> {
+        return records
     }
 
     // Reporter API

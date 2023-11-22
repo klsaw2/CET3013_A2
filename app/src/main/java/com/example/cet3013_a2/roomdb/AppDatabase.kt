@@ -9,9 +9,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Reporter::class, Report::class], version = 1, exportSchema = false)
+@Database(entities = [Reporter::class, Record::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
-    abstract fun getReportDao(): ReportDao
+    abstract fun getRecordDao(): RecordDao
     abstract fun getReporterDao(): ReporterDao
 
     companion object {

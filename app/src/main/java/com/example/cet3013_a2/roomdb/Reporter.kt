@@ -7,17 +7,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "reporter")
 class Reporter(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="reporterId")
-    var reporterId: Int? = null,
+    @ColumnInfo(name="id")
+    var id: Int? = null,
 
-    @ColumnInfo(name="reporterName")
-    var reporterName: String,
+    @ColumnInfo(name="name")
+    var name: String,
 
-    @ColumnInfo(name="reporterAge")
-    var reporterAge: Int,
-
-    @ColumnInfo(name="reporterRelationship")
-    var reporterRelationship: String
+    @ColumnInfo(name="relationship")
+    var relationship: String
 ) {
 
 }

@@ -7,37 +7,37 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AppRepository (application: Application) {
-    private var reportDao: ReportDao
+    private var recordDao: RecordDao
     private var reporterDao: ReporterDao
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-    var reports: LiveData<List<Report>>
+    var records: LiveData<List<Record>>
     var reporters: LiveData<List<Reporter>>
 
     init {
         val db = AppDatabase.getDatabase(application)
-        reportDao = db!!.getReportDao()
+        recordDao = db!!.getRecordDao()
         reporterDao = db.getReporterDao()
-        reports = reportDao.getAllReports()
+        records = recordDao.getAllRecords()
         reporters = reporterDao.getAllReporters()
     }
 
-    // Report async API
-    fun addReport(report: Report) {
+    // Record async API
+    fun addRecord(record: Record) {
         coroutineScope.launch(Dispatchers.IO) {
-            reportDao.addReport(report)
+            recordDao.addRecord(record)
         }
     }
 
-    fun updateReport(report: Report) {
+    fun updateRecord(record: Record) {
         coroutineScope.launch(Dispatchers.IO) {
-            reportDao.deleteReport(report)
+            recordDao.updateRecord(record)
         }
     }
 
-    fun deleteReport(report: Report) {
+    fun deleteRecord(record: Record) {
         coroutineScope.launch(Dispatchers.IO) {
-            reportDao.deleteReport(report)
+            recordDao.deleteRecord(record)
         }
     }
 
@@ -50,7 +50,7 @@ class AppRepository (application: Application) {
 
     fun updateReporter(reporter: Reporter) {
         coroutineScope.launch(Dispatchers.IO) {
-            reporterDao.deleteReporter(reporter)
+            reporterDao.updateReporter(reporter)
         }
     }
 

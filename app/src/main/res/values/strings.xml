@@ -56,4 +56,6 @@
     <string name="ok">OK</string>
     <string name="permission_granted">Permission is granted. You can use the camera now.</string>
 
+    <string name="photo">Take Photo</string>
+
 </resources>
