@@ -189,6 +189,7 @@ class CameraActivity : AppCompatActivity() {
         if (isProcessComplete) {
             val intent = Intent()
             intent.putExtra(photoUrlTag, photoURL)
+            Toast.makeText(this, photoURL, Toast.LENGTH_SHORT).show()
             setResult(RESULT_OK, intent) //Return ok code with data
         }
         finish()

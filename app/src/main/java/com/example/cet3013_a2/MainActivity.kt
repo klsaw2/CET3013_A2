@@ -11,10 +11,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
 import com.example.cet3013_a2.databinding.ActivityMainBinding
+import com.example.cet3013_a2.main_activity.GalleryAdapter
 import com.example.cet3013_a2.main_activity.ProfileFragment
 import com.example.cet3013_a2.main_activity.RecordsFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
     private lateinit var binding: ActivityMainBinding
     private var startAddReportActivityForResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -30,6 +31,16 @@ class MainActivity : AppCompatActivity() {
         const val recordsFragmentTag = "MainActivity_RecordsFragment"
         const val profileFragmentTag = "MainActivity_ProfileFragment"
         const val galleryFragmentTag = "MainActivity_GalleryFragment"
+    }
+
+    // GalleryAdapter.OnImageClickListener implementation =====================
+    override fun onImageClick(imagePath: String) {
+        // Launch add new activity with selected image
+        val addReportIntent = Intent(this, AddRecordActivity::class.java)
+        // Pass the image path to the AddRecordActivity
+        addReportIntent.putExtra("imagePath", imagePath)
+        // Start the activity for result
+        startAddReportActivityForResult.launch(addReportIntent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

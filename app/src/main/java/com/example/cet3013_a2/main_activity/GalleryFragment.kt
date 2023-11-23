@@ -53,7 +53,11 @@ class GalleryFragment : Fragment() {
         val recyclerGallery = layoutView.findViewById<RecyclerView>(R.id.recycler_gallery)
         recyclerGallery.layoutManager = GridLayoutManager(requireContext(), 4) // 4 columns
         recyclerGallery.addItemDecoration(GridSpacingItemDecoration(4, 20, true))
-        recyclerGallery.adapter = GalleryAdapter(requireContext(), images) // Set the adapter
+        recyclerGallery.adapter = GalleryAdapter(
+            requireContext(),
+            images,
+            activity as GalleryAdapter.OnImageClickListener
+        ) // Set the adapter
         checkPermissions()
 
         return layoutView

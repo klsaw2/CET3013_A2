@@ -5,17 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cet3013_a2.R
 import java.io.File
 
-class GalleryAdapter(context: Context, imageList: ArrayList<String>) :
+
+class GalleryAdapter(context: Context, imageList: ArrayList<String>, private val imageClickListener: OnImageClickListener) :
     RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
     private val mContext = context // Context passed in
     private val mImageList = imageList // Image list passed in
+
+    // Interface for the onClickListener
+    interface OnImageClickListener {
+        // Method to be implemented in the MainActivity
+        fun onImageClick(imagePath: String)
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // Image holder resource
@@ -41,10 +47,8 @@ class GalleryAdapter(context: Context, imageList: ArrayList<String>) :
         }
         // Set the onClickListener for each image
         holder.imgItem.setOnClickListener{
-            // Display a toast message when the image is clicked
-            Toast.makeText(mContext, "The picture path :" + mImageList[position], Toast.LENGTH_SHORT).show()
-            // Other Function
-//            TODO("Launch add new activity with selected image")
+            // Call the interface method to launch the AddRecordActivity
+            imageClickListener.onImageClick(mImageList[position])
         }
     }
 

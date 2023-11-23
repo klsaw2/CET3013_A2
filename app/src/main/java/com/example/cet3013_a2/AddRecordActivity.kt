@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.ImageDecoder
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -19,16 +18,19 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import com.example.cet3013_a2.roomdb.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityAddRecordBinding
 import com.example.cet3013_a2.roomdb.Record
+import com.example.cet3013_a2.roomdb.ViewModel
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
+    TimePickerDialog.OnTimeSetListener {
     private lateinit var binding: ActivityAddRecordBinding
     private lateinit var viewModel: ViewModel
     private val backConfirmationTag = "add_record_back_confirmation"
@@ -36,13 +38,15 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     private val recordCalendar = Calendar.getInstance()
     private val dateFormatter = SimpleDateFormat("dd/M/yyyy", Locale.US)
     private val timeFormatter = SimpleDateFormat("hh:mm a", Locale.US)
-    private val categories = ArrayList<String>(arrayOf(
-        "Indoor",
-        "Outdoor",
-        "Physical",
-        "Overnight",
-        "Others"
-    ).toMutableList())
+    private val categories = ArrayList<String>(
+        arrayOf(
+            "Indoor",
+            "Outdoor",
+            "Physical",
+            "Overnight",
+            "Others"
+        ).toMutableList()
+    )
     private lateinit var reporters: List<String>
     private lateinit var reporterIds: List<Int>
     private lateinit var spinnerCategoryAdapter: ArrayAdapter<String>
@@ -51,21 +55,29 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     private var photoUrl: String? = null
     private var cameraActivityResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ) {
-        result ->
-            if (result.resultCode == RESULT_OK) {
-                photoUrl = result.data!!.getStringExtra(CameraActivity.photoUrlTag)
-                if (photoUrl != null) {
-                    showCapturedPhotoUI(photoUrl as String)
-                    togglePictureButtonUI(true)
-                }
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            photoUrl = result.data!!.getStringExtra(CameraActivity.photoUrlTag)
+            if (photoUrl != null) {
+                showCapturedPhotoUI(photoUrl as String)
+                togglePictureButtonUI(true)
             }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddRecordBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Check if intent has imagePath
+        val imagePath = intent.getStringExtra("imagePath")
+        if (imagePath != null) {
+            // parse imagePath into Uri
+            val imageUri = Uri.fromFile(File(imagePath)).toString()
+            showCapturedPhotoUI(imageUri) // Show image
+            togglePictureButtonUI(true) // Toggle UI
+        }
 
         // Toolbar
         setSupportActionBar(findViewById(binding.tbAddRecord.id))
@@ -85,7 +97,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             reporters = it.map { reporter ->
                 reporter.name
             }
-            reporterIds = it.map {reporter ->
+            reporterIds = it.map { reporter ->
                 reporter.id!!
             }
             spinnerReporterAdapter =
@@ -93,7 +105,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             binding.spinnerReporter.adapter = spinnerReporterAdapter
         }
 
-        currentCalendar.add(Calendar.HOUR_OF_DAY,8)
+        currentCalendar.add(Calendar.HOUR_OF_DAY, 8)
         binding.txtDate.setText(dateFormatter.format(recordCalendar.timeInMillis))
         binding.txtTime.setText(timeFormatter.format(recordCalendar.timeInMillis))
 
@@ -145,12 +157,12 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
         // Device back button
         onBackPressedDispatcher.addCallback(
-            object: OnBackPressedCallback(true) {
+            object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     goBack(false)
                 }
             })
-        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.simple_menu, menu)
@@ -190,7 +202,8 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 //        val locationLng =
 
         if (!validateInput()) {
-            Toast.makeText(this, "Ensure all required inputs are filled.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Ensure all required inputs are filled.", Toast.LENGTH_SHORT)
+                .show()
             return
         }
 
@@ -208,8 +221,9 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             )
             goBack(true, false)
         } catch (e: Exception) {
-            Log.d("db", "cant add record" , e)
-            Toast.makeText(this, "Unable to add record, please try again.", Toast.LENGTH_SHORT).show()
+            Log.d("db", "cant add record", e)
+            Toast.makeText(this, "Unable to add record, please try again.", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -233,6 +247,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             binding.groupRetakePhoto.visibility = GONE
         }
     }
+
     fun toggleLocationButtonUI(isLocationSelected: Boolean, locationName: String?) {
         if (isLocationSelected) {
             binding.lblLocationName.text = ""
@@ -250,7 +265,8 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             val bitmap = ImageDecoder.decodeBitmap(source)
             binding.imgSavedPhoto.setImageBitmap(bitmap)
         } catch (e: Exception) {
-            Toast.makeText(this, "Unable to display image, please try again.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Unable to display image, please try again.", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -267,10 +283,15 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             finish()
         }
 
-        val alertDialog = ConfirmationDialog(getString(R.string.confirmation_title), getString(R.string.btn_confirm), getString(R.string.btn_cancel), {
-                dialog, which ->
-            backFunction()
-        }, getString(R.string.confirmation_desc_changesLost))
+        val alertDialog = ConfirmationDialog(
+            getString(R.string.confirmation_title),
+            getString(R.string.btn_confirm),
+            getString(R.string.btn_cancel),
+            { dialog, which ->
+                backFunction()
+            },
+            getString(R.string.confirmation_desc_changesLost)
+        )
 
         if (showConfirmation) {
             alertDialog.show(supportFragmentManager, backConfirmationTag)

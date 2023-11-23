@@ -1,6 +1,5 @@
 package com.example.cet3013_a2
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
@@ -9,7 +8,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.cet3013_a2.databinding.FragmentProfileReporterBinding
@@ -20,10 +18,11 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
     private lateinit var relationship: String
     private var age: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         binding = FragmentProfileReporterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         binding.tvErrorMsg.visibility = View.INVISIBLE
         val spinner: Spinner = binding.spinnerRelationship
         spinner.onItemSelectedListener = this
