@@ -1,7 +1,6 @@
 package com.example.cet3013_a2.roomdb
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -27,7 +26,9 @@ abstract class AppDatabase: RoomDatabase() {
 
                 coroutineScope.launch {
                     val reporterDao = dbInstance!!.getReporterDao()
+                    val recordDao = dbInstance!!.getRecordDao()
                     reporterDao.deleteAllReporters()
+                    recordDao.deleteAllRecords()
                     reporterDao.addReporter(Reporter(
                         name = "Guardian",
                         relationship = "Guardian"

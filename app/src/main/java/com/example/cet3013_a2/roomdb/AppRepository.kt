@@ -41,6 +41,12 @@ class AppRepository (application: Application) {
         }
     }
 
+    fun deleteAllRecords() {
+        coroutineScope.launch(Dispatchers.IO) {
+            recordDao.deleteAllRecords()
+        }
+    }
+
     // Reporter async API
     fun addReporter(reporter: Reporter) {
         coroutineScope.launch(Dispatchers.IO) {

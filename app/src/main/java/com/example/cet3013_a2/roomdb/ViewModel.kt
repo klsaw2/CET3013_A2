@@ -16,7 +16,7 @@ class ViewModel(application: Application): AndroidViewModel(application) {
     }
 
     // Report API
-    fun addRecord(record: Record) {
+    fun addRecord(record:Record) {
         repository.addRecord(record)
     }
 
@@ -28,7 +28,7 @@ class ViewModel(application: Application): AndroidViewModel(application) {
         repository.deleteRecord(record)
     }
 
-    fun getAllReports(): LiveData<List<Record>> {
+    fun getAllRecords(): LiveData<List<Record>> {
         return records
     }
 

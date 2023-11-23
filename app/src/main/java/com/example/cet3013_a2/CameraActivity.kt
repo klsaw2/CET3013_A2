@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -47,7 +46,7 @@ class CameraActivity : AppCompatActivity() {
             startCamera()
         }
     }
-    var hasTakenPhoto: Boolean = false
+    private var hasTakenPhoto: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

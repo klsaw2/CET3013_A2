@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
@@ -16,17 +17,20 @@ import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.cet3013_a2.roomdb.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityAddRecordBinding
+import com.example.cet3013_a2.roomdb.Record
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private lateinit var binding: ActivityAddRecordBinding
+    private lateinit var viewModel: ViewModel
     private val backConfirmationTag = "add_record_back_confirmation"
     private val currentCalendar = Calendar.getInstance()
     private val recordCalendar = Calendar.getInstance()
@@ -40,6 +44,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         "Others"
     ).toMutableList())
     private lateinit var reporters: List<String>
+    private lateinit var reporterIds: List<Int>
     private lateinit var spinnerCategoryAdapter: ArrayAdapter<String>
     private lateinit var spinnerReporterAdapter: ArrayAdapter<String>
 
@@ -73,12 +78,15 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         spinnerCategoryAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, categories)
         binding.spinnerCategory.adapter = spinnerCategoryAdapter
         // Reporter
-        val viewModel = ViewModelProvider(this).get(ViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
         // Todo: Prevent user from deleting all reporters as spinner requires at least 1 entry
         viewModel.getAllReporters().observe(this) {
             reporters = it.map { reporter ->
                 reporter.name
+            }
+            reporterIds = it.map {reporter ->
+                reporter.id!!
             }
             spinnerReporterAdapter =
                 ArrayAdapter(this, android.R.layout.simple_list_item_1, reporters)
@@ -130,7 +138,19 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         binding.btnDiscard.setOnClickListener {
             goBack(false)
         }
-    }
+
+        binding.btnAdd.setOnClickListener {
+            addNewRecord()
+        }
+
+        // Device back button
+        onBackPressedDispatcher.addCallback(
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    goBack(false)
+                }
+            })
+        }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.simple_menu, menu)
@@ -160,8 +180,51 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         binding.txtTime.setText(timeFormatter.format(recordCalendar.timeInMillis))
     }
 
+    private fun addNewRecord() {
+        val title = binding.txtTitle.text.toString()
+        val category = binding.spinnerCategory.selectedItem.toString()
+        val dateTime = recordCalendar.timeInMillis.toString()
+        val photoUrl = photoUrl
+        val reportedBy = reporterIds[binding.spinnerReporter.selectedItemPosition]
+//        val locationLat =
+//        val locationLng =
+
+        if (!validateInput()) {
+            Toast.makeText(this, "Ensure all required inputs are filled.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        try {
+            viewModel.addRecord(
+                Record(
+                    title = title,
+                    category = category,
+                    dateTime = dateTime,
+                    locationLat = 0.0,
+                    locationLng = 0.0,
+                    photoUrl = photoUrl,
+                    reportedBy = reportedBy,
+                )
+            )
+            goBack(true, false)
+        } catch (e: Exception) {
+            Log.d("db", "cant add record" , e)
+            Toast.makeText(this, "Unable to add record, please try again.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun validateInput(): Boolean {
+        val title = binding.txtTitle.text.toString()
+
+        if (title.isEmpty()) {
+            return false
+        }
+
+        return true
+    }
+
     // Utilities
-    fun togglePictureButtonUI(photoTaken: Boolean) {
+    private fun togglePictureButtonUI(photoTaken: Boolean) {
         if (photoTaken) {
             binding.btnTakePhoto.visibility = GONE
             binding.groupRetakePhoto.visibility = VISIBLE
@@ -180,7 +243,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         }
     }
 
-    fun showCapturedPhotoUI(photoUrl: String) {
+    private fun showCapturedPhotoUI(photoUrl: String) {
         try {
             val imageUri = Uri.parse(photoUrl)
             val source = ImageDecoder.createSource(this.contentResolver, imageUri)
@@ -191,19 +254,28 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         }
     }
 
-    fun launchCameraActivity() {
+    private fun launchCameraActivity() {
         val intent = Intent(this, CameraActivity::class.java)
         cameraActivityResultLauncher.launch(intent)
     }
 
-    fun goBack(isProcessComplete: Boolean) {
-        val alertDialog = ConfirmationDialog(getString(R.string.confirmation_title), getString(R.string.btn_confirm), getString(R.string.btn_cancel), {
-                dialog, which ->
+    private fun goBack(isProcessComplete: Boolean, showConfirmation: Boolean = true) {
+        fun backFunction() {
             if (isProcessComplete) {
                 setResult(RESULT_OK)
             }
             finish()
+        }
+
+        val alertDialog = ConfirmationDialog(getString(R.string.confirmation_title), getString(R.string.btn_confirm), getString(R.string.btn_cancel), {
+                dialog, which ->
+            backFunction()
         }, getString(R.string.confirmation_desc_changesLost))
-        alertDialog.show(supportFragmentManager, backConfirmationTag)
+
+        if (showConfirmation) {
+            alertDialog.show(supportFragmentManager, backConfirmationTag)
+        } else {
+            backFunction()
+        }
     }
 }

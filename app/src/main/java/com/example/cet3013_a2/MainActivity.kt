@@ -2,10 +2,10 @@ package com.example.cet3013_a2
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -16,7 +16,14 @@ import com.example.cet3013_a2.main_activity.RecordsFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var startAddReportActivityForResult: ActivityResultLauncher<Intent>
+    private var startAddReportActivityForResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+            result: ActivityResult ->
+        if (result.resultCode == RESULT_OK) {
+            Toast.makeText(this, "New record added successfully", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     // Create a companion object to store the fragment tags
     companion object {
@@ -29,15 +36,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        startAddReportActivityForResult = registerForActivityResult<Intent,ActivityResult>(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-                result: ActivityResult ->
-            if (result.resultCode == RESULT_OK) {
-
-            }
-        }
 
         // Reset title to Gallery when returning from other tabs
         supportFragmentManager.addOnBackStackChangedListener {
