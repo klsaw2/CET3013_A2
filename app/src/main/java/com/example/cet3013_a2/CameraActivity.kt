@@ -3,90 +3,80 @@ package com.example.cet3013_a2
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.example.cet3013_a2.databinding.FragmentCameraBinding
-import java.nio.ByteBuffer
+import com.example.cet3013_a2.databinding.ActivityCameraBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-
-typealias LumaListener = (luma: Double) -> Unit
-
 
 class CameraActivity : AppCompatActivity() {
-
-    private lateinit var binding: FragmentCameraBinding
+    private lateinit var binding: ActivityCameraBinding
     private var imageCapture: ImageCapture? = null
-    private lateinit var cameraExecutor: ExecutorService
     private var photoURL = ""
-    private val activityResultLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions())
-        { permissions ->
-            // Handle Permission granted/rejected
-            var permissionGranted = true
-            permissions.entries.forEach {
-                if (it.key in REQUIRED_PERMISSIONS && it.value == false)
-                    permissionGranted = false
-            }
-            if (!permissionGranted) {
-                Toast.makeText(baseContext,
-                    "Permission request denied",
-                    Toast.LENGTH_SHORT).show()
-            } else {
-                startCamera()
+    private val activityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()) {
+            permissions ->
+        var permissionGranted = true
+        permissions.entries.forEach {
+            if (it.key in REQUIRED_PERMISSIONS && it.value == false) {
+                permissionGranted = false
             }
         }
 
+        if (!permissionGranted) {
+            Toast.makeText(baseContext,
+                "Permission request denied",
+                Toast.LENGTH_SHORT).show()
+        } else {
+            startCamera()
+        }
+    }
+    private var hasTakenPhoto: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityCameraBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        binding = FragmentCameraBinding.inflate(layoutInflater)
-        val view: View = binding.root
-        setContentView(view)
-
-        // Request camera permissions
         if (allPermissionsGranted()) {
             startCamera()
         } else {
             requestPermissions()
         }
 
-        // Set up the listeners for take photo and video capture buttons
-        binding.buttonTakephoto.setOnClickListener {
+        binding.btnCapture.setOnClickListener {
             takePhoto()
         }
 
-        binding.buttonBack.setOnClickListener { v ->
-            //Sent the picture back to the MainActivity
-            val intent = Intent()
-            intent.putExtra("URL", photoURL)
-            setResult(RESULT_OK, intent) //Return ok code with data
-            finish()
+        binding.btnRecapture.setOnClickListener {
+            toggleImageCaptureUI()
         }
 
-        cameraExecutor = Executors.newSingleThreadExecutor()
+        binding.btnConfirmPhoto.setOnClickListener {
+            goBack(true)
+        }
+
+        binding.btnBackFromPreview.setOnClickListener { v ->
+            goBack(false)
+        }
     }
 
     private fun takePhoto() {
-        // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
         // Create time stamped name and MediaStore entry.
@@ -114,15 +104,12 @@ class CameraActivity : AppCompatActivity() {
             object : ImageCapture.OnImageSavedCallback {
 
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                    Toast.makeText(this@CameraActivity, "Failed to capture photo.", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults){
-                    val msg = "Photo capture succeeded: ${output.savedUri}"
-
                     photoURL = output.savedUri.toString()
-                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, msg)
+                    toggleImageCaptureUI()
                 }
             }
         )
@@ -130,65 +117,36 @@ class CameraActivity : AppCompatActivity() {
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-
         cameraProviderFuture.addListener({
-            // Used to bind the lifecycle of cameras to the lifecycle owner
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-
-            // Preview
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
-                }
-
+            val preview = Preview.Builder().build().also {
+                it.setSurfaceProvider(binding.imgPreview.surfaceProvider)
+            }
             imageCapture = ImageCapture.Builder()
                 .build()
 
-            val imageAnalyzer = ImageAnalysis.Builder()
-                .build()
-                .also {
-                    it.setAnalyzer(cameraExecutor, LuminosityAnalyzer { luma ->
-                        Log.d(TAG, "Average luminosity: $luma")
-                    })
-                }
-
-
-            // Select back camera as a default
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
             try {
-                // Unbind use cases before rebinding
                 cameraProvider.unbindAll()
-
-                // Bind use cases to camera
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageCapture, imageAnalyzer)
-
-            } catch(exc: Exception) {
-                Log.e(TAG, "Use case binding failed", exc)
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+            } catch (e: Exception) {
+                Log.e(TAG, "Camera use case binding failed.", e)
             }
-
         }, ContextCompat.getMainExecutor(this))
     }
-
 
     private fun requestPermissions() {
         activityResultLauncher.launch(REQUIRED_PERMISSIONS)
     }
 
-
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cameraExecutor.shutdown()
-    }
-
     companion object {
-        private const val TAG = "CameraXApp"
+        const val photoUrlTag = "photoURL"
+        private const val TAG = "CameraActivity"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
 
         private val REQUIRED_PERMISSIONS =
@@ -202,25 +160,37 @@ class CameraActivity : AppCompatActivity() {
             }.toTypedArray()
     }
 
-    private class LuminosityAnalyzer(private val listener: LumaListener) : ImageAnalysis.Analyzer {
+    // Utilities
 
-        private fun ByteBuffer.toByteArray(): ByteArray {
-            rewind()    // Rewind the buffer to zero
-            val data = ByteArray(remaining())
-            get(data)   // Copy the buffer into a byte array
-            return data // Return the byte array
+    fun toggleImageCaptureUI() {
+        hasTakenPhoto = !hasTakenPhoto
+        if (hasTakenPhoto) {
+            binding.btnCapture.visibility = GONE
+            binding.groupConfirmPhoto.visibility = VISIBLE
+
+            // Show image and toggle image views
+            val imageUri = Uri.parse(photoURL)
+            val source = ImageDecoder.createSource(contentResolver, imageUri)
+            val bitmap = ImageDecoder.decodeBitmap(source)
+            binding.imgPhoto.setImageBitmap(bitmap)
+
+            binding.imgPhoto.visibility = VISIBLE
+            binding.imgPreview.visibility = GONE
+        } else {
+            binding.btnCapture.visibility = VISIBLE
+            binding.groupConfirmPhoto.visibility = GONE
+            binding.imgPreview.visibility = VISIBLE
+            binding.imgPhoto.visibility = GONE
         }
+    }
 
-        override fun analyze(image: ImageProxy) {
-
-            val buffer = image.planes[0].buffer
-            val data = buffer.toByteArray()
-            val pixels = data.map { it.toInt() and 0xFF }
-            val luma = pixels.average()
-
-            listener(luma)
-
-            image.close()
+    private fun goBack(isProcessComplete: Boolean) {
+        // Send photo URL back to Add/Edit Record
+        if (isProcessComplete) {
+            val intent = Intent()
+            intent.putExtra(photoUrlTag, photoURL)
+            setResult(RESULT_OK, intent) //Return ok code with data
         }
+        finish()
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="date_time_picker" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="colorAccent">@color/green3</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="android:buttonBarButtonStyle">@style/date_time_picker_button</item>
+    </style>
+    <style name="date_time_picker_button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/green3</item>
+    </style>
+</resources>

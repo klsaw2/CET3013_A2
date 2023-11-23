@@ -4,8 +4,18 @@
     <dimen name="verticalPadding">24dp</dimen>
     <dimen name="horizontalPadding">24dp</dimen>
     <dimen name="paragraph">24dp</dimen>
+    <dimen name="horizontalParagraph">16dp</dimen>
+    <dimen name="groupItemGap">12sp</dimen>
+    <dimen name="groupBtnGap">24sp</dimen>
+
+    <!-- Attribute values -->
+    <dimen name="borderRadius">10dp</dimen>
+    <dimen name="borderWidth">3dp</dimen>
 
     <!-- Text size -->
     <dimen name="lblSize">24sp</dimen>
     <dimen name="iconSize">50sp</dimen>
+
+    <!-- Component size -->
+    <dimen name="btnTouchSize">50dp</dimen>
 </resources>
