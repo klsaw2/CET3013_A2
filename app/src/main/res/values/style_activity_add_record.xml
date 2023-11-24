@@ -1,12 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Top App Bar -->
-    <style name="add_record_appbar">
+    <!-- Content -->
+    <style name="act_add_record_scroll_container">
         <!-- Layout -->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <!-- Image 1 -->
+    <style name="act_add_record_image">
+        <!-- Layout -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">255dp</item>
+        <item name="android:layout_weight">1</item>
+<!--        <item name="android:visibility">gone</item>-->
+        <!-- Padding/Margin -->
+        <item name="android:paddingVertical">80dp</item>
+        <item name="android:layout_margin">@dimen/spacing_large</item>
+
+        <!-- Button Settings -->
+        <item name="cornerRadius">@dimen/borderRadius_small</item>
+        <item name="android:text">@string/btn_take_photo</item>
+
+        <!-- Icon Settings -->
+        <item name="android:scaleType">fitCenter</item>
+        <item name="iconSize">@dimen/iconSize_large</item>
+        <item name="iconGravity">textTop</item>
+        <item name="icon">@drawable/icon_add_photo</item>
+
+        <!-- Font -->
+        <item name="android:textSize">@dimen/font_medium</item>
+
+        <!-- Color -->
+        <item name="android:backgroundTint">@color/grey2</item>
+        <item name="tint">@color/white</item>
+        <item name="iconTint">@color/grey3</item>
+        <item name="android:textColor">@color/grey3</item>
+        <item name="rippleColor">@color/blue1</item>
+    </style>
+
+    <!-- Image 2 -->
+    <style name="group_retake_photo">
+        <!-- Layout -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="img_saved_photo">
+        <!-- Layout -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">255dp</item>
+
+        <!-- Padding/Margin -->
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">@dimen/spacing_large</item>
+
+        <!-- Imageview Settings -->
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:cropToPadding">true</item>
+
+        <!-- Color -->
+        <item name="android:background">@color/transparent</item>
+<!--        <item name="tint">@color/red3</item>-->
+        <item name="rippleColor">@color/blue1</item>
+
+        <!-- Image Settings -->
+        <item name="android:src">@drawable/icon_error</item>
+    </style>
+
+    <style name="img_saved_photo_btn_group">
+        <!-- Layout -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+
+        <!-- Padding/Margin -->
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginHorizontal">@dimen/spacing_large</item>
 
     </style>
-    <!-- Content -->
-    <!-- Bottom -->
+
+    <style name="img_saved_photo_group_btn">
+        <!-- Layout -->
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <!-- Padding/Margin -->
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginHorizontal">0dp</item>
+
+        <!-- Button Settings -->
+        <item name="cornerRadius">@dimen/borderRadius_medium</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+    </style>
+
+    <style name="img_saved_photo_group_btn.discard" parent="img_saved_photo_group_btn">
+        <item name="android:layout_weight">5</item>
+        <!-- Button Settings -->
+        <item name="backgroundTint">@color/red1</item>
+        <item name="android:text">@string/btn_discard_photo</item>
+        <item name="android:textColor">@color/red3</item>
+        <item name="rippleColor">@color/red2</item>
+    </style>
+
+    <style name="img_saved_photo_group_btn.retake" parent="img_saved_photo_group_btn">
+        <item name="android:layout_weight">5</item>
+        <!-- Button Settings -->
+        <item name="backgroundTint">@color/blue_light1</item>
+        <item name="android:text">@string/btn_retake_photo</item>
+        <item name="android:textColor">@color/blue2</item>
+        <item name="rippleColor">@color/blue_light3</item>
+    </style>
+
+    <!-- Details -->
+    <style name="dete_row">
+        <!-- Layout -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:orientation">horizontal</item>
+        <!-- Padding/Margin -->
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginHorizontal">@dimen/spacing_large</item>
+        <item name="android:layout_marginVertical">@dimen/spacing_small</item>
+    </style>
+
+    <style name="dete_lbl">
+        <!-- Layout -->
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">3</item>
+
+        <!-- Text -->
+        <item name="android:gravity">center_vertical</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/grey4</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+
+    </style>
+
+    <style name="dete_value">
+        <!-- Layout -->
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">10</item>
+
+        <!-- Text -->
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/grey4</item>
+        <item name="android:textColorHint">@color/grey3</item>
+        <item name="android:importantForAutofill">no</item>
+    </style>
+
+    <style name="btn_location">
+        <!-- Layout -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+
+        <!-- Padding/Margin -->
+        <item name="android:layout_marginHorizontal">@dimen/spacing_large</item>
+        <item name="android:titleMarginBottom">@dimen/spacing_large</item>
+
+        <!-- Text -->
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/blue2</item>
+
+        <!-- Button Settings -->
+        <item name="android:backgroundTint">@color/blue_light2</item>
+        <item name="cornerRadius">@dimen/borderRadius_medium</item>
+
+        <!-- Icon Settings -->
+        <item name="icon">@drawable/icon_location</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="iconSize">20dp</item>
+        <item name="iconTint">@color/blue2</item>
+    </style>
+
+    <!-- Main Button Group -->
+    <style name="act_add_record_main_btn_group">
+        <!-- Layout -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+
+        <!-- Padding/Margin -->
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginHorizontal">@dimen/spacing_large</item>
+    </style>
+
+    <style name="act_add_record_main_btn">
+        <!-- Layout -->
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+
+        <!-- Button Settings -->
+        <item name="cornerRadius">@dimen/borderRadius_medium</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+    </style>
+
+    <style name="act_add_record_main_btn.discard" parent="act_add_record_main_btn">
+        <item name="android:layout_weight">4</item>
+        <!-- Button Settings -->
+        <item name="backgroundTint">@color/red1</item>
+        <item name="android:text">@string/btn_retake_photo</item>
+        <item name="android:textColor">@color/red3</item>
+        <item name="rippleColor">@color/blue_light3</item>
+    </style>
+
+    <style name="act_add_record_main_btn.add" parent="act_add_record_main_btn">
+        <item name="android:layout_weight">7</item>
+        <!-- Button Settings -->
+        <item name="backgroundTint">@color/green3</item>
+        <item name="android:text">@string/btn_retake_photo</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="rippleColor">@color/blue_light3</item>
+    </style>
 </resources>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="btn_back_from_preview">
+        <!-- Layout -->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">80dp</item>
+
+        <!-- Padding/Margin -->
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginStart">@dimen/spacing_large</item>
+        <item name="android:layout_marginTop">@dimen/spacing_large</item>
+        <item name="android:cropToPadding">true</item>
+
+        <!-- Font -->
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_huge</item>
+
+        <!-- Color -->
+        <item name="android:backgroundTint">@color/transparent</item>
+
+        <!-- Icon -->
+        <item name="icon">@drawable/icon_back</item>
+        <item name="iconSize">@dimen/iconSize_large</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/white</item>
+
+    </style>
+
+    <style name="btn_shutter">
+        <!-- Layout -->
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+
+        <!-- Padding/Margin -->
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_large</item>
+        <item name="android:cropToPadding">true</item>
+
+        <!-- Icon -->
+        <item name="android:src">@drawable/icon_shutter</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">@null</item>
+
+    </style>
+
+    <!-- Confirm Photo Btn Group -->
+    <style name="confirm_photo_btn_group">
+        <!-- Layout -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:visibility">invisible</item>
+
+        <!-- Padding/Margin -->
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">@dimen/spacing_large</item>
+
+    </style>
+
+    <!-- Confirm Photo Btn-->
+    <style name="confirm_photo_btn">
+        <!-- Layout -->
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <!-- Padding/Margin -->
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">@dimen/spacing_large</item>
+
+        <item name="android:cropToPadding">true</item>
+
+        <!-- Icon -->
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="confirm_photo_btn.retry" parent="confirm_photo_btn">
+        <item name="android:src">@drawable/icon_circle_filled_retry</item>
+        <item name="tint">@color/red2</item>
+    </style>
+
+    <style name="confirm_photo_btn.confirm" parent="confirm_photo_btn">
+        <item name="android:src">@drawable/icon_circle_filled_check</item>
+        <item name="tint">@color/green2</item>
+    </style>
+
+
+</resources>

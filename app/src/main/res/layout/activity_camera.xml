@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".CameraActivity">
 
+
+
     <ImageView
         android:id="@+id/img_photo"
         android:layout_width="match_parent"
@@ -15,92 +17,59 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAccessibility="no"/>
 
     <androidx.camera.view.PreviewView
         android:id="@+id/img_preview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" >
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.camera.view.PreviewView>
-
-    <Button
+    <ImageButton
         android:id="@+id/btn_capture"
-        android:layout_width="75dp"
-        android:layout_height="85dp"
-        android:layout_marginBottom="@dimen/verticalPadding"
-        android:backgroundTint="@color/white"
+        style="@style/btn_shutter"
         android:elevation="2dp"
-        app:icon="@drawable/icon_capture"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        app:iconSize="@dimen/iconSize"
-        app:iconTint="@color/grey3"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="@color/grey3" />
+        android:importantForAccessibility="no" />
 
     <LinearLayout
         android:id="@+id/group_confirm_photo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:visibility="gone"
+        style="@style/confirm_photo_btn_group"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
-        <Button
+        <ImageButton
             android:id="@+id/btn_recapture"
-            android:layout_width="75dp"
-            android:layout_height="85dp"
-            android:layout_marginRight="@dimen/groupBtnGap"
-            android:layout_marginBottom="@dimen/verticalPadding"
-            android:backgroundTint="@color/transparent"
+            style="@style/confirm_photo_btn.retry"
             android:elevation="2dp"
-            app:icon="@drawable/icon_retry"
-            app:iconGravity="textStart"
-            app:iconPadding="0dp"
-            app:iconSize="@dimen/iconSize"
-            app:iconTint="@color/white"
-            app:strokeColor="@color/white"
-            app:strokeWidth="@dimen/borderWidth" />
+            android:importantForAccessibility="no"
+            tools:ignore="VisualLintBounds" />
 
-        <Button
+        <View
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            tools:ignore="VisualLintBounds" />
+
+        <ImageButton
             android:id="@+id/btn_confirm_photo"
-            android:layout_width="75dp"
-            android:layout_height="85dp"
-            android:layout_marginBottom="@dimen/verticalPadding"
-            android:backgroundTint="@color/green3"
+            style="@style/confirm_photo_btn.confirm"
             android:elevation="2dp"
-            app:icon="@drawable/icon_check"
-            app:iconGravity="textStart"
-            app:iconPadding="0dp"
-            app:iconSize="@dimen/iconSize"
-            app:iconTint="@color/white" />
+            android:importantForAccessibility="no"
+            tools:ignore="VisualLintBounds" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_back_from_preview"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginStart="@dimen/horizontalPadding"
-        android:layout_marginTop="@dimen/verticalPadding"
-        android:backgroundTint="@color/transparent"
+        style="@style/btn_back_from_preview"
         android:text="@string/camera_back"
-        android:textColor="@color/white"
-        android:textSize="@dimen/lblSize"
-        app:icon="@drawable/ic_back"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        app:iconSize="@dimen/lblSize"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_preview" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
