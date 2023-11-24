@@ -4,12 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Reporter::class, Record::class], version = 3, exportSchema = false)
+@Database(entities = [Reporter::class, Record::class], version = 2, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun getRecordDao(): RecordDao
     abstract fun getReporterDao(): ReporterDao
@@ -44,12 +45,39 @@ abstract class AppDatabase: RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java, "app_database"
                     )
+                        .addMigrations(MIGRATION_1_2)
                         .addCallback(dbCreationCallback)
-                        .fallbackToDestructiveMigration()
                         .build()
                 }
             }
             return dbInstance
+        }
+
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("DELETE FROM report")
+                database.execSQL("DELETE FROM reporter")
+                database.execSQL("DROP TABLE IF EXISTS reporter")
+                database.execSQL("DROP TABLE IF EXISTS report")
+                database.execSQL("CREATE TABLE IF NOT EXISTS record (" +
+                        "`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "`title` TEXT NOT NULL," +
+                        "`category` TEXT NOT NULL," +
+                        "`locationLat` REAL NOT NULL," +
+                        "`locationLng` REAL NOT NULL," +
+                        "`dateTime` TEXT NOT NULL," +
+                        "`photoUrl` TEXT," +
+                        "`notes` TEXT," +
+                        "`reportedBy` INTEGER NOT NULL," +
+                        "FOREIGN KEY (reportedBy) REFERENCES record(id)" +
+                        ")")
+                database.execSQL("CREATE TABLE IF NOT EXISTS reporter (" +
+                        "`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "`name` TEXT NOT NULL," +
+                        "`age` INTEGER NOT NULL," +
+                        "`relationship` TEXT NOT NULL" +
+                        ")")
+            }
         }
     }
 }
