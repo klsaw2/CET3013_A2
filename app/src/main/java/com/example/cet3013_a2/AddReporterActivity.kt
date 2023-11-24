@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.FragmentProfileReporterBinding
 import com.example.cet3013_a2.roomdb.Reporter
 import com.example.cet3013_a2.roomdb.ViewModel
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener  {
     private lateinit var binding: FragmentProfileReporterBinding
@@ -63,11 +65,23 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
                 name = binding.etvName.text.toString()
                 age = binding.etvAge.text.toString().toInt()
                 binding.tvErrorMsg.visibility = View.INVISIBLE
-                try{
-                    viewModel.addReporter(Reporter(name = name, age = age , relationship = relationship))
-                    goBack(true, false)
-                }catch (e: Exception){
-                    Toast.makeText(this, "Unable to add new reporter, please try again.", Toast.LENGTH_SHORT).show()
+
+                if(age < 18){
+                    Toast.makeText(this,"Age should be more than 18",Toast.LENGTH_SHORT).show()
+                }else{
+                    if(name.length > 40 ){
+                        Toast.makeText(this,"The name is too long, try a new name",Toast.LENGTH_SHORT).show()
+                    }else{
+                        try{
+                            viewModel.addReporter(Reporter(name = name, age = age , relationship = relationship))
+                            Toast.makeText(this,"Insert success !",Toast.LENGTH_SHORT).show()
+                            Timer().schedule(2000){
+                                goBack(true, false)
+                            }
+                        }catch (e: Exception){
+                            Toast.makeText(this, "Unable to add new reporter, please try again.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         }
@@ -91,7 +105,7 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             android.R.id.home ->
-                finish()
+                goBack(false)
         }
         return super.onOptionsItemSelected(menuItem)
     }
