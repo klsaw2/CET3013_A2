@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="record_item_name">
+        <!-- Size -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/grey1</item>
+
+        <!-- Padding -->
+        <item name="android:paddingVertical">@dimen/spacing_medium</item>
+        <item name="android:paddingHorizontal">@dimen/spacing_large</item>
+
+        <!-- Font -->
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textColor">@color/grey4</item>
+    </style>
+</resources>

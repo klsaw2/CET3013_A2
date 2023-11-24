@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/main_container"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_record_name"
+        style="@style/record_item_name"
+        android:text="@string/record_title_placeholder" />
+
+</LinearLayout>

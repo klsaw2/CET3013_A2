@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="profile_reporter_item_row">
+        <!-- Size -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/grey1</item>
+
+        <!-- Orientation -->
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="profile_reporter_item">
+        <!-- Size -->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <!-- Padding -->
+        <item name="android:paddingVertical">@dimen/spacing_medium</item>
+
+        <!-- Font -->
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textColor">@color/grey4</item>
+
+    </style>
+
+    <style name="profile_reporter_item.left" parent="profile_reporter_item">
+        <!-- Size -->
+        <item name="android:layout_weight">7</item>
+        <!-- Padding -->
+        <item name="android:paddingStart">@dimen/spacing_large</item>
+    </style>
+
+    <style name="profile_reporter_item.right" parent="profile_reporter_item">
+        <!-- Size -->
+        <item name="android:layout_weight">3</item>
+
+        <!-- Padding -->
+        <item name="android:paddingEnd">@dimen/spacing_large</item>
+
+        <!-- Orientation -->
+        <item name="android:orientation">horizontal</item>
+
+        <!-- Font -->
+        <item name="android:textColor">@color/grey3</item>
+
+    </style>
+</resources>

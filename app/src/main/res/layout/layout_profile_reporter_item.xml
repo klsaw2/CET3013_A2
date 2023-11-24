@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/main_container"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/profile_reporter_item_row"
+        style="@style/profile_reporter_item_row">
+
+        <TextView
+            android:id="@+id/item_reporter_name"
+            style="@style/profile_reporter_item.left"
+            android:text="@string/reporter_name_placeholder" />
+
+        <TextView
+            android:id="@+id/item_reporter_relation"
+            style="@style/profile_reporter_item.right"
+            android:text="@string/reporter_relationship_placeholder" />
+    </LinearLayout>
+
+
+</LinearLayout>
