@@ -33,7 +33,6 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
-        binding.tvErrorMsg.visibility = View.INVISIBLE
         val spinner: Spinner = binding.spinnerRelationship
         spinner.onItemSelectedListener = this
         ArrayAdapter.createFromResource(
@@ -54,18 +53,13 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
 
         binding.btnConfirm.setOnClickListener {
             if(binding.etvName.text.isEmpty()){
-                binding.tvErrorMsg.text = getString(R.string.error_msg_name)
-                binding.tvErrorMsg.visibility = View.VISIBLE
+                binding.etvName.error = getString(R.string.error_msg_name)
+
             }else if (binding.etvAge.text.isEmpty()){
-                binding.tvErrorMsg.text = getString(R.string.error_msg_age)
-                binding.tvErrorMsg.visibility = View.VISIBLE
-            }else if (relationship.isBlank()){
-                binding.tvErrorMsg.text = getString(R.string.error_msg_relationship)
-                binding.tvErrorMsg.visibility = View.VISIBLE
+                binding.etvAge.error = getString(R.string.error_msg_age)
             }else{
                 name = binding.etvName.text.toString()
                 age = binding.etvAge.text.toString().toInt()
-                binding.tvErrorMsg.visibility = View.INVISIBLE
 
                 if(age < 18){
                     binding.etvAge.error = "Age should be more than 18"
