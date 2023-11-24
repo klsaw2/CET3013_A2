@@ -27,8 +27,8 @@ abstract class AppDatabase: RoomDatabase() {
                 coroutineScope.launch {
                     val reporterDao = dbInstance!!.getReporterDao()
                     val recordDao = dbInstance!!.getRecordDao()
-                    reporterDao.deleteAllReporters()
                     recordDao.deleteAllRecords()
+                    reporterDao.deleteAllReporters()
                     reporterDao.addReporter(Reporter(
                         name = "Guardian",
                         age = 1,
@@ -69,7 +69,7 @@ abstract class AppDatabase: RoomDatabase() {
                         "`photoUrl` TEXT," +
                         "`notes` TEXT," +
                         "`reportedBy` INTEGER NOT NULL," +
-                        "FOREIGN KEY (reportedBy) REFERENCES record(id)" +
+                        "FOREIGN KEY (reportedBy) REFERENCES reporter(id) ON DELETE CASCADE" +
                         ")")
                 database.execSQL("CREATE TABLE IF NOT EXISTS reporter (" +
                         "`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -81,8 +81,28 @@ abstract class AppDatabase: RoomDatabase() {
 
         private val MIGRATION_2_3 = object : Migration(2, 3) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE reporter" +
-                        "ADD age INTEGER")
+                database.execSQL("DELETE FROM record")
+                database.execSQL("DELETE FROM reporter")
+                database.execSQL("DROP TABLE IF EXISTS reporter")
+                database.execSQL("DROP TABLE IF EXISTS record")
+                database.execSQL("CREATE TABLE IF NOT EXISTS record (" +
+                        "`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "`title` TEXT NOT NULL," +
+                        "`category` TEXT NOT NULL," +
+                        "`locationLat` REAL NOT NULL," +
+                        "`locationLng` REAL NOT NULL," +
+                        "`dateTime` TEXT NOT NULL," +
+                        "`photoUrl` TEXT," +
+                        "`notes` TEXT," +
+                        "`reportedBy` INTEGER NOT NULL," +
+                        "FOREIGN KEY (reportedBy) REFERENCES reporter(id) ON DELETE CASCADE" +
+                        ")")
+                database.execSQL("CREATE TABLE IF NOT EXISTS reporter (" +
+                        "`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "`name` TEXT NOT NULL," +
+                        "`age` INTEGER," +
+                        "`relationship` TEXT NOT NULL" +
+                        ")")
             }
         }
     }
