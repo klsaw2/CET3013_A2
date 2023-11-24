@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Spacing -->
-    <dimen name="verticalPadding">24dp</dimen>
-    <dimen name="horizontalPadding">24dp</dimen>
+    <dimen name="spacing_very_small">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_very_large">32dp</dimen>
+
     <dimen name="paragraph">24dp</dimen>
     <dimen name="horizontalParagraph">16dp</dimen>
     <dimen name="groupItemGap">12sp</dimen>
     <dimen name="groupBtnGap">24sp</dimen>
+
+
+    <!-- Border Radius -->
+    <dimen name="borderRadius_small">5dp</dimen>
+    <dimen name="borderRadius_medium">10dp</dimen>
+    <dimen name="borderRadius_large">20dp</dimen>
+    <dimen name="borderRadius_very_large">30dp</dimen>
+
+<!-- Icon size -->
+    <dimen name="iconSize_small">20dp</dimen>
+    <dimen name="iconSize_medium">30dp</dimen>
+    <dimen name="iconSize_large">40dp</dimen>
+    <dimen name="iconSize_very_large">50dp</dimen>
 
     <!-- Attribute values -->
     <dimen name="borderRadius">10dp</dimen>
@@ -18,4 +35,13 @@
 
     <!-- Component size -->
     <dimen name="btnTouchSize">50dp</dimen>
+
+    <!-- Font -->
+    <dimen name="font_very_small">12sp</dimen>
+    <dimen name="font_small">14sp</dimen>
+    <dimen name="font_medium">16sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_very_large">20sp</dimen>
+    <dimen name="font_huge">24sp</dimen>
+
 </resources>

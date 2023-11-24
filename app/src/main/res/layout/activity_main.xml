@@ -5,7 +5,6 @@
     style="@style/main_container"
     tools:context=".MainActivity">
 
-
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tb_main"
         style="@style/top_app_bar"
@@ -20,25 +19,23 @@
         app:titleTextAppearance="@style/top_app_bar_title"
         app:titleTextColor="@color/white" />
 
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mainFragmentContainer"
         android:name="com.example.cet3013_a2.main_activity.GalleryFragment"
         style="@style/fragment_view_container"
-
         app:layout_constraintBottom_toTopOf="@id/vDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_main" />
+        app:layout_constraintTop_toBottomOf="@id/tb_main"
+        tools:layout="@layout/fragment_gallery" />
 
     <View
         android:id="@+id/vDivider"
         android:layout_width="match_parent"
         android:layout_height="7dp"
-        app:layout_constraintTop_toBottomOf="@id/mainFragmentContainer"
-        app:layout_constraintBottom_toTopOf="@id/btm_nav_bar"
         android:background="@color/blue1"
-        />
+        app:layout_constraintBottom_toTopOf="@id/btm_nav_bar"
+        app:layout_constraintTop_toBottomOf="@id/mainFragmentContainer" />
 
     <LinearLayout
         android:id="@+id/btm_nav_bar"
@@ -50,17 +47,20 @@
         <ImageButton
             android:id="@+id/btn_nav_records"
             style="@style/btm_nav_bar_btn.records"
-            app:srcCompat="@drawable/icon_records" />
+            app:srcCompat="@drawable/icon_records"
+            android:importantForAccessibility="no" />
 
         <ImageButton
             android:id="@+id/btn_nav_add"
             style="@style/btm_nav_bar_btn.add"
-            app:srcCompat="@drawable/icon_add_record" />
+            app:srcCompat="@drawable/icon_add_record"
+            android:importantForAccessibility="no" />
 
         <ImageButton
             android:id="@+id/btn_nav_profile"
             style="@style/btm_nav_bar_btn.profile"
-            app:srcCompat="@drawable/icon_profile" />
+            app:srcCompat="@drawable/icon_profile"
+            android:importantForAccessibility="no" />
 
 
     </LinearLayout>

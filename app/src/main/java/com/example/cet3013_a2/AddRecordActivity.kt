@@ -81,7 +81,8 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
         // Toolbar
         setSupportActionBar(findViewById(binding.tbAddRecord.id))
-        val backDrawable: Drawable = AppCompatResources.getDrawable(this, R.drawable.ic_back)!!
+        val backDrawable: Drawable = AppCompatResources.getDrawable(this, R.drawable.icon_back)!!
+        backDrawable.setTint(getColor(R.color.white))
         supportActionBar!!.setHomeAsUpIndicator(backDrawable)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
