@@ -1,19 +1,27 @@
 <resources>
-    <string name="app_name">CET3013_A2</string>
+    <string name="app_name">Trace My Kid</string>
+
+    <!-- Top nav bar tittles -->
+    <string name="t_gallery">Gallery</string>
+    <string name="st_gallery">(Pick a picture to add record)</string>
+    <string name="t_records">Records</string>
+    <string name="t_profiles">Profiles</string>
+    <string name="t_add_record">Add Record</string>
+    <string name="t_edit_record">Edit Record</string>
+    <string name="t_add_reporter">Add Reporter</string>
+    <string name="t_edit_reporter">Edit Reporter</string>
+
     <!-- Bottom nav drawer -->
     <string name="lbl_add">Add</string>
     <string name="lbl_search">Search</string>
     <string name="lbl_records">Records</string>
     <string name="lbl_reporters">Reporters</string>
-    <string name="lbl_profile">Profile</string>
+    <string name="lbl_profile">Profiles</string>
 
     <!-- Gallery Fragment -->
-    <string name="lbl_gallery">Gallery</string>
     <string name="image_item_description">Image from gallery</string>
 
     <!-- Add/edit Record -->
-    <string name="lbl_add_record">Add Record</string>
-    <string name="lbl_edit_record">Edit Record</string>
     <string name="lbl_take_photo">Take a photo</string>
     <string name="lbl_retake_photo">Retake photo</string>
     <string name="lbl_discard_photo">Discard photo</string>
@@ -31,8 +39,6 @@
     <string name="lbl_discard">Discard</string>
 
     <!-- Profile add/edit Fragment -->
-    <string name="lbl_add_reporter">Add Reporter</string>
-    <string name="lbl_edit_reporter">Edit Reporter</string>
     <string name="lbl_name">Name</string>
     <string name="lbl_age">Age</string>
     <string name="lbl_relationship">Relationship</string>

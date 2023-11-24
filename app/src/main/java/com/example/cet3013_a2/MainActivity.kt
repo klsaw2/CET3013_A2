@@ -3,10 +3,11 @@ package com.example.cet3013_a2
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
@@ -19,8 +20,7 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
     private lateinit var binding: ActivityMainBinding
     private var startAddReportActivityForResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ) {
-            result: ActivityResult ->
+    ) { result: ActivityResult ->
         if (result.resultCode == RESULT_OK) {
             Toast.makeText(this, "New record added successfully", Toast.LENGTH_SHORT).show()
         }
@@ -48,11 +48,18 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Set status bar color to match with app bar color
+        window.statusBarColor = ContextCompat.getColor(this, R.color.blue3)
         // Reset title to Gallery when returning from other tabs
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount < 1) {
                 // Set title text
-                binding.tittleText.text = getString(R.string.lbl_gallery)
+                binding.tbMain.title = getString(R.string.t_gallery)
+                // Set subtitle text
+                binding.tbMain.subtitle = getString(R.string.st_gallery)
+                // Set bottom navigation button color
+                binding.btnNavRecords.setBackgroundColor(getColor(R.color.white))
+                binding.btnNavProfile.setBackgroundColor(getColor(R.color.white))
             }
         }
 
@@ -60,19 +67,17 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
         binding.btnNavRecords.setOnClickListener {
             // Switch to RecordsFragment
             switchFragment(
-                binding.mainFragmentContainer.id, // containerID
                 ::RecordsFragment, // Fragment constructor
                 recordsFragmentTag, // Fragment tag
-                R.string.lbl_records // Tittle text
+                R.string.t_records // Tittle text
             )
         }
         binding.btnNavProfile.setOnClickListener {
             // Switch to ProfileFragment
             switchFragment(
-                binding.mainFragmentContainer.id, // containerID
                 ::ProfileFragment, // Fragment constructor
                 profileFragmentTag, // Fragment tag
-                R.string.lbl_profile // Tittle text
+                R.string.t_profiles // Tittle text
             )
         }
         binding.btnNavAdd.setOnClickListener {
@@ -80,16 +85,17 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
             startAddReportActivityForResult.launch(addReportIntent)
         }
     }
+
     // Fragment Management Functions ==========================================
     private fun switchFragment(
-        containerID: Int,
         fragment: () -> Fragment,
         fragmentTag: String = "",
-        titleID: Int = 0
+        titleID: Int = 0,
+        subtitleID: Int = 0
     ) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         // Replace container with desire fragment (function)
-        transaction.replace(containerID, fragment())
+        transaction.replace(binding.mainFragmentContainer.id, fragment())
         // Set transition animation
         transaction.setTransition(TRANSIT_FRAGMENT_FADE)
         // Add to back stack
@@ -99,7 +105,32 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
         transaction.commit()
 
         // Set tittle text
-        binding.tittleText.text = getString(titleID)
+        if (titleID != 0) {
+            binding.tbMain.title = getString(titleID)
+        } else {
+            binding.tbMain.title = ""
+        }
+
+        // Set subtitle text
+        if (subtitleID != 0) {
+            binding.tbMain.subtitle = getString(subtitleID)
+        } else {
+            binding.tbMain.subtitle = ""
+        }
+
+        // Set bottom navigation button color after switching fragment
+        when (titleID) {
+           R.string.t_records -> {
+                // Set bottom navigation button color
+               binding.btnNavRecords.setBackgroundColor(getColor(R.color.blue1))
+               binding.btnNavProfile.setBackgroundColor(getColor(R.color.white))
+            }
+            R.string.t_profiles -> {
+                // Set bottom navigation button color
+                binding.btnNavRecords.setBackgroundColor(getColor(R.color.white))
+                binding.btnNavProfile.setBackgroundColor(getColor(R.color.blue1))
+            }
+        }
 
         //DEMO Room
 //        val viewModel = ViewModelProvider(this).get(ViewModel::class.java)

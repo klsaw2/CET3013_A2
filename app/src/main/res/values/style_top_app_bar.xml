@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+        <!-- Top App Bar -->
+        <style name="top_app_bar">
+            <!-- Layout -->
+            <item name="android:layout_width">match_parent</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:paddingVertical">0dp</item>
+            <item name="android:paddingHorizontal">0dp</item>
+            <item name="buttonGravity">center_vertical</item>
+
+            <!-- Tittle -->
+            <item name="titleCentered">true</item>
+            <item name="subtitleCentered">true</item>
+
+            <!-- Color -->
+            <item name="android:background">@color/blue3</item>
+
+        </style>
+    <style name="top_app_bar_title">
+
+        <!-- Font -->
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">22sp</item>
+
+    </style>
+    <style name="top_app_bar_subtitle">
+        <!-- Font -->
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

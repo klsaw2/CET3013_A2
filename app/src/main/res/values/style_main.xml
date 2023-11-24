@@ -5,42 +5,9 @@
         <!-- Size -->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:orientation">vertical</item>
 
         <!-- Color -->
-        <item name="android:background">@color/blue_light1</item>
-    </style>
-
-    <style name="title">
-        <!-- Size -->
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">0.8</item>
-        <item name="android:paddingVertical">20dp</item>
-
-        <!-- Color -->
-        <item name="android:background">@color/blue_light2</item>
-
-        <!-- Text -->
-        <item name="android:text">@string/lbl_gallery</item>
-        <item name="android:textAlignment">center</item>
-
-        <!-- Font -->
-        <item name="fontFamily">@font/roboto_bold</item>
-        <item name="android:textColor">@color/grey4</item>
-        <item name="android:textSize">24sp</item>
-    </style>
-    <style name="tb_title">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:paddingVertical">7dp</item>
-        <!-- Color -->
-        <item name="android:background">@color/blue_light2</item>
-
-        <!-- Font -->
-        <item name="fontFamily">@font/roboto_bold</item>
-        <item name="android:textColor">@color/grey4</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="fragment_view_container">
@@ -50,77 +17,49 @@
         <item name="android:layout_weight">8</item>
 
         <!-- Color -->
-        <item name="android:background">@color/grey2</item>
     </style>
 
     <style name="btm_nav_bar">
         <!-- Size -->
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_height">60dp</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_margin">0dp</item>
         <item name="android:padding">0dp</item>
 
         <!-- Color -->
-        <item name="android:background">@color/blue1</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="btm_nav_bar_btn">
-        <!-- Size -->
+        <!-- Layout -->
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_margin">0dp</item>
-        <item name="android:paddingVertical">12dp</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
 
+        <!-- Padding -->
+        <item name="android:padding">10dp</item>
 
-        <!-- Shape -->
-        <item name="cornerRadius">0dp</item>
+        <!-- Image Settings -->
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:cropToPadding">true</item>
+        <item name="android:scaleType">fitCenter</item>
 
-        <!-- Padding / Margin -->
 
         <!-- Color -->
-        <item name="android:backgroundTint">@color/blue_light2</item>
-
-        <!-- Font -->
-        <item name="android:textColor">@color/grey4</item>
-        <item name="fontFamily">@font/roboto_bold</item>
-        <item name="android:textSize">16sp</item>
-        <!-- Icon -->
-        <item name="iconSize">40dp</item>
-        <item name="iconGravity">top</item>
-        <item name="iconTint">@color/grey4</item>
-        <item name="iconPadding">0dp</item>
-        <item name="rippleColor">@color/blue2</item>
+        <item name="tint">@color/grey4</item>
+<!--        <item name="android:backgroundTint">@color/transparent</item>-->
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="btm_nav_bar_btn.records" parent="btm_nav_bar_btn">
-        <!-- Icon -->
-        <item name="icon">@drawable/icon_records</item>
-
-
-        <!-- Text -->
-        <item name="android:text">@string/lbl_records</item>
     </style>
 
     <style name="btm_nav_bar_btn.add" parent="btm_nav_bar_btn">
-        <!-- Icon -->
-        <item name="icon">@drawable/icon_add_record</item>
-
-        <!-- Text -->
-        <item name="android:text">@string/lbl_add</item>
     </style>
 
     <style name="btm_nav_bar_btn.profile" parent="btm_nav_bar_btn">
-        <!-- Icon -->
-        <item name="icon">@drawable/icon_profile</item>
-
-
-        <!-- Text -->
-        <item name="android:text">@string/lbl_profile</item>
     </style>
 
 </resources>

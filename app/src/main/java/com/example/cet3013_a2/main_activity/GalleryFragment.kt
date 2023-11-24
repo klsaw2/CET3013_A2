@@ -31,7 +31,6 @@ class GalleryFragment : Fragment() {
 
     // Declare permission request code
     private val PERMISSIONREQUESTCODE = 100
-    private var recyclerView: RecyclerView? = null
 
     // Permission request launcher
     private val requestPermissionLauncher =
@@ -42,6 +41,11 @@ class GalleryFragment : Fragment() {
                 Log.i("Permission: ", "Denied")
             }
         }
+
+    override fun onResume() {
+        super.onResume()
+        loadImages()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +66,6 @@ class GalleryFragment : Fragment() {
 
         return layoutView
     }
-
 
     private fun checkPermissions() {
         // Check if the permission is granted
@@ -158,8 +161,10 @@ class GalleryFragment : Fragment() {
                     images.add(cursor.getString(colIndex)) // Add the image path to the images list
             }
         }
+        // Get the RecyclerView from the view
+        val recyclerGallery = view?.findViewById<RecyclerView>(R.id.recycler_gallery)
         // Update the recycler view if there is any changes
-        recyclerView?.adapter?.notifyDataSetChanged()
+        recyclerGallery?.adapter?.notifyDataSetChanged()
     }
 
     inner class GridSpacingItemDecoration(

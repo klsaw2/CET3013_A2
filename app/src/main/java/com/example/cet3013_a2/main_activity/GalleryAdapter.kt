@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.example.cet3013_a2.R
 import java.io.File
 
-
 class GalleryAdapter(context: Context, imageList: ArrayList<String>, private val imageClickListener: OnImageClickListener) :
     RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tb_AddReporter"
@@ -15,15 +16,14 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/tbAddRecord"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/tb_title"
-            app:buttonGravity="center_vertical"
+            style="@style/top_app_bar"
+            android:theme="@style/top_app_bar"
+            app:titleTextAppearance="@style/top_app_bar_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="@string/lbl_add_reporter"
-            app:titleCentered="true" />
+            app:title="@string/t_add_reporter"
+             />
 
         <Space
             android:layout_width="match_parent"

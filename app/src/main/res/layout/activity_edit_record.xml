@@ -8,17 +8,13 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tbAddRecord"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/tb_title"
-        app:buttonGravity="center_vertical"
+        style="@style/top_app_bar"
+        android:theme="@style/top_app_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/lbl_edit_record"
-        app:titleCentered="true" />
-
-
+        app:title="@string/t_edit_record"
+        app:titleTextAppearance="@style/top_app_bar_title" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

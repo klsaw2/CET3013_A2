@@ -1,54 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/main_container"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/tittle_text"
-        style="@style/title" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tb_main"
+        style="@style/top_app_bar"
+        android:theme="@style/top_app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:subtitle="@string/st_gallery"
+        app:subtitleTextAppearance="@style/top_app_bar_subtitle"
+        app:subtitleTextColor="@color/grey2"
+        app:title="@string/t_gallery"
+        app:titleTextAppearance="@style/top_app_bar_title"
+        app:titleTextColor="@color/white" />
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mainFragmentContainer"
         android:name="com.example.cet3013_a2.main_activity.GalleryFragment"
         style="@style/fragment_view_container"
+
+        app:layout_constraintBottom_toTopOf="@id/vDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_main" />
+
+    <View
+        android:id="@+id/vDivider"
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        app:layout_constraintTop_toBottomOf="@id/mainFragmentContainer"
+        app:layout_constraintBottom_toTopOf="@id/btm_nav_bar"
+        android:background="@color/blue1"
         />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        style="@style/btm_nav_bar">
+        android:id="@+id/btm_nav_bar"
+        style="@style/btm_nav_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_nav_records"
-            style="@style/btm_nav_bar_btn.records" />
+            style="@style/btm_nav_bar_btn.records"
+            app:srcCompat="@drawable/icon_records" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_nav_add"
-            style="@style/btm_nav_bar_btn.add" />
+            style="@style/btm_nav_bar_btn.add"
+            app:srcCompat="@drawable/icon_add_record" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_nav_profile"
-            style="@style/btm_nav_bar_btn.profile" />
+            style="@style/btm_nav_bar_btn.profile"
+            app:srcCompat="@drawable/icon_profile" />
+
 
     </LinearLayout>
 
-<!-- For Room demo only, remove on push -->
-<!--    <Button-->
-<!--        android:id="@+id/btn_add"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Add" />-->
-<!--    <Button-->
-<!--        android:id="@+id/btn_update"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Update"-->
-<!--    />-->
+    <!-- For Room demo only, remove on push -->
+    <!--    <Button-->
+    <!--        android:id="@+id/btn_add"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Add" />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/btn_update"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Update"-->
+    <!--    />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/btn_delete"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Delete"-->
-<!--     />-->
-</LinearLayout>
+    <!--    <Button-->
+    <!--        android:id="@+id/btn_delete"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Delete"-->
+    <!--     />-->
+</androidx.constraintlayout.widget.ConstraintLayout>
