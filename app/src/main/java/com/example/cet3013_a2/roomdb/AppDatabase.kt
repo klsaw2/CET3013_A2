@@ -31,6 +31,7 @@ abstract class AppDatabase: RoomDatabase() {
                     recordDao.deleteAllRecords()
                     reporterDao.addReporter(Reporter(
                         name = "Guardian",
+                        age = 1,
                         relationship = "Guardian"
                     ))
                 }
@@ -73,6 +74,7 @@ abstract class AppDatabase: RoomDatabase() {
                 database.execSQL("CREATE TABLE IF NOT EXISTS reporter (" +
                         "`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "`name` TEXT NOT NULL," +
+                        "`age` INTEGER NOT NULL," +
                         "`relationship` TEXT NOT NULL" +
                         ")")
             }

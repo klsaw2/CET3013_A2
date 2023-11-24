@@ -15,6 +15,9 @@ class Reporter(
     @ColumnInfo(name="name")
     var name: String,
 
+    @ColumnInfo(name="age")
+    var age: Int,
+
     @ColumnInfo(name="relationship")
     var relationship: String
 ) {

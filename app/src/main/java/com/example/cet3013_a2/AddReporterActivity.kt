@@ -3,6 +3,7 @@ package com.example.cet3013_a2
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -10,20 +11,28 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.FragmentProfileReporterBinding
+import com.example.cet3013_a2.roomdb.Reporter
+import com.example.cet3013_a2.roomdb.ViewModel
 
 class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener  {
     private lateinit var binding: FragmentProfileReporterBinding
+    private lateinit var viewModel: ViewModel
     private lateinit var name: String
     private lateinit var relationship: String
+    private val backConfirmationTag = "add_reporter_back_confirmation"
+
     private var age: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         binding = FragmentProfileReporterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         binding.tvErrorMsg.visibility = View.INVISIBLE
         val spinner: Spinner = binding.spinnerRelationship
         spinner.onItemSelectedListener = this
@@ -56,17 +65,30 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
                 name = binding.etvName.text.toString()
                 age = binding.etvAge.text.toString().toInt()
                 binding.tvErrorMsg.visibility = View.INVISIBLE
-                TODO()
-                //Toast.makeText(this,name + age + relationship,Toast.LENGTH_SHORT).show()
+                try{
+                    viewModel.addReporter(Reporter(name = name, age = age , relationship = relationship))
+                    goBack(true, false)
+                }catch (e: Exception){
+                    Log.d("db", "cant add new reporter" , e)
+                    Toast.makeText(this, "Unable to add new reporter, please try again.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         binding.btnCancel.setOnClickListener {
-            TODO()
+            goBack(false)
+
         }
         binding.btnDelete.setOnClickListener {
             TODO()
         }
+        onBackPressedDispatcher.addCallback(
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    goBack(false)
+                }
+            })
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.simple_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -86,5 +108,24 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
 
+    }
+    private fun goBack(isProcessComplete: Boolean, showConfirmation: Boolean = true) {
+        fun backFunction() {
+            if (isProcessComplete) {
+                setResult(RESULT_OK)
+            }
+            finish()
+        }
+
+        val alertDialog = ConfirmationDialog(getString(R.string.confirmation_title), getString(R.string.btn_confirm), getString(R.string.btn_cancel), {
+                dialog, which ->
+            backFunction()
+        }, getString(R.string.confirmation_desc_changesLost))
+
+        if (showConfirmation) {
+            alertDialog.show(supportFragmentManager, backConfirmationTag)
+        } else {
+            backFunction()
+        }
     }
 }
