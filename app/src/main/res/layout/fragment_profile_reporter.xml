@@ -38,7 +38,8 @@
             <EditText
                 android:id="@+id/etv_name"
                 style="@style/frag_profile_report_table_col2"
-                android:hint="@string/hint_name" />
+                android:hint="@string/hint_name"
+                android:inputType="text|textNoSuggestions" />
 
         </LinearLayout>
 
@@ -63,7 +64,8 @@
             <EditText
                 android:id="@+id/etv_age"
                 style="@style/frag_profile_report_table_col2"
-                android:hint="@string/hint_age" />
+                android:hint="@string/hint_age"
+                android:inputType="number|numberDecimal" />
 
         </LinearLayout>
 
