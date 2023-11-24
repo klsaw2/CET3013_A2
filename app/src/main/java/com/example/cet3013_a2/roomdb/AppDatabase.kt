@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Reporter::class, Record::class], version = 2, exportSchema = false)
+@Database(entities = [Reporter::class, Record::class], version = 3, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun getRecordDao(): RecordDao
     abstract fun getReporterDao(): ReporterDao
@@ -45,7 +45,7 @@ abstract class AppDatabase: RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java, "app_database"
                     )
-                        .addMigrations(MIGRATION_1_2)
+                        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                         .addCallback(dbCreationCallback)
                         .build()
                 }
@@ -53,7 +53,7 @@ abstract class AppDatabase: RoomDatabase() {
             return dbInstance
         }
 
-        val MIGRATION_1_2 = object : Migration(1, 2) {
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("DELETE FROM report")
                 database.execSQL("DELETE FROM reporter")
@@ -77,6 +77,13 @@ abstract class AppDatabase: RoomDatabase() {
                         "`age` INTEGER NOT NULL," +
                         "`relationship` TEXT NOT NULL" +
                         ")")
+            }
+        }
+
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE reporter" +
+                        "ADD age INTEGER")
             }
         }
     }
