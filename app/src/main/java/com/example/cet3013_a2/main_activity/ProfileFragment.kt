@@ -30,10 +30,7 @@ class ProfileFragment : Fragment() {
         val recyclerReporter = _binding!!.recyclerProfile
         recyclerReporter.layoutManager =
             androidx.recyclerview.widget.LinearLayoutManager(requireContext())
-        recyclerReporter.adapter = ProfileAdapter(
-            requireContext(),
-            reporterList
-        ) // Set the adapter
+        recyclerReporter.adapter = ProfileAdapter(requireContext(), reporterList) // Set the adapter
 
         // Add reporter button
         binding.fabAddReporter.setOnClickListener {
@@ -51,6 +48,7 @@ class ProfileFragment : Fragment() {
         super.onResume()
         loadReporters()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

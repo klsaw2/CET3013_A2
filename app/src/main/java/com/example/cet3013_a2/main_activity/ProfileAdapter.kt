@@ -25,7 +25,7 @@ class ProfileAdapter(context: Context, reporterList: ArrayList<Array<String>>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // Inflate the custom layout (the gallery_item_layout)
+        // Inflate the custom layout (the profile_reporter_item_layout)
         val view =
             LayoutInflater.from(mContext).inflate(R.layout.layout_profile_reporter_item, parent, false)
         return ViewHolder(view)
@@ -34,6 +34,7 @@ class ProfileAdapter(context: Context, reporterList: ArrayList<Array<String>>) :
     override fun getItemCount(): Int {
         // Return the size of the reporter list
         return mReporterList.size
+//        return 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

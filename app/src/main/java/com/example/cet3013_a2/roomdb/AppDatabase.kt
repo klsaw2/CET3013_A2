@@ -33,6 +33,7 @@ abstract class AppDatabase: RoomDatabase() {
                         age = 18,
                         relationship = "Guardian"
                     ))
+
                 }
             }
         }

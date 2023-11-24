@@ -258,7 +258,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         val dateTime = recordCalendar.timeInMillis.toString()
         val photoUrl = photoUrl
         val reportedBy = reporterIds[binding.spinnerReporter.selectedItemPosition]
-
+        val notes = binding.txtNotes.text.toString()
         if (!validateInput()) {
             Toast.makeText(this, "Ensure all required inputs are filled.", Toast.LENGTH_SHORT)
                 .show()
@@ -275,6 +275,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                     locationLng = locationLng!!,
                     photoUrl = photoUrl,
                     reportedBy = reportedBy,
+                    notes = notes
                 )
             )
             goBack(true, false)
