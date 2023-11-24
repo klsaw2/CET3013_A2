@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/main_container"
-    android:orientation="vertical">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/profile_reporter_item_row"
@@ -17,6 +17,10 @@
             style="@style/profile_reporter_item.right"
             android:text="@string/reporter_relationship_placeholder" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/blue3" />
 
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

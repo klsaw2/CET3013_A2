@@ -29,8 +29,8 @@ abstract class AppDatabase: RoomDatabase() {
                     recordDao.deleteAllRecords()
                     reporterDao.deleteAllReporters()
                     reporterDao.addReporter(Reporter(
-                        name = "Guardian",
-                        age = 1,
+                        name = "Default Guardian Name",
+                        age = 18,
                         relationship = "Guardian"
                     ))
                 }

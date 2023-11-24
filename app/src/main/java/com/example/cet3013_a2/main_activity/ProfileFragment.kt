@@ -1,22 +1,22 @@
 package com.example.cet3013_a2.main_activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-
-import androidx.core.view.MenuProvider
-import androidx.lifecycle.Lifecycle
+import androidx.fragment.app.Fragment
 import com.example.cet3013_a2.AddReporterActivity
-import com.example.cet3013_a2.R
 import com.example.cet3013_a2.databinding.FragmentProfileBinding
+import com.example.cet3013_a2.roomdb.AppDatabase
 
-class ProfileFragment : Fragment(), MenuProvider {
+class ProfileFragment : Fragment() {
+
+    // Prepare reporter list
+    private var reporterList = ArrayList<Array<String>>()
+
+    private lateinit var reporterDB: AppDatabase
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -24,30 +24,54 @@ class ProfileFragment : Fragment(), MenuProvider {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val view = binding.root
 
+        // Setup the recycler view with layout manager and adapter
+        val recyclerReporter = _binding!!.recyclerProfile
+        recyclerReporter.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+        recyclerReporter.adapter = ProfileAdapter(
+            requireContext(),
+            reporterList
+        ) // Set the adapter
+
+        // Add reporter button
         binding.fabAddReporter.setOnClickListener {
-            val intent = Intent(activity,AddReporterActivity::class.java)
+            val intent = Intent(activity, AddReporterActivity::class.java)
             startActivity(intent)
         }
-        return view
+
+        // Load reporters from the database
+        loadReporters()
+
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadReporters()
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.simple_menu, menu)
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun loadReporters() {
+        // Get the database instance
+        reporterDB = AppDatabase.getDatabase(requireContext())!!
+        // Load reporters from the database
+        reporterDB.getReporterDao().getAllReporters().observe(viewLifecycleOwner) { reporters ->
+            reporters?.let {
+                reporterList.clear()
+                for (i in reporters) {
+                    reporterList.add(arrayOf(i.name, i.relationship))
+                }
+
+            }
+        }
+        val recyclerReporter = _binding!!.recyclerProfile
+        recyclerReporter.adapter?.notifyDataSetChanged()
     }
 
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        when (menuItem.itemId){
-//            R.id.back ->{
-//                TODO()
-            }
-//            else -> return true
-        return true
-    }
 }
