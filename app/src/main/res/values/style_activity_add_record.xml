@@ -187,11 +187,12 @@
     <style name="act_add_record_main_btn_group">
         <!-- Layout -->
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">60dp</item>
         <item name="android:orientation">horizontal</item>
 
         <!-- Padding/Margin -->
         <item name="android:padding">0dp</item>
+        <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:layout_marginHorizontal">@dimen/spacing_large</item>
     </style>
 

@@ -13,14 +13,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.ViewModelProvider
-import com.example.cet3013_a2.databinding.FragmentProfileReporterBinding
+import com.example.cet3013_a2.databinding.ActivityAddReporterBinding
 import com.example.cet3013_a2.roomdb.Reporter
 import com.example.cet3013_a2.roomdb.ViewModel
 import java.util.Timer
 import kotlin.concurrent.schedule
 
 class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener  {
-    private lateinit var binding: FragmentProfileReporterBinding
+    private lateinit var binding: ActivityAddReporterBinding
     private lateinit var viewModel: ViewModel
     private lateinit var name: String
     private lateinit var relationship: String
@@ -29,7 +29,7 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
     private var age: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentProfileReporterBinding.inflate(layoutInflater)
+        binding = ActivityAddReporterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
@@ -48,6 +48,7 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
         setSupportActionBar(findViewById(binding.tbAddRecord.id))
         val backDrawable: Drawable = AppCompatResources.getDrawable(this, R.drawable.ic_back)!!
+        backDrawable.setTint(getColor(R.color.white))
         supportActionBar!!.setHomeAsUpIndicator(backDrawable)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
