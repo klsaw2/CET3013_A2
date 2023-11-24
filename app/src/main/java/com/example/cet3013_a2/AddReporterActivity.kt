@@ -78,9 +78,6 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
             goBack(false)
 
         }
-        binding.btnDelete.setOnClickListener {
-            TODO()
-        }
         onBackPressedDispatcher.addCallback(
             object: OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
