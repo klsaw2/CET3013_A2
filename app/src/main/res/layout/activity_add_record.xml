@@ -257,36 +257,53 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/groupItemGap"
+                        android:text="@string/lbl_location" />
+
                     <LinearLayout
+                        android:id="@+id/group_location_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/groupItemGap"
-                            android:text="@string/lbl_location" />
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/groupItemGap"
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/lbl_location_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:maxLines="1"
+                            android:textAllCaps="false"
                             tools:text="Location name" />
+
+                        <TextView
+                            android:id="@+id/lbl_location_coords"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:maxLines="1"
+                            android:textColor="@color/grey3"
+                            tools:text="( 0.0, 0.0 )" />
 
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/btn_location"
+                        android:id="@+id/btn_get_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/groupItemGap"
+                        android:layout_weight="0.4"
                         android:backgroundTint="@color/blue3"
-                        android:text="@string/lbl_choose_location"
+                        android:text="@string/lbl_get_location"
                         app:cornerRadius="@dimen/borderRadius"
                         app:icon="@drawable/icon_location"
                         app:iconGravity="textStart" />
+
                 </LinearLayout>
 
             </LinearLayout>

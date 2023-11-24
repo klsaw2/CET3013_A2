@@ -14,20 +14,19 @@
     <!-- Add/edit Record -->
     <string name="lbl_add_record">Add Record</string>
     <string name="lbl_edit_record">Edit Record</string>
-    <string name="lbl_take_photo">Take a photo</string>
+    <string name="lbl_take_photo">Take a photo (optional)</string>
     <string name="lbl_retake_photo">Retake photo</string>
     <string name="lbl_discard_photo">Discard photo</string>
     <string name="lbl_date">Date</string>
     <string name="lbl_time">Time</string>
-    <string name="lbl_title">Title</string>
+    <string name="lbl_title">Title *</string>
     <string name="lbl_notes">Notes</string>
     <string name="hint_record_title">Visit to the zoo!</string>
     <string name="hint_record_notes">First time seeing the giraffe</string>
     <string name="lbl_category">Category</string>
     <string name="lbl_reporter">Reporter</string>
-    <string name="lbl_location">Location</string>
-    <string name="lbl_choose_location">Choose location</string>
-    <string name="lbl_another_location">Choose another location</string>
+    <string name="lbl_location">Location *</string>
+    <string name="lbl_get_location">Get Current Location</string>
     <string name="lbl_discard">Discard</string>
 
     <!-- Profile add/edit Fragment -->
