@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Database(entities = [Reporter::class, Record::class], version = 1, exportSchema = false)
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun getRecordDao(): RecordDao
     abstract fun getReporterDao(): ReporterDao
 
@@ -19,20 +19,24 @@ abstract class AppDatabase: RoomDatabase() {
         private var dbInstance: AppDatabase? = null
         private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-        val dbCreationCallback = object : Callback() {
+        private val dbCreationCallback = object : Callback() {
             override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
 
                 coroutineScope.launch {
                     val reporterDao = dbInstance!!.getReporterDao()
-                    val recordDao = dbInstance!!.getRecordDao()
-                    recordDao.deleteAllRecords()
-                    reporterDao.deleteAllReporters()
-                    reporterDao.addReporter(Reporter(
-                        name = "Default Guardian Name",
-                        age = 18,
-                        relationship = "Guardian"
-                    ))
+                    // Check if there is no default reporter
+                    val reporterCount = reporterDao.getReporterCount()
+                    if (reporterCount == 0) {
+                        // Add a default reporter
+                        reporterDao.addReporter(
+                            Reporter(
+                                name = "Default Guardian",
+                                age = 18,
+                                relationship = "Guardian"
+                            )
+                        )
+                    }
 
                 }
             }

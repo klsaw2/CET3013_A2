@@ -21,6 +21,9 @@ interface ReporterDao {
     @Query("SELECT * FROM reporter")
     fun getAllReporters(): LiveData<List<Reporter>>
 
+    @Query("SELECT COUNT(*) FROM reporter")
+    fun getReporterCount(): Int
+
     @Query("DELETE FROM reporter")
     fun deleteAllReporters()
 }
