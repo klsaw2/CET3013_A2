@@ -79,15 +79,6 @@
         <LinearLayout style="@style/frag_profile_report_btn_row">
 
             <Button
-                android:id="@+id/btn_delete"
-                style="@style/frag_profile_report_btn.delete"
-                android:text="@string/btn_delete" />
-
-        </LinearLayout>
-
-        <LinearLayout style="@style/frag_profile_report_btn_row">
-
-            <Button
                 android:id="@+id/btn_cancel"
                 style="@style/frag_profile_report_btn.cancel"
                 android:text="@string/btn_cancel" />
