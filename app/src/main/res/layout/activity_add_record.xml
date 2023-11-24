@@ -179,25 +179,59 @@
                     android:spinnerMode="dialog" />
             </LinearLayout>
 
-            <LinearLayout style="@style/dete_row">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/dete_row"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView6"
                     style="@style/dete_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/groupItemGap"
                     android:text="@string/lbl_location" />
 
-                <TextView
-                    android:id="@+id/lbl_location_name"
-                    style="@style/dete_value"
-                    android:gravity="center_vertical"
-                    android:textSize="@dimen/font_large"
-                    tools:text="Location name" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/group_location_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/groupItemGap"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-            <Button
-                android:id="@+id/btn_location"
-                style="@style/btn_location"
-                android:text="@string/lbl_choose_location" />
+                    <TextView
+                        android:id="@+id/lbl_location_name"
+                        style="@style/dete_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_large"
+
+                        tools:text="Location name" />
+
+                    <TextView
+                        android:id="@+id/lbl_location_coords"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxLines="1"
+                        android:textColor="@color/grey3"
+                        tools:text="( 0.0, 0.0 )" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_get_location"
+                    style="@style/btn_location"
+                    android:text="@string/lbl_get_location" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

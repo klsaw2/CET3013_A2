@@ -67,7 +67,6 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
                     viewModel.addReporter(Reporter(name = name, age = age , relationship = relationship))
                     goBack(true, false)
                 }catch (e: Exception){
-                    Log.d("db", "cant add new reporter" , e)
                     Toast.makeText(this, "Unable to add new reporter, please try again.", Toast.LENGTH_SHORT).show()
                 }
             }

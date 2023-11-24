@@ -164,7 +164,6 @@
         <item name="android:layout_weight">1</item>
 
         <!-- Padding/Margin -->
-        <item name="android:layout_marginHorizontal">@dimen/spacing_large</item>
         <item name="android:titleMarginBottom">@dimen/spacing_large</item>
 
         <!-- Text -->
@@ -222,5 +221,14 @@
         <item name="android:text">@string/btn_retake_photo</item>
         <item name="android:textColor">@color/white</item>
         <item name="rippleColor">@color/blue_light3</item>
+    </style>
+
+    <style name="date_time_picker" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="colorAccent">@color/green3</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="android:buttonBarButtonStyle">@style/date_time_picker_button</item>
+    </style>
+    <style name="date_time_picker_button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/green3</item>
     </style>
 </resources>

@@ -4,13 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Reporter::class, Record::class], version = 3, exportSchema = false)
+@Database(entities = [Reporter::class, Record::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun getRecordDao(): RecordDao
     abstract fun getReporterDao(): ReporterDao
@@ -45,7 +44,8 @@ abstract class AppDatabase: RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java, "app_database"
                     )
-                        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                        //.addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                        .fallbackToDestructiveMigration()
                         .addCallback(dbCreationCallback)
                         .build()
                 }
@@ -53,7 +53,7 @@ abstract class AppDatabase: RoomDatabase() {
             return dbInstance
         }
 
-        private val MIGRATION_1_2 = object : Migration(1, 2) {
+        /*private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("DELETE FROM report")
                 database.execSQL("DELETE FROM reporter")
@@ -104,6 +104,6 @@ abstract class AppDatabase: RoomDatabase() {
                         "`relationship` TEXT NOT NULL" +
                         ")")
             }
-        }
+        }*/
     }
 }
