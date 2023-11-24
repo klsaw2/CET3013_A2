@@ -67,10 +67,10 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
                 binding.tvErrorMsg.visibility = View.INVISIBLE
 
                 if(age < 18){
-                    Toast.makeText(this,"Age should be more than 18",Toast.LENGTH_SHORT).show()
+                    binding.etvAge.error = "Age should be more than 18"
                 }else{
                     if(name.length > 40 ){
-                        Toast.makeText(this,"The name is too long, try a new name",Toast.LENGTH_SHORT).show()
+                        binding.etvName.error= "Try a shorter name"
                     }else{
                         try{
                             viewModel.addReporter(Reporter(name = name, age = age , relationship = relationship))
