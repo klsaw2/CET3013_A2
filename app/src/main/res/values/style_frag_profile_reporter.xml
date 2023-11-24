@@ -88,7 +88,7 @@
         <item name="android:textAlignment">center</item>
     </style>
 
-    <!-- ===================== Buttons ===================== -->
+    <!-- ===================== Buttons Main ===================== -->
     <style name="frag_profile_report_btn_row">
         <!-- Size -->
         <item name="android:layout_width">match_parent</item>
