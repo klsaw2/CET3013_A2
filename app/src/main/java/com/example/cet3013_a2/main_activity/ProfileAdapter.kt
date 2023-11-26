@@ -1,10 +1,12 @@
 package com.example.cet3013_a2.main_activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cet3013_a2.EditReporterActivity
 import com.example.cet3013_a2.R
 
 class ProfileAdapter(context: Context, reporterList: ArrayList<Array<String>>) :
@@ -34,14 +36,18 @@ class ProfileAdapter(context: Context, reporterList: ArrayList<Array<String>>) :
     override fun getItemCount(): Int {
         // Return the size of the reporter list
         return mReporterList.size
-//        return 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // Bind the reporter name and relation to the view holder
         holder.reporterNameItem.text = mReporterList[position][0]
         holder.reporterRelationItem.text = mReporterList[position][1]
-        // TODO Set the onClickListener for each reporter
+        // Start the EditReporterActivity
+        holder.itemView.setOnClickListener {
+           val intent = Intent(mContext, EditReporterActivity::class.java)
+            intent.putExtra("id", mReporterList[position][2].toInt())
+            mContext.startActivity(intent)
+        }
 
     }
 }

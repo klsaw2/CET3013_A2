@@ -72,6 +72,7 @@
     <!-- General -->
     <string name="confirmation_title">Are you sure?</string>
     <string name="confirmation_desc_changesLost">All changes will be lost on exit.</string>
+    <string name="confirmation_desc_deleteReporter">This reporter data will be lost and irrecoverable.</string>
 
     <!-- Testing -->
     <string name="permission_required">Camera access is required to display the camera preview.</string>

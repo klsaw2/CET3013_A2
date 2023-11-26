@@ -72,4 +72,9 @@ class AppRepository (application: Application) {
             onSuccessCallback(mReporter)
         }
     }
+
+    // Get reporter by id
+//    fun getReporterById(id: Int): LiveData<List<Reporter>> {
+//        return reporterDao.getReporterById(id)
+//    }
 }
