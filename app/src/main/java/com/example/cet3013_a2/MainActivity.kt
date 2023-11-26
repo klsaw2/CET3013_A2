@@ -131,36 +131,5 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
                 binding.btnNavProfile.setBackgroundColor(getColor(R.color.blue1))
             }
         }
-
-        //DEMO Room
-//        val viewModel = ViewModelProvider(this).get(ViewModel::class.java)
-//        viewModel.getAllReporters().observe(this) {
-//            reporters:List<Reporter> ->
-//
-//            Log.d("viewModel", "ViewModel:")
-//            for (i in reporters.listIterator()) {
-//                Log.d("viewModel", "${i.reporterId}" +
-//                        "${i.reporterName}, " +
-//                        "${i.reporterAge}" +
-//                        ", ${i.reporterRelationship}")
-//            }
-//        }
-//
-//        binding.btnAdd.setOnClickListener {
-//            val newReporter = Reporter(
-//                reporterName = "testTitle",
-//                reporterAge = 23,
-//                reporterRelationship = "Mom"
-//            )
-//            val newRecord = Record(
-//                title = "testTitle",
-//                category = "testCategory",
-//                dateTime = SimpleDateFormat("dd M yyyy").format(Date()).toString(),
-//                reportedBy = 1
-//            )
-//
-//            viewModel.addReporter(newReporter)
-//            viewModel.addRecord(newRecord)
-//        }
     }
 }

@@ -26,6 +26,9 @@ class Record(
     @ColumnInfo(name="category")
     var category: String,
 
+    @ColumnInfo(name="locationName")
+    var locationName: String,
+
     @ColumnInfo(name="locationLat")
     var locationLat: Double,
 

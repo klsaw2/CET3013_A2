@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 class AppRepository (application: Application) {
     private var recordDao: RecordDao
     private var reporterDao: ReporterDao
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     var records: LiveData<List<Record>>
     var reporters: LiveData<List<Reporter>>
@@ -22,7 +22,7 @@ class AppRepository (application: Application) {
         reporters = reporterDao.getAllReporters()
     }
 
-    // Record async API
+    // Record async CUD ops
     fun addRecord(record: Record) {
         coroutineScope.launch(Dispatchers.IO) {
             recordDao.addRecord(record)
@@ -47,7 +47,7 @@ class AppRepository (application: Application) {
         }
     }
 
-    // Reporter async API
+    // Reporter async CUD ops
     fun addReporter(reporter: Reporter) {
         coroutineScope.launch(Dispatchers.IO) {
             reporterDao.addReporter(reporter)
@@ -63,6 +63,13 @@ class AppRepository (application: Application) {
     fun deleteReporter(reporter: Reporter) {
         coroutineScope.launch(Dispatchers.IO) {
             reporterDao.deleteReporter(reporter)
+        }
+    }
+
+    fun getReporter(reporterId: Int, onSuccessCallback: (reporter: Reporter) -> Unit) {
+        coroutineScope.launch(Dispatchers.IO) {
+            val mReporter = reporterDao.getReporter(reporterId)
+            onSuccessCallback(mReporter)
         }
     }
 }

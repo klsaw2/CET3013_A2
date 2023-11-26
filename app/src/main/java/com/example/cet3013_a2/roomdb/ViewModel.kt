@@ -5,6 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 
 class ViewModel(application: Application): AndroidViewModel(application) {
+    // UI data
+    var recordDetailFragmentRecord: Record? = null
+
+    // DB data
     private var repository: AppRepository
     private var records: LiveData<List<Record>>
     private var reporters: LiveData<List<Reporter>>
@@ -44,6 +48,11 @@ class ViewModel(application: Application): AndroidViewModel(application) {
     fun deleteReporter(reporter: Reporter) {
         repository.deleteReporter(reporter)
     }
+
+     fun getReporter(reporterId: Int, onSuccessCallback: (reporter: Reporter) -> Unit) {
+         repository.getReporter(reporterId, onSuccessCallback)
+     }
+
     fun getAllReporters(): LiveData<List<Reporter>> {
         return reporters
     }

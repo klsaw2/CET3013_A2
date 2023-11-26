@@ -7,19 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.AddReporterActivity
 import com.example.cet3013_a2.databinding.FragmentProfileBinding
-import com.example.cet3013_a2.roomdb.AppDatabase
+import com.example.cet3013_a2.roomdb.ViewModel
 
 class ProfileFragment : Fragment() {
 
     // Prepare reporter list
     private var reporterList = ArrayList<Array<String>>()
 
-    private lateinit var reporterDB: AppDatabase
-
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var viewModel: ViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +33,8 @@ class ProfileFragment : Fragment() {
         recyclerReporter.layoutManager =
             androidx.recyclerview.widget.LinearLayoutManager(requireContext())
         recyclerReporter.adapter = ProfileAdapter(requireContext(), reporterList) // Set the adapter
+
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
         // Add reporter button
         binding.fabAddReporter.setOnClickListener {
@@ -56,10 +60,7 @@ class ProfileFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun loadReporters() {
-        // Get the database instance
-        reporterDB = AppDatabase.getDatabase(requireContext())!!
-        // Load reporters from the database
-        reporterDB.getReporterDao().getAllReporters().observe(viewLifecycleOwner) { reporters ->
+        viewModel.getAllReporters().observe(viewLifecycleOwner) { reporters ->
             reporters?.let {
                 reporterList.clear()
                 for (i in reporters) {

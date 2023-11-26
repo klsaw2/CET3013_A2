@@ -6,12 +6,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cet3013_a2.R
+import com.example.cet3013_a2.roomdb.Record
 
-class RecordsAdapter(context: Context, recordList: ArrayList<String>) :
+class RecordsAdapter(context: Context,
+                     recordList: List<Record>,
+                     onItemClick: (position: Int) -> Unit) :
     RecyclerView.Adapter<RecordsAdapter.ViewHolder>() {
 
     private val mContext = context // Context passed in
     private val mRecordList = recordList // Record list passed in
+    private val mOnItemClick = onItemClick
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // record holder resource
@@ -29,16 +33,14 @@ class RecordsAdapter(context: Context, recordList: ArrayList<String>) :
 
     override fun onBindViewHolder(holder: RecordsAdapter.ViewHolder, position: Int) {
         // Bind the reporter name and relation to the view holder
-        holder.recordItem.text = mRecordList[position]
-
-        // TODO Set the onClickListener for each record
-
+        holder.recordItem.text = mRecordList[position].title
+        holder.recordItem.setOnClickListener {
+            mOnItemClick(position)
+        }
     }
 
     override fun getItemCount(): Int {
         // Return the size of the record list
         return mRecordList.size
     }
-
-
 }

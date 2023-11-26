@@ -204,7 +204,7 @@
                     android:visibility="gone">
 
                     <TextView
-                        android:id="@+id/lbl_location_name"
+                        android:id="@+id/txt_location_name"
                         style="@style/dete_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -216,7 +216,7 @@
                         tools:text="Location name" />
 
                     <TextView
-                        android:id="@+id/lbl_location_coords"
+                        android:id="@+id/txt_location_coords"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"

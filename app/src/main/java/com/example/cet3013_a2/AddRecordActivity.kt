@@ -271,6 +271,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                     title = title,
                     category = category,
                     dateTime = dateTime,
+                    locationName = locationName!!,
                     locationLat = locationLat!!,
                     locationLng = locationLng!!,
                     photoUrl = photoUrl,
@@ -297,6 +298,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
     private fun getLocation(isGettingLocationAfterPhoto: Boolean) {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
             == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.lastLocation.addOnSuccessListener {
                location ->
@@ -312,7 +314,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                         fetchLocationNameTask.fetchLocationName()
                         locationName = fetchLocationNameTask.locationName
 
-                        binding.lblLocationName.text = locationName
+                        binding.txtLocationName.text = locationName
                     }
                     toggleLocationButtonUI(true, locationCoords!!, isGettingLocationAfterPhoto)
                 } else {
@@ -337,19 +339,19 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                                locationCoords: String = "",
                                isGettingLocationAfterPhoto: Boolean = false) {
         if (isGettingLocationAfterPhoto) {
-            binding.lblLocationCoords.text = locationCoords
+            binding.txtLocationCoords.text = locationCoords
             binding.groupLocationInfo.visibility = VISIBLE
             binding.btnGetLocation.visibility = GONE
             return
         }
 
         if (isLocationFetched) {
-            binding.lblLocationCoords.text = locationCoords
+            binding.txtLocationCoords.text = locationCoords
 
             binding.groupLocationInfo.visibility = VISIBLE
         } else {
-            binding.lblLocationName.text = ""
-            binding.lblLocationCoords.text = ""
+            binding.txtLocationName.text = ""
+            binding.txtLocationCoords.text = ""
 
             binding.groupLocationInfo.visibility = GONE
             binding.btnGetLocation.visibility = VISIBLE

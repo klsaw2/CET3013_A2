@@ -21,6 +21,9 @@ interface ReporterDao {
     @Query("SELECT * FROM reporter")
     fun getAllReporters(): LiveData<List<Reporter>>
 
+    @Query("SELECT * FROM reporter WHERE id=:reporterId")
+    fun getReporter(reporterId: Int): Reporter
+
     @Query("SELECT COUNT(*) FROM reporter")
     fun getReporterCount(): Int
 
