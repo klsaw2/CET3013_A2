@@ -65,4 +65,9 @@ class AppRepository (application: Application) {
             reporterDao.deleteReporter(reporter)
         }
     }
+
+    // Get reporter by id
+    fun getReporterById(id: Int): LiveData<List<Reporter>> {
+        return reporterDao.getReporterById(id)
+    }
 }

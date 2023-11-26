@@ -26,4 +26,7 @@ interface ReporterDao {
 
     @Query("DELETE FROM reporter")
     fun deleteAllReporters()
+
+    @Query("SELECT * FROM reporter WHERE id = :id")
+    fun getReporterById(id: Int): LiveData<List<Reporter>>
 }
