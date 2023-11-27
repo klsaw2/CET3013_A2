@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
 import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.R
@@ -21,6 +22,7 @@ class RecordsFragment : Fragment() {
 
     // Prepare record list
     private var recordList = ArrayList<Record>()
+    private var fullRecordList = ArrayList<Record>()
 
     // Bindings
     private var _binding: FragmentRecordsBinding? = null
@@ -61,8 +63,30 @@ class RecordsFragment : Fragment() {
                 }
         }
 
+        _binding!!.btnSearch.setOnClickListener { v ->
+            val searchKey = _binding!!.etvSearch.text.toString()
+            viewModel.recordSearchKey = searchKey
+            searchRecords(searchKey)
+        }
+
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun searchRecords(searchKey: String) {
+        val filteredRecordList = fullRecordList.filter {
+            it.title.replace(" ", "").lowercase()
+                .contains(searchKey.replace(" ", "").lowercase())
+        }
+        var sortedRecordList = if (!searchKey.isEmpty()) {
+            filteredRecordList.sortedWith(
+                compareBy({ it -> it.title },
+                    { it -> it.title.length })
+            )
+        } else {
+            fullRecordList
+        }
+        loadRecords(sortedRecordList.toMutableList() as ArrayList<Record>)
     }
 
     override fun onResume() {
@@ -70,18 +94,23 @@ class RecordsFragment : Fragment() {
         loadRecords()
 
         //  Attempt to restore saved viewModel state
-        val viewingRecord = viewModel.recordDetailFragmentRecord
-        if (viewingRecord != null) {
+        val viewModelRecord = viewModel.recordDetailFragmentRecord
+        val viewModelSearchKey = viewModel.recordSearchKey
+        if (viewModelRecord != null) {
             var imageBitmap: Bitmap? = null
-            if (viewingRecord.photoUrl != null) {
-                imageBitmap = getRecordImageBitmap(viewingRecord)
+            if (viewModelRecord.photoUrl != null) {
+                imageBitmap = getRecordImageBitmap(viewModelRecord)
             }
 
             parentFragmentManager.fragments.map {
                 Log.d("fmanager", it.tag.toString())
             }
             (parentFragmentManager.findFragmentByTag(recordDetailFragmentTag) as RecordDetailFragment?)
-                ?.populateDetail(viewingRecord, imageBitmap)
+                ?.populateDetail(viewModelRecord, imageBitmap)
+        }
+
+        if (viewModelSearchKey != null) {
+            searchRecords(viewModelSearchKey)
         }
     }
 
@@ -91,19 +120,31 @@ class RecordsFragment : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun loadRecords() {
-        viewModel.getAllRecords().observe(viewLifecycleOwner) { records ->
+    private fun loadRecords(searchedRecords: ArrayList<Record>? = null) {
+        if (searchedRecords != null) {
             recordList.clear()
+            searchedRecords.map {
+                recordList.add(it)
+            }
+            // Notify the adapter that the data has changed
+            binding.recyclerRecords.adapter!!.notifyDataSetChanged()
+            return
+        }
+
+        viewModel.getAllRecords().observe(viewLifecycleOwner) { records ->
             // Add all the records to the record list
+            recordList.clear()
+            fullRecordList.clear()
             records.map {
                 recordList.add(it)
+                fullRecordList.add(it)
             }
             // Notify the adapter that the data has changed
             binding.recyclerRecords.adapter!!.notifyDataSetChanged()
         }
     }
 
-    private fun onItemClick(position: Int, isInLandscape: Boolean,) {
+    private fun onItemClick(position: Int, isInLandscape: Boolean) {
         var imageBitmap: Bitmap? = null
         val recordImageUrl = recordList[position].photoUrl
 
@@ -116,6 +157,7 @@ class RecordsFragment : Fragment() {
         if (isInLandscape) {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.recordDetailFragmentContainer, recordDetailFragment!!, recordDetailFragmentTag)
+                .setTransition(TRANSIT_FRAGMENT_FADE)
                 .commit()
 
         } else {

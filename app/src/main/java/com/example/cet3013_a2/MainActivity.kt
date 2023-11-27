@@ -11,13 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
+import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityMainBinding
 import com.example.cet3013_a2.main_activity.GalleryAdapter
 import com.example.cet3013_a2.main_activity.ProfileFragment
 import com.example.cet3013_a2.main_activity.RecordsFragment
+import com.example.cet3013_a2.roomdb.ViewModel
 
 class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: ViewModel
     private var startAddReportActivityForResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
@@ -48,18 +51,31 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
+
         // Set status bar color to match with app bar color
         window.statusBarColor = ContextCompat.getColor(this, R.color.blue3)
         // Reset title to Gallery when returning from other tabs
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount < 1) {
+                val titleID =  R.string.t_gallery
+                val subtitleID = R.string.st_gallery
+
                 // Set title text
-                binding.tbMain.title = getString(R.string.t_gallery)
+                binding.tbMain.title = getString(titleID)
                 // Set subtitle text
-                binding.tbMain.subtitle = getString(R.string.st_gallery)
+                binding.tbMain.subtitle = getString(subtitleID)
+
+                // Set view model
+                viewModel.titleId = titleID
+                viewModel.subtitleId = subtitleID
+
                 // Set bottom navigation button color
                 binding.btnNavRecords.setBackgroundColor(getColor(R.color.white))
                 binding.btnNavProfile.setBackgroundColor(getColor(R.color.white))
+
+                // Clear all saved viewModel variables from previous pages
+                clearFragmentViewModel()
             }
         }
 
@@ -86,6 +102,14 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if (viewModel.titleId != null) {
+            setNavigationUI(viewModel.titleId!!, viewModel.subtitleId!!)
+        }
+    }
+
     // Fragment Management Functions ==========================================
     private fun switchFragment(
         fragment: () -> Fragment,
@@ -93,6 +117,9 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
         titleID: Int = 0,
         subtitleID: Int = 0
     ) {
+        // Clear all saved viewModel variables from previous pages
+        clearFragmentViewModel()
+
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         // Replace container with desire fragment (function)
         transaction.replace(binding.mainFragmentContainer.id, fragment())
@@ -104,6 +131,20 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
         // Commit the changes
         transaction.commit()
 
+        viewModel.titleId = titleID
+        viewModel.subtitleId = subtitleID
+
+        setNavigationUI(titleID, subtitleID)
+    }
+
+    fun clearFragmentViewModel() {
+        // Clear all saved viewModel variables from previous pages
+        // Records
+        viewModel.recordDetailFragmentRecord = null
+        viewModel.recordSearchKey = null
+    }
+
+    fun setNavigationUI(titleID: Int, subtitleID: Int) {
         // Set tittle text
         if (titleID != 0) {
             binding.tbMain.title = getString(titleID)
@@ -120,10 +161,10 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
 
         // Set bottom navigation button color after switching fragment
         when (titleID) {
-           R.string.t_records -> {
+            R.string.t_records -> {
                 // Set bottom navigation button color
-               binding.btnNavRecords.setBackgroundColor(getColor(R.color.blue1))
-               binding.btnNavProfile.setBackgroundColor(getColor(R.color.white))
+                binding.btnNavRecords.setBackgroundColor(getColor(R.color.blue1))
+                binding.btnNavProfile.setBackgroundColor(getColor(R.color.white))
             }
             R.string.t_profiles -> {
                 // Set bottom navigation button color

@@ -6,7 +6,13 @@ import androidx.lifecycle.LiveData
 
 class ViewModel(application: Application): AndroidViewModel(application) {
     // UI data
+    // Navigation
+    var titleId: Int? = null
+    var subtitleId: Int? = null
+
+    // Records
     var recordDetailFragmentRecord: Record? = null
+    var recordSearchKey: String? = null
 
     // DB data
     private var repository: AppRepository
