@@ -62,4 +62,8 @@ class ViewModel(application: Application): AndroidViewModel(application) {
     fun getAllReporters(): LiveData<List<Reporter>> {
         return reporters
     }
+
+    fun getReporterById(id: Int): LiveData<List<Reporter>> {
+        return repository.getReporterById(id)
+    }
 }

@@ -58,13 +58,14 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
     private fun loadReporters() {
         viewModel.getAllReporters().observe(viewLifecycleOwner) { reporters ->
             reporters?.let {
                 reporterList.clear()
                 for (i in reporters) {
-                    reporterList.add(arrayOf(i.name, i.relationship))
+                    reporterList.add(arrayOf(i.name, i.relationship, i.id.toString()))
                 }
 
             }
