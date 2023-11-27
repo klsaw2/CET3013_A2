@@ -10,10 +10,10 @@ import androidx.fragment.app.DialogFragment
 
 class ConfirmationDialog(
     title: String,
+    description: String? = null,
     primaryText: String,
     secondaryText: String,
     primaryListener: DialogInterface.OnClickListener,
-    description: String? = null,
 ): DialogFragment() {
     private lateinit var mTitle: String
     private lateinit var mPrimaryText: String

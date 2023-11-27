@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/main_container"
     tools:context=".EditRecordActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -201,11 +200,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="@dimen/groupItemGap"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txt_info_location_name"
+                        android:id="@+id/txt_location_name"
                         style="@style/dete_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -217,7 +215,7 @@
                         tools:text="Location name" />
 
                     <TextView
-                        android:id="@+id/txt_info_location_coords"
+                        android:id="@+id/txt_location_coords"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
@@ -226,11 +224,6 @@
                         tools:text="( 0.0, 0.0 )" />
 
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/btn_get_location"
-                    style="@style/btn_location"
-                    android:text="@string/lbl_get_location" />
 
             </LinearLayout>
 
@@ -253,9 +246,9 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/btn_add"
+                    android:id="@+id/btn_edit"
                     style="@style/act_add_record_main_btn.add"
-                    android:text="@string/lbl_add" />
+                    android:text="@string/lbl_edit" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -271,5 +264,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.4" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

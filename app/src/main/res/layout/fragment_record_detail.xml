@@ -222,7 +222,7 @@
                 style="@style/act_add_record_main_btn_group">
 
                 <Button
-                    android:id="@+id/btn_discard"
+                    android:id="@+id/btn_delete_record"
                     style="@style/act_add_record_main_btn.discard"
                     android:text="@string/lbl_delete" />
                 <View
@@ -231,7 +231,7 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/btn_add"
+                    android:id="@+id/btn_edit_record"
                     style="@style/act_add_record_main_btn.add"
                     android:backgroundTint="@color/blue3"
                     android:text="@string/lbl_edit" />

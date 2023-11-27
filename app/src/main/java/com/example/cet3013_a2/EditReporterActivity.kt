@@ -59,7 +59,7 @@ class EditReporterActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         val id = intent.getIntExtra("id", -1)
         if (id != -1) {
             // try to get the reporter from the database
-            viewModel.getReporterById(id).observe(this, {
+            viewModel.getReporterById(id).observe(this) {
                 if (it.isEmpty()) {
                     // Failed to find this reporter
                     Toast.makeText(this, "Failed to find this reporter.", Toast.LENGTH_SHORT).show()
@@ -86,7 +86,7 @@ class EditReporterActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                         }
                     }
                 }
-            })
+            }
         } else {
             // Failed to get intent id
             Toast.makeText(this, "Failed to find this reporter.", Toast.LENGTH_SHORT).show()
@@ -145,22 +145,22 @@ class EditReporterActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             // Ask for using alert dialog
             val alertDialog = ConfirmationDialog(
                 getString(R.string.confirmation_title),
+                getString(R.string.confirmation_desc_deleteReporter),
                 getString(R.string.btn_confirm),
-                getString(R.string.btn_cancel),
-                { dialog, which ->
-                    // Delete the reporter
-                    viewModel.deleteReporter(Reporter(
-                        id = id,
-                        name = binding.etvName.text.toString(),
-                        age = binding.etvAge.text.toString().toInt(),
-                        relationship = relationship))
-                    Toast.makeText(this, "Delete success !", Toast.LENGTH_SHORT).show()
-                    Timer().schedule(2000) {
-                        goBack(true, false)
-                    }
-                },
-                getString(R.string.confirmation_desc_deleteReporter)
-            )
+                getString(R.string.btn_cancel)
+            ) { dialog, which ->
+                // Delete the reporter
+                viewModel.deleteReporter(Reporter(
+                    id = id,
+                    name = binding.etvName.text.toString(),
+                    age = binding.etvAge.text.toString().toInt(),
+                    relationship = relationship))
+                Toast.makeText(this, "Delete success !", Toast.LENGTH_SHORT).show()
+                Timer().schedule(2000) {
+                    goBack(true, false)
+                }
+            }
+
             alertDialog.show(supportFragmentManager, deleteConfirmationTag)
 
         }
@@ -191,14 +191,13 @@ class EditReporterActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         }
 
         val alertDialog = ConfirmationDialog(
-            getString(R.string.confirmation_title),
-            getString(R.string.btn_confirm),
-            getString(R.string.btn_cancel),
-            { dialog, which ->
+                getString(R.string.confirmation_title),
+                getString(R.string.confirmation_desc_changesLost),
+                getString(R.string.btn_confirm),
+                getString(R.string.btn_cancel)
+            ) { dialog, which ->
                 backFunction()
-            },
-            getString(R.string.confirmation_desc_changesLost)
-        )
+            }
         if (showConfirmation) {
             alertDialog.show(supportFragmentManager, backConfirmationTag)
         } else {

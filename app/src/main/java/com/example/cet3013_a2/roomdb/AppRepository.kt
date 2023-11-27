@@ -41,6 +41,10 @@ class AppRepository (application: Application) {
         }
     }
 
+    fun getRecordById(recordId: Int): LiveData<List<Record>> {
+        return recordDao.getRecord(recordId)
+    }
+
     fun deleteAllRecords() {
         coroutineScope.launch(Dispatchers.IO) {
             recordDao.deleteAllRecords()
@@ -66,7 +70,7 @@ class AppRepository (application: Application) {
         }
     }
 
-    fun getReporter(reporterId: Int, onSuccessCallback: (reporter: Reporter) -> Unit) {
+    fun getReporterWithSuccessCallback(reporterId: Int, onSuccessCallback: (reporter: Reporter) -> Unit) {
         coroutineScope.launch(Dispatchers.IO) {
             val mReporter = reporterDao.getReporter(reporterId)
             onSuccessCallback(mReporter)
@@ -74,7 +78,7 @@ class AppRepository (application: Application) {
     }
 
     // Get reporter by id
-//    fun getReporterById(id: Int): LiveData<List<Reporter>> {
-//        return reporterDao.getReporterById(id)
-//    }
+    fun getReporterById(id: Int): LiveData<List<Reporter>> {
+        return reporterDao.getReporterById(id)
+    }
 }

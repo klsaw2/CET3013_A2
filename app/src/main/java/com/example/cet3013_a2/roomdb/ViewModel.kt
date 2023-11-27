@@ -13,6 +13,9 @@ class ViewModel(application: Application): AndroidViewModel(application) {
     // Records
     var recordDetailFragmentRecord: Record? = null
     var recordSearchKey: String? = null
+    // Add/Edit records
+    var editingRecord: Record? = null
+    var newPhotoUrl: String? = null
 
     // DB data
     private var repository: AppRepository
@@ -38,6 +41,10 @@ class ViewModel(application: Application): AndroidViewModel(application) {
         repository.deleteRecord(record)
     }
 
+    fun getRecordById(recordId: Int): LiveData<List<Record>> {
+        return repository.getRecordById(recordId)
+    }
+
     fun getAllRecords(): LiveData<List<Record>> {
         return records
     }
@@ -55,8 +62,8 @@ class ViewModel(application: Application): AndroidViewModel(application) {
         repository.deleteReporter(reporter)
     }
 
-     fun getReporter(reporterId: Int, onSuccessCallback: (reporter: Reporter) -> Unit) {
-         repository.getReporter(reporterId, onSuccessCallback)
+     fun getReporterWithSuccessCallback(reporterId: Int, onSuccessCallback: (reporter: Reporter) -> Unit) {
+         repository.getReporterWithSuccessCallback(reporterId, onSuccessCallback)
      }
 
     fun getAllReporters(): LiveData<List<Reporter>> {

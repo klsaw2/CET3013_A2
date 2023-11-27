@@ -1,11 +1,7 @@
 package com.example.cet3013_a2.main_activity
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,16 +93,8 @@ class RecordsFragment : Fragment() {
         val viewModelRecord = viewModel.recordDetailFragmentRecord
         val viewModelSearchKey = viewModel.recordSearchKey
         if (viewModelRecord != null) {
-            var imageBitmap: Bitmap? = null
-            if (viewModelRecord.photoUrl != null) {
-                imageBitmap = getRecordImageBitmap(viewModelRecord)
-            }
-
-            parentFragmentManager.fragments.map {
-                Log.d("fmanager", it.tag.toString())
-            }
             (parentFragmentManager.findFragmentByTag(recordDetailFragmentTag) as RecordDetailFragment?)
-                ?.populateDetail(viewModelRecord, imageBitmap)
+                ?.populateDetail(viewModelRecord)
         }
 
         if (viewModelSearchKey != null) {
@@ -145,15 +133,13 @@ class RecordsFragment : Fragment() {
     }
 
     private fun onItemClick(position: Int, isInLandscape: Boolean) {
-        var imageBitmap: Bitmap? = null
-        val recordImageUrl = recordList[position].photoUrl
-
-        if (recordImageUrl != null) {
-            imageBitmap = getRecordImageBitmap(recordList[position])
-        }
         viewModel.recordDetailFragmentRecord = recordList[position]
 
         recordDetailFragment = RecordDetailFragment()
+        val bundle = Bundle()
+        bundle.putBoolean("isInLandscape", isInLandscape)
+        recordDetailFragment!!.arguments = bundle
+
         if (isInLandscape) {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.recordDetailFragmentContainer, recordDetailFragment!!, recordDetailFragmentTag)
@@ -170,14 +156,7 @@ class RecordsFragment : Fragment() {
 
         parentFragmentManager.executePendingTransactions()
         (parentFragmentManager.findFragmentByTag(recordDetailFragmentTag) as RecordDetailFragment
-            ).populateDetail(recordList[position], imageBitmap)
-
-    }
-
-    private fun getRecordImageBitmap(record: Record): Bitmap {
-        val imageUri = Uri.parse(record.photoUrl)
-        val source = ImageDecoder.createSource(requireContext().contentResolver, imageUri)
-        return ImageDecoder.decodeBitmap(source)
+            ).populateDetail(recordList[position])
     }
 
     companion object {

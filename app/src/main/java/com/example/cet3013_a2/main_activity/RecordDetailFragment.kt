@@ -1,8 +1,9 @@
 package com.example.cet3013_a2.main_activity
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,25 +11,51 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.fragment.app.FragmentContainerView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.example.cet3013_a2.ConfirmationDialog
+import com.example.cet3013_a2.EditRecordActivity
 import com.example.cet3013_a2.R
 import com.example.cet3013_a2.databinding.FragmentRecordDetailBinding
 import com.example.cet3013_a2.roomdb.Record
 import com.example.cet3013_a2.roomdb.ViewModel
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Locale
 
 
 class RecordDetailFragment: Fragment() {
     private var mRecord: Record? = null
-    private var mImageBitmap: Bitmap? = null
     private lateinit var binding: FragmentRecordDetailBinding
     private lateinit var viewModel: ViewModel
+    private val editActivityForResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { 
+        result ->
+            if (result.resultCode == RESULT_OK) {
+                // Set new binding content
+                val returnIntent = result.data!!
+                val updatedRecord = Record(
+                    id = returnIntent.getIntExtra("id", -1),
+                    title = returnIntent.getStringExtra("title")!!,
+                    notes = returnIntent.getStringExtra("notes"),
+                    category = returnIntent.getStringExtra("category")!!,
+                    photoUrl = returnIntent.getStringExtra("photoUrl"),
+                    reportedBy = returnIntent.getIntExtra("reportedBy", -1),
+                    dateTime = returnIntent.getStringExtra("dateTime")!!,
+                    locationName = returnIntent.getStringExtra("locationName")!!,
+                    locationLat = returnIntent.getDoubleExtra("locationLat", -1.0),
+                    locationLng = returnIntent.getDoubleExtra("locationLng", -1.0),
+                )
+                populateDetail(updatedRecord)
+                // Notify success
+                Toast.makeText(this.requireContext(), "Record edited successfully", Toast.LENGTH_SHORT)
+                    .show()
+            }
 
+    }
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,27 +72,16 @@ class RecordDetailFragment: Fragment() {
         val viewingRecord = viewModel.recordDetailFragmentRecord
 
         if (viewingRecord != null) {
-            var imageBitmap: Bitmap? = null
-            if (viewingRecord.photoUrl != null) {
-                imageBitmap = getRecordImageBitmap(viewingRecord)
-            }
-
             parentFragmentManager.fragments.map {
                 Log.d("fmanager", it.tag.toString())
             }
             (parentFragmentManager.findFragmentByTag(RecordsFragment.recordDetailFragmentTag) as RecordDetailFragment?)
-                ?.populateDetail(viewingRecord, imageBitmap)
+                ?.populateDetail(viewingRecord)
         }
     }
 
-    fun populateDetail(record: Record, bitmap: Bitmap?) {
+    fun populateDetail(record: Record) {
         mRecord = record
-        mImageBitmap = bitmap
-
-        val dateFormatter = SimpleDateFormat("dd/M/yyyy", Locale.US)
-        val timeFormatter = SimpleDateFormat("hh:mm a", Locale.US)
-        val date = dateFormatter.format(mRecord!!.dateTime.toLong())
-        val time = timeFormatter.format(mRecord!!.dateTime.toLong())
 
         val imgPhoto = binding!!.imgPhoto
         val txtDate = binding!!.txtDate
@@ -76,27 +92,84 @@ class RecordDetailFragment: Fragment() {
         val txtReporter = binding!!.txtReporter
         val txtLocationName = binding!!.txtInfoLocationName
         val txtLocationCoords = binding!!.txtInfoLocationCoords
+        
+        viewModel.getRecordById(mRecord!!.id!!).observe(viewLifecycleOwner) {
+            mRecord = it.first()
+            viewModel.recordDetailFragmentRecord = it.first()
 
-        if (mImageBitmap != null) {
-            imgPhoto.setImageBitmap(mImageBitmap)
+            val bitmap = getRecordImageBitmap(mRecord!!)
+            if (bitmap != null) {
+                imgPhoto.setImageBitmap(bitmap)
+            } else {
+                imgPhoto.setImageDrawable(
+                    ContextCompat.getDrawable(requireContext(), R.drawable.image_not_found)
+                )
+            }
+
+            val dateFormatter = SimpleDateFormat("dd/M/yyyy", Locale.US)
+            val timeFormatter = SimpleDateFormat("hh:mm a", Locale.US)
+            val date = dateFormatter.format(mRecord!!.dateTime.toLong())
+            val time = timeFormatter.format(mRecord!!.dateTime.toLong())
+
+            txtDate.text = date
+            txtTime.text = time
+            txtTitle.text = mRecord!!.title
+            txtNotes.text = mRecord!!.notes ?: "-"
+            txtCategory.text = mRecord!!.category
+            txtLocationName.text = mRecord!!.locationName
+            txtLocationCoords.text = "( ${mRecord!!.locationLat}, ${mRecord!!.locationLng} )"
+            viewModel.getReporterWithSuccessCallback(mRecord!!.reportedBy) {
+                txtReporter.text = it.name
+            }
         }
 
-        txtDate.text = date
-        txtTime.text = time
-        txtTitle.text = mRecord!!.title
-        txtNotes.text = mRecord!!.notes ?: "-"
-        txtCategory.text = mRecord!!.category
-        txtLocationName.text = mRecord!!.locationName
-        txtLocationCoords.text = "( ${mRecord!!.locationLat}, ${mRecord!!.locationLng} )"
-        viewModel.getReporter(mRecord!!.reportedBy) {
-            txtReporter.text = it.name
+        binding.btnDeleteRecord.setOnClickListener {
+            val confirmationDialog = ConfirmationDialog(
+                getString(R.string.confirmation_title),
+                "The record will be removed permanently",
+                getString(R.string.btn_confirm),
+                getString(R.string.btn_cancel)
+            ) { dialog, i ->
+                deleteRecord(mRecord!!)
+            }
+            confirmationDialog.show(parentFragmentManager, "deleteConfirmation")
+        }
+
+        binding.btnEditRecord.setOnClickListener {
+            val intent = Intent(context, EditRecordActivity::class.java)
+            intent.putExtra(EditRecordActivity.recordIdExtra, mRecord!!.id)
+            editActivityForResult.launch(intent)
         }
     }
 
-    private fun getRecordImageBitmap(record: Record): Bitmap {
-        val imageUri = Uri.parse(record.photoUrl)
-        val source = ImageDecoder.createSource(requireContext().contentResolver, imageUri)
-        return ImageDecoder.decodeBitmap(source)
+    private fun deleteRecord(record: Record) {
+        Log.d("delete", "delete")
+        // Remove detailFragment
+        val existingDetailFragment = parentFragmentManager.findFragmentByTag(RecordsFragment.recordDetailFragmentTag) as RecordDetailFragment?
+
+        val isInLandscape = requireArguments().getBoolean("isInLandscape")
+        if (isInLandscape) {
+            parentFragmentManager.beginTransaction()
+                .remove(existingDetailFragment!!)
+                .commit()
+        } else {
+            parentFragmentManager.popBackStack()
+        }
+
+        // Remove record after system references are cleared
+        viewModel.deleteRecord(record)
+        viewModel.recordDetailFragmentRecord = null
+        Toast.makeText(requireContext(), "Record deleted successfully", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getRecordImageBitmap(record: Record): Bitmap? {
+        if (record.photoUrl != null) {
+            val imageUri = Uri.parse(record.photoUrl)
+            val source = ImageDecoder.createSource(requireContext().contentResolver, imageUri)
+            return ImageDecoder.decodeBitmap(source)
+        } else {
+            return null
+        }
     }
 
 }

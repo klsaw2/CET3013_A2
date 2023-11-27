@@ -120,10 +120,14 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
             finish()
         }
 
-        val alertDialog = ConfirmationDialog(getString(R.string.confirmation_title), getString(R.string.btn_confirm), getString(R.string.btn_cancel), {
-                dialog, which ->
+        val alertDialog = ConfirmationDialog(
+            getString(R.string.confirmation_title),
+            getString(R.string.confirmation_desc_changesLost),
+            getString(R.string.btn_confirm),
+            getString(R.string.btn_cancel)
+        ) { dialog, which ->
             backFunction()
-        }, getString(R.string.confirmation_desc_changesLost))
+        }
 
         if (showConfirmation) {
             alertDialog.show(supportFragmentManager, backConfirmationTag)

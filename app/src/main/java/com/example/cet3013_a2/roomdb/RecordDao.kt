@@ -18,6 +18,9 @@ interface RecordDao {
     @Delete
     fun deleteRecord(record: Record)
 
+    @Query("SELECT * FROM record WHERE id=:recordId")
+    fun getRecord(recordId: Int): LiveData<List<Record>>
+
     @Query("SELECT * FROM record")
     fun getAllRecords(): LiveData<List<Record>>
 
