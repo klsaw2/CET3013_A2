@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
 import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityMainBinding
 import com.example.cet3013_a2.main_activity.GalleryAdapter
+import com.example.cet3013_a2.main_activity.GalleryFragment
 import com.example.cet3013_a2.main_activity.ProfileFragment
 import com.example.cet3013_a2.main_activity.RecordsFragment
 import com.example.cet3013_a2.roomdb.ViewModel
@@ -71,6 +72,7 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
                 viewModel.subtitleId = subtitleID
 
                 // Set bottom navigation button color
+                binding.btnNavGallery.setBackgroundColor(getColor(R.color.blue1))
                 binding.btnNavRecords.setBackgroundColor(getColor(R.color.white))
                 binding.btnNavProfile.setBackgroundColor(getColor(R.color.white))
 
@@ -80,6 +82,15 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
         }
 
         // Button click listeners ==============================================
+        binding.btnNavGallery.setOnClickListener{
+            // Switch to GalleryFragment
+            switchFragment(
+                ::GalleryFragment, // Fragment constructor
+                galleryFragmentTag, // Fragment tag
+                R.string.t_gallery, // Tittle text
+                R.string.st_gallery // Subtitle text
+            )
+        }
         binding.btnNavRecords.setOnClickListener {
             // Switch to RecordsFragment
             switchFragment(
@@ -104,7 +115,6 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
 
     override fun onResume() {
         super.onResume()
-
         if (viewModel.titleId != null) {
             setNavigationUI(viewModel.titleId!!, viewModel.subtitleId!!)
         }
@@ -161,15 +171,23 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
 
         // Set bottom navigation button color after switching fragment
         when (titleID) {
+            R.string.t_gallery -> {
+                // Set bottom navigation button color
+                binding.btnNavRecords.setBackgroundColor(getColor(R.color.white))
+                binding.btnNavProfile.setBackgroundColor(getColor(R.color.white))
+                binding.btnNavGallery.setBackgroundColor(getColor(R.color.blue1))
+            }
             R.string.t_records -> {
                 // Set bottom navigation button color
                 binding.btnNavRecords.setBackgroundColor(getColor(R.color.blue1))
                 binding.btnNavProfile.setBackgroundColor(getColor(R.color.white))
+                binding.btnNavGallery.setBackgroundColor(getColor(R.color.white))
             }
             R.string.t_profiles -> {
                 // Set bottom navigation button color
                 binding.btnNavRecords.setBackgroundColor(getColor(R.color.white))
                 binding.btnNavProfile.setBackgroundColor(getColor(R.color.blue1))
+                binding.btnNavGallery.setBackgroundColor(getColor(R.color.white))
             }
         }
     }
