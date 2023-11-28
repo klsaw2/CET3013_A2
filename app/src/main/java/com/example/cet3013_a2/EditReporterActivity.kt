@@ -37,10 +37,10 @@ class EditReporterActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         ArrayAdapter.createFromResource(
             this,
             R.array.relationship,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item_layout
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears.
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.spinner_item_layout)
             // Apply the adapter to the spinner.
             spinner.adapter = adapter
         }
