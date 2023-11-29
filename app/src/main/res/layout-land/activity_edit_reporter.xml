@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tb_AddReporter"
     style="@style/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/tbAddRecord"
+        android:id="@+id/tbEditReporter"
         style="@style/top_app_bar"
         android:theme="@style/top_app_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/t_add_reporter"
+        app:title="@string/t_edit_reporter"
         app:titleTextAppearance="@style/top_app_bar_title"
         app:titleTextColor="@color/white" />
 
-    <View
-        android:id="@+id/vDivider1"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tbAddRecord"
-
-        />
-
     <LinearLayout
-        android:id="@+id/act_add_reporter_row1"
-        style="@style/act_add_reporter_dete_row"
+        android:id="@+id/act_edit_reporter_row1"
+        style="@style/act_edit_reporter_dete_row"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vDivider1">
+        app:layout_constraintTop_toBottomOf="@+id/tbEditReporter">
 
         <TextView
-            style="@style/act_add_reporter_dete_lbl"
+            style="@style/act_edit_reporter_dete_lbl"
             android:text="@string/lbl_name" />
 
         <EditText
             android:id="@+id/etv_name"
-            style="@style/act_add_reporter_dete_value"
+            style="@style/act_edit_reporter_dete_value"
             android:hint="@string/hint_name"
             android:importantForAutofill="no"
             android:inputType="text" />
@@ -48,36 +39,36 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/act_add_reporter_row2"
-        style="@style/act_add_reporter_dete_row"
+        android:id="@+id/act_edit_reporter_row2"
+        style="@style/act_edit_reporter_dete_row"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/act_add_reporter_row1">
+        app:layout_constraintTop_toBottomOf="@+id/act_edit_reporter_row1">
 
         <TextView
-            style="@style/act_add_reporter_dete_lbl"
+            style="@style/act_edit_reporter_dete_lbl"
             android:text="@string/lbl_relationship" />
 
         <Spinner
             android:id="@+id/spinner_relationship"
-            style="@style/act_add_reporter_dete_value" />
+            style="@style/act_edit_reporter_dete_value" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/act_add_reporter_row3"
-        style="@style/act_add_reporter_dete_row"
+        android:id="@+id/act_edit_reporter_row3"
+        style="@style/act_edit_reporter_dete_row"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/act_add_reporter_row2">
+        app:layout_constraintTop_toBottomOf="@+id/act_edit_reporter_row2">
 
         <TextView
-            style="@style/act_add_reporter_dete_lbl"
+            style="@style/act_edit_reporter_dete_lbl"
 
             android:text="@string/lbl_age" />
 
         <EditText
             android:id="@+id/etv_age"
-            style="@style/act_add_reporter_dete_value"
+            style="@style/act_edit_reporter_dete_value"
             android:hint="@string/hint_age"
             android:importantForAutofill="no"
             android:inputType="number" />
@@ -86,7 +77,7 @@
 
 
     <LinearLayout
-        style="@style/act_add_reporter_main_btn_group"
+        style="@style/act_edit_reporter_main_btn_group"
         android:weightSum="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,19 +85,22 @@
 
         <Button
             android:id="@+id/btn_cancel"
+            style="@style/act_edit_reporter_main_btn.cancel"
             android:layout_weight="1"
-            style="@style/act_add_reporter_main_btn.cancel"
             android:text="@string/btn_cancel" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        <Button
+            android:id="@+id/btn_delete"
+            style="@style/act_edit_reporter_main_btn_delete"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:text="@string/btn_delete" />
 
         <Button
             android:id="@+id/btn_confirm"
+            style="@style/act_edit_reporter_main_btn.confirm"
             android:layout_weight="1"
-            style="@style/act_add_reporter_main_btn.confirm"
             android:text="@string/btn_confirm" />
     </LinearLayout>
 

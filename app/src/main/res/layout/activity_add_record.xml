@@ -239,12 +239,14 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
-                style="@style/act_add_record_main_btn_group">
+                style="@style/act_add_record_main_btn_group"
+                android:layout_weight="3">
 
                 <Button
                     android:id="@+id/btn_discard"
                     style="@style/act_add_record_main_btn.discard"
-                    android:text="@string/lbl_discard" />
+                    android:text="@string/lbl_discard"
+                    android:layout_weight="1"/>
 
                 <View
                     android:layout_width="0dp"
@@ -254,7 +256,8 @@
                 <Button
                     android:id="@+id/btn_add"
                     style="@style/act_add_record_main_btn.add"
-                    android:text="@string/lbl_add" />
+                    android:text="@string/lbl_add"
+                    android:layout_weight="1"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

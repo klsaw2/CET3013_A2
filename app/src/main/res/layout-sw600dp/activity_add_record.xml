@@ -2,10 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".main_activity.RecordDetailFragment">
+    style="@style/main_container"
+    tools:context=".AddRecordActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tbAddRecord"
+        style="@style/top_app_bar"
+        android:theme="@style/top_app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/t_add_record"
+        app:titleTextAppearance="@style/top_app_bar_title"
+        app:titleTextColor="@color/white" />
 
     <ScrollView
         android:id="@+id/act_add_record_main_container"
@@ -14,20 +23,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tbAddRecord">
 
         <LinearLayout
             android:id="@+id/act_add_record_scroll_container"
             style="@style/act_add_record_scroll_container">
 
-            <ImageView
-                android:id="@+id/img_photo"
-                android:layout_width="match_parent"
-                android:layout_height="255dp"
-                android:layout_margin="@dimen/spacing_large"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/image_not_found" />
+            <Button
+                android:id="@+id/btn_take_photo"
+                style="@style/act_add_record_image"
+                android:text="@string/btn_take_photo" />
 
             <LinearLayout
                 android:id="@+id/group_retake_photo"
@@ -78,11 +83,12 @@
                         android:labelFor="@id/txt_date"
                         android:text="@string/lbl_date" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/txt_date"
                         style="@style/dete_value"
-                        android:text="TextView" />
-
+                        android:focusable="false"
+                        android:importantForAutofill="no"
+                        android:inputType="date" />
                 </LinearLayout>
 
                 <View
@@ -101,10 +107,12 @@
                         android:labelFor="@id/txt_time"
                         android:text="@string/lbl_time" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/txt_time"
                         style="@style/dete_value"
-                        android:text="TextView" />
+                        android:focusable="false"
+                        android:importantForAutofill="no"
+                        android:inputType="time" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -113,28 +121,30 @@
                 <TextView
                     android:id="@+id/textView3"
                     style="@style/dete_lbl"
-                    android:labelFor="@id/txt_title"
-                    android:text="@string/lbl_detail_title" />
+                    android:text="@string/lbl_title" />
 
-                <TextView
+                <EditText
                     android:id="@+id/txt_title"
                     style="@style/dete_value"
-                    android:text="TextView" />
+                    android:hint="@string/hint_record_title"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    />
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/dete_row">
+            <LinearLayout style="@style/dete_row">
 
                 <TextView
                     android:id="@+id/textView4"
                     style="@style/dete_lbl"
-                    android:labelFor="@id/txt_notes"
                     android:text="@string/lbl_notes" />
 
-                <TextView
+                <EditText
                     android:id="@+id/txt_notes"
                     style="@style/dete_value"
-                    android:text="TextView" />
+                    android:hint="@string/hint_record_notes"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
             </LinearLayout>
 
             <LinearLayout style="@style/dete_row">
@@ -142,13 +152,15 @@
                 <TextView
                     android:id="@+id/textView7"
                     style="@style/dete_lbl"
-                    android:labelFor="@id/txt_category"
                     android:text="@string/lbl_category" />
 
-                <TextView
-                    android:id="@+id/txt_category"
-                    style="@style/dete_value"
-                    android:text="TextView"/>
+                <Spinner
+                    android:id="@+id/spinner_category"
+                    style="@android:style/Widget.Material.Spinner.Underlined"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:spinnerMode="dialog" />
             </LinearLayout>
 
             <LinearLayout style="@style/dete_row">
@@ -156,20 +168,22 @@
                 <TextView
                     android:id="@+id/textView5"
                     style="@style/dete_lbl"
-                    android:labelFor="@id/txt_reporter"
                     android:text="@string/lbl_reporter" />
 
-                <TextView
-                    android:id="@+id/txt_reporter"
-                    style="@style/dete_value"
-                    android:text="TextView"/>
+                <Spinner
+                    android:id="@+id/spinner_reporter"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:spinnerMode="dialog" />
             </LinearLayout>
 
 
             <LinearLayout
-                style="@style/dete_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                style="@style/dete_row"
                 android:orientation="vertical">
 
                 <TextView
@@ -178,7 +192,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/groupItemGap"
-                    android:text="@string/lbl_detail_location" />
+                    android:text="@string/lbl_location" />
 
                 <LinearLayout
                     android:id="@+id/group_location_info"
@@ -186,10 +200,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="@dimen/groupItemGap"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
-                        android:id="@+id/txt_info_location_name"
+                        android:id="@+id/txt_location_name"
                         style="@style/dete_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -201,7 +216,7 @@
                         tools:text="Location name" />
 
                     <TextView
-                        android:id="@+id/txt_info_location_coords"
+                        android:id="@+id/txt_location_coords"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
@@ -211,10 +226,29 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btn_show_location"
-                    style="@style/btn_location"
-                    android:text="@string/lbl_show_location" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/btn_get_location"
+                        style="@style/btn_location"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lbl_get_location" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -225,12 +259,12 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 style="@style/act_add_record_main_btn_group"
-                android:weightSum="3">
+                android:layout_weight="3">
 
                 <Button
-                    android:id="@+id/btn_delete_record"
+                    android:id="@+id/btn_discard"
                     style="@style/act_add_record_main_btn.discard"
-                    android:text="@string/lbl_delete"
+                    android:text="@string/lbl_discard"
                     android:layout_weight="1"/>
 
                 <View
@@ -239,13 +273,11 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/btn_edit_record"
+                    android:id="@+id/btn_add"
                     style="@style/act_add_record_main_btn.add"
-                    android:backgroundTint="@color/blue3"
-                    android:text="@string/lbl_edit"
+                    android:text="@string/lbl_add"
                     android:layout_weight="1"/>
             </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="60dp" />
@@ -256,9 +288,10 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
-        app:layout_constraintGuide_percent="0.4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

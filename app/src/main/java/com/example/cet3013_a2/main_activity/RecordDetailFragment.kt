@@ -63,6 +63,13 @@ class RecordDetailFragment: Fragment() {
         binding = FragmentRecordDetailBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
 
+        binding.btnShowLocation.setOnClickListener {
+            var url = "https://maps.google.com/maps/search/" + mRecord!!.locationLat + "," + mRecord!!.locationLng
+            val myMap = Uri.parse(url)
+            val mapIntent = Intent(Intent.ACTION_VIEW, myMap)
+            startActivity(mapIntent)
+        }
+
         // Inflate the layout for this fragment
         return binding.root
     }

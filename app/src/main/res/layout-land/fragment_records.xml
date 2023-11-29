@@ -31,7 +31,8 @@
             android:id="@+id/btn_search"
             style="@style/frag_records_search_bar_search_button"
             android:contentDescription="@string/lbl_search"
-            android:padding="10dp" />
+            android:cropToPadding="false"
+            android:padding="55dp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
