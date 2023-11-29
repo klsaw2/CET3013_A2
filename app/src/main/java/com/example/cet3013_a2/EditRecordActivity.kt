@@ -344,6 +344,7 @@ class EditRecordActivity : AppCompatActivity(),
 
             if (record.photoUrl != null) {
                 photoUrl = record.photoUrl
+                viewModel.newPhotoUrl = photoUrl
                 imgPhoto.setImageBitmap(getBitmapFromUrl(record.photoUrl!!))
                 togglePictureButtonUI(true)
             }
