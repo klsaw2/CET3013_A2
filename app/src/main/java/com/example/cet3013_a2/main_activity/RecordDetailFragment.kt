@@ -123,6 +123,13 @@ class RecordDetailFragment: Fragment() {
             }
         }
 
+        binding.btnShowLocation.setOnClickListener {
+            val url = "http://maps.google.com/maps/search/${mRecord!!.locationLat},${mRecord!!.locationLng}"
+            val myMap = Uri.parse(url)
+            val mapIntent = Intent(Intent.ACTION_VIEW, myMap)
+            startActivity(mapIntent)
+        }
+
         binding.btnDeleteRecord.setOnClickListener {
             val confirmationDialog = ConfirmationDialog(
                 getString(R.string.confirmation_title),

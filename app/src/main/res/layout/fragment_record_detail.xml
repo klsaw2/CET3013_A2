@@ -211,6 +211,11 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/btn_show_location"
+                    style="@style/btn_location"
+                    android:text="@string/lbl_show_location" />
+
             </LinearLayout>
 
             <View

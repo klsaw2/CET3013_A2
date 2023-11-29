@@ -68,6 +68,7 @@
     <string name="lbl_delete">Delete</string>
     <string name="lbl_detail_title">Title</string>
     <string name="lbl_detail_location">Location</string>
+    <string name="lbl_show_location">Show location on map</string>
 
     <!-- General -->
     <string name="confirmation_title">Are you sure?</string>
