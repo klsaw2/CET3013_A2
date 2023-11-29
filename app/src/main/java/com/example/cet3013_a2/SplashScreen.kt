@@ -6,9 +6,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
+import android.view.WindowManager
 import android.view.animation.PathInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnStart
+import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import com.example.cet3013_a2.databinding.ActivitySplashScreenBinding
 
@@ -20,6 +23,8 @@ class SplashScreen : AppCompatActivity() {
         // Binding
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.blue3)
 
         // Get shared preferences for the first time
         val sharedPref = getSharedPreferences("SplashScreen", MODE_PRIVATE)

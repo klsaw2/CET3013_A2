@@ -8,5 +8,8 @@
 <!--        <item name="colorContainer">@color/grey1</item>-->
     </style>
 
-    <style name="Theme.CET3013_A2" parent="Base.Theme.CET3013_A2" />
+    <style name="Theme.CET3013_A2" parent="Base.Theme.CET3013_A2" >
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 </resources>
