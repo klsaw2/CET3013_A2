@@ -33,18 +33,21 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
+        // Set spinner
         val spinner: Spinner = binding.spinnerRelationship
         spinner.onItemSelectedListener = this
         ArrayAdapter.createFromResource(
             this,
             R.array.relationship,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item_layout
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears.
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.spinner_item_layout)
             // Apply the adapter to the spinner.
             spinner.adapter = adapter
         }
+
+
         setSupportActionBar(findViewById(binding.tbAddRecord.id))
         val backDrawable: Drawable = AppCompatResources.getDrawable(this, R.drawable.ic_back)!!
         backDrawable.setTint(getColor(R.color.white))

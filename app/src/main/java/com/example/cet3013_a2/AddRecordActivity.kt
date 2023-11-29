@@ -123,7 +123,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
         // Spinner entries
         // Category
-        spinnerCategoryAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, categories)
+        spinnerCategoryAdapter = ArrayAdapter(this, R.layout.spinner_item_layout, categories)
         binding.spinnerCategory.adapter = spinnerCategoryAdapter
         // Reporter
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
@@ -137,7 +137,7 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                 reporter.id!!
             }
             spinnerReporterAdapter =
-                ArrayAdapter(this, android.R.layout.simple_list_item_1, reporters)
+                ArrayAdapter(this, R.layout.spinner_item_layout, reporters)
             binding.spinnerReporter.adapter = spinnerReporterAdapter
         }
 

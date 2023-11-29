@@ -81,7 +81,7 @@ class EditRecordActivity : AppCompatActivity(),
     
             // Spinner entries
             // Category
-            spinnerCategoryAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, categories)
+            spinnerCategoryAdapter = ArrayAdapter(this, R.layout.spinner_item_layout, categories)
             binding.spinnerCategory.adapter = spinnerCategoryAdapter
             // Reporter
             viewModel = ViewModelProvider(this).get(ViewModel::class.java)
@@ -94,7 +94,7 @@ class EditRecordActivity : AppCompatActivity(),
                     reporter.id!!
                 }
                 spinnerReporterAdapter =
-                    ArrayAdapter(this, android.R.layout.simple_list_item_1, reporters)
+                    ArrayAdapter(this, R.layout.spinner_item_layout, reporters)
                 binding.spinnerReporter.adapter = spinnerReporterAdapter
 
                 val recordId = intent.getIntExtra(recordIdExtra, -1)
@@ -298,7 +298,7 @@ class EditRecordActivity : AppCompatActivity(),
                 if (isProcessComplete) {
                     val returnIntent = Intent()
                     returnIntent.putExtra("id", updatedRecord!!.id)
-                    returnIntent.putExtra("title", updatedRecord!!.title)
+                    returnIntent.putExtra("title", updatedRecord.title)
                     returnIntent.putExtra("notes", updatedRecord.notes)
                     returnIntent.putExtra("dateTime", updatedRecord.dateTime)
                     returnIntent.putExtra("category", updatedRecord.category)
