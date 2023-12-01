@@ -60,8 +60,7 @@
             style="@style/frag_records_search_bar_search_button"
             android:layout_height="match_parent"
             android:contentDescription="@string/lbl_search"
-            android:cropToPadding="false"
-            android:padding="55dp" />
+            android:padding="10dp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
