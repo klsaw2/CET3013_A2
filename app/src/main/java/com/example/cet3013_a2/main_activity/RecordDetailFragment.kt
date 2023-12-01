@@ -59,12 +59,12 @@ class RecordDetailFragment: Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRecordDetailBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
 
         binding.btnShowLocation.setOnClickListener {
-            var url = "https://maps.google.com/maps/search/" + mRecord!!.locationLat + "," + mRecord!!.locationLng
+            val url = "https://maps.google.com/maps/search/" + mRecord!!.locationLat + "," + mRecord!!.locationLng
             val myMap = Uri.parse(url)
             val mapIntent = Intent(Intent.ACTION_VIEW, myMap)
             startActivity(mapIntent)
@@ -90,25 +90,28 @@ class RecordDetailFragment: Fragment() {
     fun populateDetail(record: Record) {
         mRecord = record
 
-        val imgPhoto = binding!!.imgPhoto
-        val txtDate = binding!!.txtDate
-        val txtTime = binding!!.txtTime
-        val txtTitle = binding!!.txtTitle
-        val txtNotes = binding!!.txtNotes
-        val txtCategory = binding!!.txtCategory
-        val txtReporter = binding!!.txtReporter
-        val txtLocationName = binding!!.txtInfoLocationName
-        val txtLocationCoords = binding!!.txtInfoLocationCoords
+        val imgPhoto = binding.imgPhoto
+        val txtDate = binding.txtDate
+        val txtTime = binding.txtTime
+        val txtTitle = binding.txtTitle
+        val txtNotes = binding.txtNotes
+        val txtCategory = binding.txtCategory
+        val txtReporter = binding.txtReporter
+        val txtLocationName = binding.txtInfoLocationName
+        val txtLocationCoords = binding.txtInfoLocationCoords
         
         viewModel.getRecordById(mRecord!!.id!!).observe(viewLifecycleOwner) {
             mRecord = it.first()
             viewModel.recordDetailFragmentRecord = it.first()
 
+            // Check if image exists
             val bitmap = getRecordImageBitmap(mRecord!!)
             if (bitmap != null) {
+                // Set image
                 imgPhoto.setImageBitmap(bitmap)
             } else {
                 imgPhoto.setImageDrawable(
+                    // Set default image
                     ContextCompat.getDrawable(requireContext(), R.drawable.image_not_found)
                 )
             }
@@ -177,12 +180,12 @@ class RecordDetailFragment: Fragment() {
     }
 
     private fun getRecordImageBitmap(record: Record): Bitmap? {
-        if (record.photoUrl != null) {
+        return if (record.photoUrl != null) {
             val imageUri = Uri.parse(record.photoUrl)
             val source = ImageDecoder.createSource(requireContext().contentResolver, imageUri)
-            return ImageDecoder.decodeBitmap(source)
+            ImageDecoder.decodeBitmap(source)
         } else {
-            return null
+            null
         }
     }
 

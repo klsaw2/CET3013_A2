@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/main_container"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:baselineAligned="false">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/tb_main"
+                style="@style/top_app_bar"
+                android:theme="@style/top_app_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:subtitle="@string/st_gallery"
+                app:subtitleTextAppearance="@style/top_app_bar_subtitle"
+                app:subtitleTextColor="@color/grey2"
+                app:title="@string/t_gallery"
+                app:titleTextAppearance="@style/top_app_bar_title"
+                app:titleTextColor="@color/white" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/mainFragmentContainer"
+                android:name="com.example.cet3013_a2.main_activity.GalleryFragment"
+                style="@style/fragment_view_container"
+                app:layout_constraintBottom_toTopOf="@+id/vDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tb_main"
+                tools:layout="@layout/fragment_gallery" />
+
+            <View
+                android:id="@+id/vDivider"
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="@color/blue1"
+                app:layout_constraintBottom_toTopOf="@+id/btm_nav_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/btm_nav_bar"
+                style="@style/btm_nav_bar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+
+                <ImageButton
+                    android:id="@+id/btn_nav_add"
+                    style="@style/btm_nav_bar_btn.add"
+                    android:background="@color/orange1"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/icon_add_record" />
+
+                <ImageButton
+                    android:id="@+id/btn_nav_gallery"
+                    style="@style/btm_nav_bar_btn.records"
+                    android:background="@color/blue1"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/icon_gallery" />
+
+                <ImageButton
+                    android:id="@+id/btn_nav_records"
+                    style="@style/btm_nav_bar_btn.records"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/icon_records" />
+
+                <ImageButton
+                    android:id="@+id/btn_nav_profile"
+                    style="@style/btm_nav_bar_btn.profile"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/icon_profile" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

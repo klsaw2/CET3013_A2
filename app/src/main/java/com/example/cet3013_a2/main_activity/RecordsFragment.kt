@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
 import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.R
@@ -34,14 +33,14 @@ class RecordsFragment : Fragment() {
          _binding = FragmentRecordsBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
 
-        val landscapeDetailFragmentContainer = _binding?.recordDetailFragmentContainer
 
         // Setup the recycler view with layout manager and adapter
         val recyclerRecords = _binding!!.recyclerRecords
         recyclerRecords.layoutManager =
             androidx.recyclerview.widget.LinearLayoutManager(requireContext())
 
-        if (landscapeDetailFragmentContainer != null) {
+        // If detail fragment is visible, set the adapter to the recycler view
+        if(activity?.findViewById<View>(R.id.fragment_detail_container)?.visibility == View.VISIBLE) {
             recyclerRecords.adapter =
                 RecordsAdapter(
                     requireContext(),
@@ -74,7 +73,7 @@ class RecordsFragment : Fragment() {
             it.title.replace(" ", "").lowercase()
                 .contains(searchKey.replace(" ", "").lowercase())
         }
-        var sortedRecordList = if (!searchKey.isEmpty()) {
+        val sortedRecordList = if (!searchKey.isEmpty()) {
             filteredRecordList.sortedWith(
                 compareBy({ it -> it.title },
                     { it -> it.title.length })
@@ -140,19 +139,30 @@ class RecordsFragment : Fragment() {
         bundle.putBoolean("isInLandscape", isInLandscape)
         recordDetailFragment!!.arguments = bundle
 
-        if (isInLandscape) {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.recordDetailFragmentContainer, recordDetailFragment!!, recordDetailFragmentTag)
-                .setTransition(TRANSIT_FRAGMENT_FADE)
-                .commit()
 
+        if (isInLandscape) {
+            // Set the selected position and notify the adapter
+            val adapter = binding.recyclerRecords.adapter as RecordsAdapter
+            adapter.selectedPosition = position
+            adapter.notifyDataSetChanged()
+
+            // Replace the detail fragment container with the detail fragment
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_detail_container, recordDetailFragment!!, recordDetailFragmentTag)
+                .setTransition(TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(recordDetailFragmentTag)
+                .commit()
         } else {
+            // Replace the main fragment container with the detail fragment
             parentFragmentManager.beginTransaction()
                 .replace(R.id.mainFragmentContainer, recordDetailFragment!!, recordDetailFragmentTag)
                 .setTransition(TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(recordDetailFragmentTag)
                 .commit()
         }
+
+
+
 
         parentFragmentManager.executePendingTransactions()
         (parentFragmentManager.findFragmentByTag(recordDetailFragmentTag) as RecordDetailFragment

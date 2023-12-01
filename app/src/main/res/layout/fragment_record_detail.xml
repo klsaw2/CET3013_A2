@@ -26,13 +26,19 @@
                 android:layout_height="255dp"
                 android:layout_margin="@dimen/spacing_large"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/image_not_found" />
+                android:scaleType="fitCenter"
+                android:paddingVertical="80dp"
+                app:cornerRadius="@dimen/borderRadius_small"
+                android:background="@color/grey1"
+                app:srcCompat="@drawable/icon_no_image"
+                app:tint="@color/grey3"
+                android:importantForAccessibility="no" />
 
             <LinearLayout
                 android:id="@+id/group_retake_photo"
                 style="@style/group_retake_photo"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
 
                 <ImageView

@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -54,12 +55,23 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
 
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
+        // Check if is tablet mode
+        if (binding.fragmentDetailContainer != null) {
+            // Tablet mode
+            // Landscape mode
+            binding.fragmentDetailContainer!!.isGone =
+                resources.configuration.orientation != android.content.res.Configuration.ORIENTATION_LANDSCAPE
+        } else {
+            // Phone mode
+
+        }
+
         // Set status bar color to match with app bar color
         window.statusBarColor = ContextCompat.getColor(this, R.color.blue3)
         // Reset title to Gallery when returning from other tabs
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount < 1) {
-                val titleID =  R.string.t_gallery
+                val titleID = R.string.t_gallery
                 val subtitleID = R.string.st_gallery
 
                 // Set title text
@@ -82,7 +94,7 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
         }
 
         // Button click listeners ==============================================
-        binding.btnNavGallery.setOnClickListener{
+        binding.btnNavGallery.setOnClickListener {
             // Switch to GalleryFragment
             switchFragment(
                 ::GalleryFragment, // Fragment constructor
@@ -177,12 +189,14 @@ class MainActivity : AppCompatActivity(), GalleryAdapter.OnImageClickListener {
                 binding.btnNavProfile.setBackgroundColor(getColor(R.color.white))
                 binding.btnNavGallery.setBackgroundColor(getColor(R.color.blue1))
             }
+
             R.string.t_records -> {
                 // Set bottom navigation button color
                 binding.btnNavRecords.setBackgroundColor(getColor(R.color.blue1))
                 binding.btnNavProfile.setBackgroundColor(getColor(R.color.white))
                 binding.btnNavGallery.setBackgroundColor(getColor(R.color.white))
             }
+
             R.string.t_profiles -> {
                 // Set bottom navigation button color
                 binding.btnNavRecords.setBackgroundColor(getColor(R.color.white))
