@@ -6,40 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".main_activity.RecordsFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_records"
+        style="@style/frag_records_recycler"
         app:layout_constraintBottom_toTopOf="@+id/frag_records_search_bar_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_records"
-                style="@style/frag_records_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/blue3" />
-        </LinearLayout>
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/recordDetailFragmentContainer"
-            style="@style/fragment_view_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/frag_records_search_bar_container"

@@ -9,7 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_records"
         style="@style/frag_records_recycler"
-        app:layout_constraintBottom_toBottomOf="@+id/frag_records_search_bar_container"
+        app:layout_constraintBottom_toTopOf="@+id/frag_records_search_bar_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
