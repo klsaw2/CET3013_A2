@@ -16,8 +16,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.cet3013_a2.databinding.ActivityAddReporterBinding
 import com.example.cet3013_a2.roomdb.Reporter
 import com.example.cet3013_a2.roomdb.ViewModel
-import java.util.Timer
-import kotlin.concurrent.schedule
 
 class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener  {
     private lateinit var binding: ActivityAddReporterBinding
@@ -75,9 +73,7 @@ class AddReporterActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
                         try{
                             viewModel.addReporter(Reporter(name = name, age = age , relationship = relationship))
                             Toast.makeText(this,"Insert success !",Toast.LENGTH_SHORT).show()
-                            Timer().schedule(2000){
-                                goBack(true, false)
-                            }
+                            goBack(true, false)
                         }catch (e: Exception){
                             Toast.makeText(this, "Unable to add new reporter, please try again.", Toast.LENGTH_SHORT).show()
                         }

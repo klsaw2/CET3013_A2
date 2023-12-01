@@ -125,9 +125,8 @@ class EditReporterActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                                 )
                             )
                             Toast.makeText(this, "Update success !", Toast.LENGTH_SHORT).show()
-                            Timer().schedule(2000) {
-                                goBack(true, false)
-                            }
+                            goBack(true, false)
+
                         } catch (e: Exception) {
                             Toast.makeText(
                                 this,
