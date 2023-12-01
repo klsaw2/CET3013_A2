@@ -45,6 +45,9 @@ class EditReporterActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             spinner.adapter = adapter
         }
 
+        // Set status bar color
+        window.statusBarColor = getColor(R.color.blue3)
+
         // Setup App Bar
         setSupportActionBar(findViewById(binding.tbEditReporter.id))
         val backDrawable: Drawable = AppCompatResources.getDrawable(this, R.drawable.ic_back)!!
