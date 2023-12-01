@@ -105,6 +105,9 @@ class AddRecordActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             )
         }
 
+        // Set status bar color to match with app bar color
+        window.statusBarColor = getColor(R.color.blue3)
+
         // Check if intent has imagePath
         val imagePath = intent.getStringExtra("imagePath")
         if (imagePath != null) {

@@ -71,7 +71,10 @@ class EditRecordActivity : AppCompatActivity(),
             super.onCreate(savedInstanceState)
             binding = ActivityEditRecordBinding.inflate(layoutInflater)
             setContentView(binding.root)
-    
+
+            // Change status bar color
+            window.statusBarColor = getColor(R.color.blue3)
+
             // Toolbar
             setSupportActionBar(findViewById(binding.tbAddRecord.id))
             val backDrawable: Drawable = AppCompatResources.getDrawable(this, R.drawable.icon_back)!!
