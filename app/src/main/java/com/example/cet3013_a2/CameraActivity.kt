@@ -53,6 +53,9 @@ class CameraActivity : AppCompatActivity() {
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Set status bar color
+        window.statusBarColor = ContextCompat.getColor(this, R.color.blue3)
+
         if (allPermissionsGranted()) {
             startCamera()
         } else {
