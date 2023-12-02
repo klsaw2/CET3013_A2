@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -90,7 +91,7 @@ class RecordDetailFragment: Fragment() {
     fun populateDetail(record: Record) {
         mRecord = record
 
-        val imgPhoto = binding.imgPhoto
+        val imgPhoto = binding.imgPhoto as ImageView
         val txtDate = binding.txtDate
         val txtTime = binding.txtTime
         val txtTitle = binding.txtTitle
@@ -112,7 +113,7 @@ class RecordDetailFragment: Fragment() {
             } else {
                 imgPhoto.setImageDrawable(
                     // Set default image
-                    ContextCompat.getDrawable(requireContext(), R.drawable.image_not_found)
+                    ContextCompat.getDrawable(requireContext(), R.drawable.icon_no_image)
                 )
             }
 

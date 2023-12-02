@@ -26,13 +26,13 @@
                 android:layout_height="255dp"
                 android:layout_margin="@dimen/spacing_large"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:paddingVertical="80dp"
-                app:cornerRadius="@dimen/borderRadius_small"
+                android:adjustViewBounds="true"
                 android:background="@color/grey1"
-                app:srcCompat="@drawable/icon_no_image"
-                app:tint="@color/grey3"
-                android:importantForAccessibility="no" />
+                android:cropToPadding="true"
+                android:importantForAccessibility="no"
+                android:scaleType="fitCenter"
+                app:cornerRadius="@dimen/borderRadius_small"
+                app:srcCompat="@drawable/icon_no_image" />
 
             <LinearLayout
                 android:id="@+id/group_retake_photo"
@@ -128,8 +128,7 @@
                     android:text="TextView" />
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/dete_row">
+            <LinearLayout style="@style/dete_row">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -154,7 +153,7 @@
                 <TextView
                     android:id="@+id/txt_category"
                     style="@style/dete_value"
-                    android:text="TextView"/>
+                    android:text="TextView" />
             </LinearLayout>
 
             <LinearLayout style="@style/dete_row">
@@ -168,7 +167,7 @@
                 <TextView
                     android:id="@+id/txt_reporter"
                     style="@style/dete_value"
-                    android:text="TextView"/>
+                    android:text="TextView" />
             </LinearLayout>
 
 
@@ -236,8 +235,8 @@
                 <Button
                     android:id="@+id/btn_delete_record"
                     style="@style/act_add_record_main_btn.discard"
-                    android:text="@string/lbl_delete"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:text="@string/lbl_delete" />
 
                 <View
                     android:layout_width="0dp"
@@ -247,9 +246,9 @@
                 <Button
                     android:id="@+id/btn_edit_record"
                     style="@style/act_add_record_main_btn.add"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/blue3"
-                    android:text="@string/lbl_edit"
-                    android:layout_weight="1"/>
+                    android:text="@string/lbl_edit" />
             </LinearLayout>
 
             <View
@@ -262,9 +261,9 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
-        app:layout_constraintGuide_percent="0.4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

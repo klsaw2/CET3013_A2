@@ -87,7 +87,7 @@ class EditRecordActivity : AppCompatActivity(),
             spinnerCategoryAdapter = ArrayAdapter(this, R.layout.spinner_item_layout, categories)
             binding.spinnerCategory.adapter = spinnerCategoryAdapter
             // Reporter
-            viewModel = ViewModelProvider(this).get(ViewModel::class.java)
+            viewModel = ViewModelProvider(this)[ViewModel::class.java]
     
             viewModel.getAllReporters().observe(this) {
                 reporters = it.map { reporter ->
